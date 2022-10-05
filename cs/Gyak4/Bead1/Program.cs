@@ -1,4 +1,5 @@
-﻿using System.Runtime.ExceptionServices;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Bead1
 {
@@ -28,8 +29,12 @@ namespace Bead1
             public int EndDate { get; set; }
         }
 
-        static void Main()
+        static void Main(string[] args)
         {
+            if(args.Length != 0)
+            {
+
+            }
             var seasons = new int[] { 0, 0, 0, 0 };
             var inputNum = int.Parse(Console.ReadLine());
             var people = new List<Person>();
