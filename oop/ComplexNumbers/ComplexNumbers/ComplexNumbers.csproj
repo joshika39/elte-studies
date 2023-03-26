@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+    
+    <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
+      <Reference Include="Implementation">
+        <HintPath>..\..\Modules\bin\Debug\net5.0\Implementation.dll</HintPath>
+      </Reference>
+      <Reference Include="Infrastructure">
+        <HintPath>..\..\Modules\bin\Debug\net5.0\Infrastructure.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+    
+    <ItemGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <ProjectReference Include="..\..\Modules\Implementation\Implementation.csproj" />
+      <ProjectReference Include="..\..\Modules\Infrastructure\Infrastructure.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,9 @@
+﻿bin/
+obj/
+.vs/
+*.o
+*.s
+
+.idea/**/.idea/
+
+.idea/
