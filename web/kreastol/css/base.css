@@ -1,0 +1,52 @@
+html, *{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+
+#nav{
+	height: 5rem;
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding-inline: .5rem;
+}
+
+#nav h1{
+	align-self: center;
+}
+
+#nav img{
+	object-fit: contain;
+	height: 100%;
+	padding: .5rem;
+}
+
+#nav ul{
+	display: flex;
+	flex-direction: row;
+	list-style: none;
+	align-self: center;
+}
+
+#nav ul li a{
+	text-decoration: none;
+}
+
+.link-text{
+	text-align: center;
+}
+
+.material-symbols-outlined {
+	font-variation-settings:
+	'FILL' 0,
+	'wght' 400,
+	'GRAD' 0,
+	'opsz' 48
+}
+
+.material-symbols-outlined{
+	font-size: 1em;
+}
