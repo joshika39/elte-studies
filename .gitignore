@@ -7,3 +7,6 @@ obj/
 .idea/**/.idea/
 
 .idea/
+
+*.bak
+*.nsd.bak
