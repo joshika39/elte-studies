@@ -1,12 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComplexNumbers", "ComplexNumbers\ComplexNumbers.csproj", "{A15EB646-0E03-4257-9B71-9B9DE8D19CE7}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{24794799-CB7C-4C46-83B3-D232A8AB61DF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Implementation", "..\Modules\Implementation\Implementation.csproj", "{F1C71110-EF52-4992-B9BA-E8003EF31937}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "..\Modules\Infrastructure\Infrastructure.csproj", "{5F8AF6E2-6BF8-426A-843F-27CC76ED4684}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComplexNumbers", "ComplexNumbers\ComplexNumbers.csproj", "{A15EB646-0E03-4257-9B71-9B9DE8D19CE7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,17 +15,8 @@ Global
 		{A15EB646-0E03-4257-9B71-9B9DE8D19CE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A15EB646-0E03-4257-9B71-9B9DE8D19CE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A15EB646-0E03-4257-9B71-9B9DE8D19CE7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F1C71110-EF52-4992-B9BA-E8003EF31937}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F1C71110-EF52-4992-B9BA-E8003EF31937}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F1C71110-EF52-4992-B9BA-E8003EF31937}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F1C71110-EF52-4992-B9BA-E8003EF31937}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5F8AF6E2-6BF8-426A-843F-27CC76ED4684}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F8AF6E2-6BF8-426A-843F-27CC76ED4684}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5F8AF6E2-6BF8-426A-843F-27CC76ED4684}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F8AF6E2-6BF8-426A-843F-27CC76ED4684}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{F1C71110-EF52-4992-B9BA-E8003EF31937} = {24794799-CB7C-4C46-83B3-D232A8AB61DF}
-		{5F8AF6E2-6BF8-426A-843F-27CC76ED4684} = {24794799-CB7C-4C46-83B3-D232A8AB61DF}
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

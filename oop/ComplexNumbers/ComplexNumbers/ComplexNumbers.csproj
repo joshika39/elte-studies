@@ -14,9 +14,9 @@
       </Reference>
     </ItemGroup>
     
-    <ItemGroup Condition=" '$(Configuration)' == 'Debug' ">
-      <ProjectReference Include="..\..\Modules\Implementation\Implementation.csproj" />
-      <ProjectReference Include="..\..\Modules\Infrastructure\Infrastructure.csproj" />
+    <ItemGroup>
+      <PackageReference Include="joshika39-Implementation" Version="0.0.3" />
+      <PackageReference Include="joshika39-Infrastructure" Version="0.0.3" />
     </ItemGroup>
 
 </Project>

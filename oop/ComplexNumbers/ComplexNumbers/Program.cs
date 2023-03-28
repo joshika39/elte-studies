@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Implementation.Core;
+﻿using Implementation.Core;
 using Implementation.Navigator;
 using Infrastructure.IOManager;
 using Infrastructure.Logger;
 using Infrastructure.Navigator;
+using System;
+using System.Collections.Generic;
 using Unity;
 
 namespace ComplexNumbers
