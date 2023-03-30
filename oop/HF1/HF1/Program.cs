@@ -28,7 +28,9 @@ namespace HF1
             var c1 = new Complex(c1X, c1Y);
             var c2 = new Complex(c2X, c2Y);
 
-            var actions = new List<INavigatorElement>
+            while (true)
+            {
+                var actions = new List<INavigatorElement>
             {
                 new NavigatorElement("Add", () => { ioManager.WriteLine(Infrastructure.MessageSeverity.Success, $"{c1} + {c2} = {c1 + c2}");}),
                 new NavigatorElement("Sub", () => { ioManager.WriteLine(Infrastructure.MessageSeverity.Success, $"{c1} - {c2} = {c1 - c2}");}),
@@ -36,9 +38,11 @@ namespace HF1
                 new NavigatorElement("Div", () => { ioManager.WriteLine(Infrastructure.MessageSeverity.Success, $"{c1} / {c2} = {c1 / c2}");})
             };
 
-            var navigator = container.Resolve<INavigator>();
+                var navigator = container.Resolve<INavigator>();
 
-            _ = navigator.Show(actions);
+                _ = navigator.Show(actions);
+                Console.ReadKey();
+            }
         }
     }
 }

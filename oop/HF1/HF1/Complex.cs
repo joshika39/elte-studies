@@ -22,7 +22,7 @@ namespace HF1
         }
         public static Complex operator *(Complex a, Complex b)
         {
-            return new Complex(a._x * b._x - a._y * b._y, a._x * b._x + a._y * b._y);
+            return new Complex(a._x * b._x - a._y * b._y, a._x * b._y + a._y * b._x);
         }
         public static Complex operator /(Complex a, Complex b)
         {
