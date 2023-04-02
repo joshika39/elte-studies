@@ -1,12 +1,15 @@
 module Homework3 where
-import Data.List
+import Data.List ( group )
 
 getSum :: Int -> Int -> Int
 getSum a b 
   | a < b = sum [a..b]
   | otherwise = sum [b..a]
 
+factors :: Integral a => a -> [a]
 factors n = [x | x <- [1..n], mod n x == 0]
+
+isPrime :: Integral a => a -> Bool
 isPrime n = factors n == [1, n]
 
 primeList :: Int -> Int -> [Int]
