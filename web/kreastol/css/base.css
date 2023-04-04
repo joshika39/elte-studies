@@ -73,7 +73,7 @@ hr{
 	padding: 0 .2rem;
 }
 
-.title {
+:is(h1,h2,h3,p,a).title {
     text-decoration: none;
     font-weight: bolder;
     font-size: var(--xx-large-font);
@@ -103,12 +103,26 @@ hr{
 	display: flex;
     align-items: center;
 }
+
+.button.outline{
+	background: transparent;
+}
+
+.button.outline *{
+	color: var(--primary);
+}
+
 .button *{
 	color: var(--on-primary);
 }
 
 .button:hover {
-    outline: var(--accent-2);
+	background: var(--primary-3)
+}
+
+.button:focus{
+	outline: var(--primary) 2px solid;
+	outline-offset: calc(var(--small-padding) / 2);
 }
 
 .container {

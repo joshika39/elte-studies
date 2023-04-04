@@ -1,3 +1,6 @@
+@import url('./defaults.css');
+@import url('./base.css');
+
 .events{
     cursor: grab;
     overflow: auto;
@@ -128,7 +131,13 @@
     pointer-events: none;
 }
 
-.event-list-item:hover .event-thumbnail{
+.event-list-item:hover .event-thumbnail, .event-list-item:focus-within .event-thumbnail{
     left: 80%;
     background-blend-mode: normal;
+}
+
+.event-list-item .link a:focus {
+    outline: var(--accent-2) 2px solid;
+    outline-offset: calc(var(--small-padding) / 1.5);
+    border-radius: 5px;
 }
