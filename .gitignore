@@ -1,0 +1,14 @@
+﻿__pycache__/
+
+bin/
+obj/
+.vs/
+*.o
+*.s
+
+.idea/**/.idea/
+
+.idea/
+
+*.bak
+*.nsd.bak

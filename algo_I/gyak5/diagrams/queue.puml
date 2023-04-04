@@ -1,0 +1,47 @@
+@startuml Queue
+
+interface IStack {
+    +push(val: int): void
+    +pop(): int
+    +top(): int
+    +isEmpty(): bool
+}
+
+class Stack{
+    -head: Node
+    +push(val: int): void
+    +pop(): int
+    +top(): int
+    +isEmpty(): bool
+}
+
+class Node {
+    ~val: int
+    ~next: Node
+    ~Node(val: int)
+}
+
+interface IQueue{
+    +first(): T
+    +add(): T
+    +rem(): T
+    +isEmpty(): bool
+    +setEmpty(): void
+    +isFull(): bool
+}
+
+class Queue {
+    -head: E1
+    -tail: E1
+    +first(): T
+    +add(): T
+    +rem(): T
+    +isEmpty(): bool
+    +setEmpty(): void
+    +isFull(): bool
+}
+
+class Queue implements IQueue
+class Stack implements IStack
+
+@enduml
