@@ -42,6 +42,7 @@ fromTo :: Int -> Int -> [a] -> [a]
 fromTo _ _ [] = []
 fromTo a b l
   | b < a = []
+  | a < 0 = fromTo (a + 1) b l
   | otherwise = fromTo' (b - a) (strip' a l)
     where
       strip' 0 a = a
@@ -57,20 +58,18 @@ fromTo a b l
 
 
 -- ([]:[]) -> ures lista: test ([]:[]) = [[]] (egymasba agyazott) | :: [[a1]] -> [a2]
--- ([x,_]) -> 2 elemu: test ([x,_]) = [x,0]
+-- ([x,_]) -> minium 2 elemu: test ([x,_]) = [x,0]
 -- [(x,_)] -> 1 elemu ami egy tuple-t tartalmaz: test [(x,_)] = []
 -- ((x:y):xs) -> listaba agyazott lista: test ((x:y):xs) = [[a1]]
--- (xs:ys:zs)
--- [(,) x y,z]
--- ([d]:[ds])
--- ((:) x y:ys)
--- ((a:b):(c:d:e))
--- ((,) x y:ys : _)
--- [(x,xs):[y,ys]]
--- ([_]:[(x,[xs])]:[y,ys]:[])
--- ([(x,y:_:[])]:[])
-
-
+-- (xs:ys:zs) -> minium 2 elemu:
+-- [(,) x y,z] pontosan 2 elemu tuple lista: [(,) 4 5, (,) 5 6] || [(4,5),(5,6)]
+-- ([d]:[ds]) pontosan 2 elemu listaba agyazott lista: [[4], [5]]
+-- ((:) x y:ys) legalabb 1 nem ures allista: [[4],[4]] || [[4]]
+-- ((a:b):(c:d:e)) ez egy tradicionalis listaba listak, de legalabb 3 eleme kell legyen es az elso al elemnek legalabb 1 ([[3],[],[]]): [[1,3,4,55,6,7,6],[4,5,6,4,4,5,6,6],[],[],[],[],[],[4],[]] || ez is jo: [[[[]]],[],[]]
+-- ((,) x y:ys : _) legalabb 2 elemu tuple lista:  [(4,5),(4,5)] || [(4,5),(4,5), (4,5), (6,7)]
+-- [(x,xs):[y,ys]] -> pontosan 3 elemet (tuple) tartalmazo dupla lista: [[(4,5), (3,4), (5,6)]]
+-- ([_]:[(x,[xs])]:[y,ys]:[]) -> pontosan 3 list elem, amelyek tuple-eket tartalamznak es a 3ik lista 2 tuple-t kell tartalmazzon: [[(4,[5])], [(4,[5])], [(4,[5]), (4,[6])]]
+-- ([(x,y:_:[])]:[]) -> pontosan 1 listaba lista aminben egy tuple es ennek 1 eleme es egy 2 elemu listaja van: [[(4,[5,6])]]  
 
 -- t1 :: [[a1]] -> [a2]
 -- t1 ([]:[]) = []
