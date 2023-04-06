@@ -20,6 +20,16 @@ namespace Horgaszverseny
             Cathces = catches;
         }
 
+        public override string ToString()
+        {
+            var catchesStr = "";
+            foreach (var @catch in Cathces)
+            {
+                catchesStr += $"\t{@catch.Time}: {@catch.Name}, hossz: {@catch.Length}, suly: {@catch.Weight}\n";
+            }
+            return $"Horgasz: {Name}\n{catchesStr}";
+        }
+
         public static bool TryParse(string line, out Fisher result)
         {
             var elements = line.Split(' ').ToList();
@@ -37,11 +47,11 @@ namespace Horgaszverseny
                     case 0:
                         tmpCatch = new Catch
                         {
-                            Name = catchData
+                            Time = catchData
                         };
                         break;
                     case 1:
-                        tmpCatch.Time = catchData;
+                        tmpCatch.Name = catchData;
                         break;
                     case 2:
                         tmpCatch.Weight = double.Parse(catchData);
