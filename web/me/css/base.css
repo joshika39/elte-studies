@@ -1,0 +1,14 @@
+.list-item li, .list-item p, .list-item p::first-letter{
+	all: unset;
+}
+
+.list-item p:nth-child(2){
+	font-size: .9em;
+	color: #6c6c6c;
+}
+
+.list-item{
+	display: flex;
+	flex-direction: column;
+	margin-bottom: .3rem;
+}
