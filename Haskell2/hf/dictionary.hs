@@ -18,3 +18,4 @@ longest xs = helper xs (0,"")
 
 
 -- munch :: [String] -> String -> (Int,String,String)
+-- munch dict str = 
