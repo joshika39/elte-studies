@@ -125,16 +125,6 @@ hr{
 	outline-offset: calc(var(--small-padding) / 2);
 }
 
-.container {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-}
-
-.container.row {
-    flex-direction: row;
-}
-
 .list {
     margin: 1rem;
     padding-left: 1rem;
@@ -144,3 +134,18 @@ img.main {
     width: 60%;
     margin: 1rem auto;
 }
+
+@media only screen and (max-width: 800px) {
+	#nav ul{
+		display: none;
+	}
+	:is(h1,h2,h3,p,a).title {
+		font-size: var(--x-large-font);
+	}
+  }
+
+  @media only screen and (max-width: 300px) {
+	:is(h1,h2,h3,p,a).title {
+		font-size: var(--large-font);
+	}
+  }
