@@ -144,7 +144,10 @@ img.main {
 	}
   }
 
-  @media only screen and (max-width: 300px) {
+  @media only screen and (max-width: 350px) {
+	#nav{
+		height: 4rem;
+	}
 	:is(h1,h2,h3,p,a).title {
 		font-size: var(--large-font);
 	}
