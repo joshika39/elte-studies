@@ -6,8 +6,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="joshika39-Implementation" Version="0.0.5" />
-      <PackageReference Include="joshika39-Infrastructure" Version="0.0.5" />
+      <PackageReference Include="joshika39-Implementation" Version="0.0.6" />
+      <PackageReference Include="joshika39-Infrastructure" Version="0.0.6" />
     </ItemGroup>
 
     <ItemGroup>
