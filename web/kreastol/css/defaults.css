@@ -26,6 +26,7 @@
   --small-font: 0.8em;
   --normal-font: 1em;
   --large-font: 1.1em;
+  --larger-font: 1.2em;
   --x-large-font: 1.4em;
   --xx-large-font: 1.6em;
 }
@@ -38,9 +39,9 @@ html,
 }
 
 body {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  height: 100vh;
   background: linear-gradient(
     90deg,
     var(--primary-1) 20%,
@@ -48,5 +49,17 @@ body {
   );
   background-repeat: no-repeat;
   color: var(--on-light-bg);
-  font-size: 1.2em;
+  font-size: var(--larger-font);
 }
+
+body > *{
+  flex: 0 1 auto;
+}
+
+@media only screen and (max-height: 800px) {
+  body {
+    font-size: var(--large-font);
+  }
+}
+
+

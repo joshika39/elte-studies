@@ -9,7 +9,6 @@
   gap: 1rem;
   grid-auto-flow: column;
   grid-auto-columns: 31%;
-
   overflow-x: auto;
   overscroll-behavior-inline: contain;
   box-sizing: border-box;
@@ -26,6 +25,7 @@
   background-color: var(--primary); /* Used if the image is unavailable */
   box-shadow: 6px 7px 6px #00000029;
   border-radius: 37px;
+
 }
 
 .event-list-item .bg {
@@ -135,26 +135,39 @@
 }
 
 .container {
-  margin-block: auto;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  min-height: 100%;
+  flex: 1 1 auto;
 }
-
 
 @media only screen and (max-width: 700px) {
   .events {
     grid-auto-flow: row;
     grid-auto-columns: unset;
-    grid-auto-rows: 65%;
+    grid-auto-rows: 55%;
     height: 60vh;
   }
   .event-list-item{
     height: 20rem;
   }
   .container{
-    height: 100%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-evenly;
+    flex-flow: column;
+  }
+  .container > *{
+    flex: 0 1 auto;
+  }
+  
+  .events{
+    flex: 1 1 auto;
+  }
+}
+
+@media only screen and (max-height: 800px) {
+  .events {
+    grid-auto-rows: 70%;
+    height: 50vh;
   }
 }
 
