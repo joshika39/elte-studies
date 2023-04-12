@@ -1,23 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Implementation.Core;
+using Implementation.IO.Factories;
+using Implementation.Logger.Factories;
 using Infrastructure.IO;
-using Unity;
 
 namespace Horgaszverseny
 {
     class Program
-    {    
+    {
         static void Main(string[] args)
         {
             var id = Guid.NewGuid();
-            var c = Bootsrapper.GetDefaultContainer("log.txt", id);
-            var reader = c.Resolve<IReader>();
-            var file = new StreamReader(@"Resources/input0.txt");
+            var ioFactory = new IOFactory();
+            using var logger = new LoggerFactory().CreateLogger(id);
             
+            var writer = ioFactory.CreateWriter(logger);
+            var reader = ioFactory.CreateReader(logger, writer);
+            
+            var file = new StreamReader(@"Resources/input2.txt");
+
             var test = reader.ReadLine<Fisher>(file, Fisher.TryParse);
             var fishers = new List<Fisher>();
+            
             foreach (var fisher in test)
             {
                 var hasPonty = false;
@@ -40,12 +45,13 @@ namespace Horgaszverseny
                         counter++;
                     }
                 }
-                
+
                 if (counter >= 4)
                 {
                     fishers.Add(fisher);
                 }
             }
+
             foreach (var fisher in fishers)
             {
                 Console.WriteLine($"{fisher.Name}");
