@@ -12,11 +12,21 @@ namespace HF2
         {
             Bootstrapper.Initialize(out var reader);
             var streamReader = new StreamReader(@"Res\imp.txt");
-            var nums = reader.ReadLine<int>(streamReader, int.TryParse).ToList();
+            var smallest = int.MaxValue;
+            var hasPrime = "";
             
-            var hasPrime = nums.Any(Tools.IsPrime) ? "van" : "nincs";
-            var smallest = nums.Where(n => n % 2 == 0).Min();
-            
+            foreach (var numList in reader.ReadLine<int>(streamReader, int.TryParse, ' '))
+            {
+                foreach (var num in numList)
+                {
+                    hasPrime = Tools.IsPrime(num) ? "van" : "nincs";
+                    if (num < smallest && num % 2 == 0)
+                    {
+                        smallest = num;
+                    }
+                }
+            }
+
             Console.WriteLine($"{smallest} {hasPrime}");
         }
     }
