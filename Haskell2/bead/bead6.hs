@@ -3,10 +3,10 @@ import Data.Char (chr)
 import Data.List (isPrefixOf)
 
 filters :: (a -> Bool) -> [[a]] -> [a]
-filters f = concatMap (filter f)
+filters = concatMap . filter
 
 mapMap :: (a -> a) -> [[a]] -> [[a]]
-mapMap f = map (map f)
+mapMap = map . map
 
 dropSpaces :: [Char] -> [Char]
 dropSpaces = dropWhile (== ' ')
