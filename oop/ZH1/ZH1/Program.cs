@@ -21,7 +21,7 @@ namespace ZH1
             var testStudents = reader.ReadLine<Student>(strmReader, Student.TryParse).ToList();
 
             var osszKredStud = testStudents.Where(s => s.Subjects.Count < 4);
-            var osszKred = osszKredStud.Where(stud => stud.CreditSum == osszKredStud.Max(s => s.CreditSum)).FirstOrDefault();
+            var osszKred = osszKredStud.FirstOrDefault(stud => stud.CreditSum == osszKredStud.Max(s => s.CreditSum));
             var test = testStudents.Any(st => (st.Subjects.Count >= 4) && st.Avg == 5.0f) ? "igen" : "nem";
 
             Console.WriteLine($"{osszKred?.CreditSum} {test}");

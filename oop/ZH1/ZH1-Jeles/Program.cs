@@ -21,9 +21,7 @@ namespace ZH1_Jeles
 
             var testStudents = reader.ReadLine<Student>(strmReader, Student.TryParse).ToList();
 
-            var highestStud = testStudents
-                .Where(stud => stud.CreditSum == testStudents.Max(s => s.CreditSum))
-                .FirstOrDefault();
+            var highestStud = testStudents.FirstOrDefault(stud => stud.CreditSum == testStudents.Max(s => s.CreditSum));
 
             var test = testStudents.Any(s => s.Subjects[0].Grade >= 0) ? "igen" : "nem";
 
