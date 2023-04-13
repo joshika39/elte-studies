@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Implementation.IO.Factories;
-using Implementation.Logger.Factories;
+using Core;
 
 namespace HF2
 {
@@ -10,18 +10,13 @@ namespace HF2
     {
         private static void Main()
         {
-            var id = Guid.NewGuid();
-            using var logger = new LoggerFactory().CreateLogger(id);
-            var ioFactory = new IOFactory();
-            var writer = ioFactory.CreateWriter(logger);
-            var reader = ioFactory.CreateReader(logger, writer);
-
+            Bootstrapper.Initialize(out var reader);
             var streamReader = new StreamReader(@"Res\imp.txt");
-
-            var nums = reader.ReadLine<int>(streamReader, int.TryParse, ' ').FirstOrDefault().ToList();
-
-            var hasPrime = nums.Any(IsPrime) ? "van" : "nincs";
-            var smallest = nums.Where(n => n % 2 == 0).Min();
+            // var nums = new List<int>();
+            var nums = reader.ReadLine<int>(streamReader, int.TryParse, ' ').ToList();
+            
+            var hasPrime = nums.Any(l => l.Any(IsPrime)) ? "van" : "nincs";
+            var smallest = nums.Min(l => l.Min());
             
             Console.WriteLine($"{smallest} {hasPrime}");
         }
