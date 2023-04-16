@@ -1,13 +1,12 @@
 ﻿using Implementation.IO.Factories;
 using Implementation.Logger.Factories;
-using System.Linq;
 using ZH1;
 
 namespace ZH1_Jeles
 {
-    internal class Program
+    internal static class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
             var id = Guid.NewGuid();
             var loggerFactory = new LoggerFactory();
@@ -17,9 +16,9 @@ namespace ZH1_Jeles
             var writer = ioFactory.CreateWriter(logger);
             var reader = ioFactory.CreateReader(logger, writer);
 
-            var strmReader = new StreamReader(@"Resources\inp.txt");
+            var streamReader = new StreamReader(@"Resources\inp.txt");
 
-            var testStudents = reader.ReadLine<Student>(strmReader, Student.TryParse).ToList();
+            var testStudents = reader.ReadLine<Student>(streamReader, Student.TryParse).ToList();
 
             var highestStud = testStudents.FirstOrDefault(stud => stud.CreditSum == testStudents.Max(s => s.CreditSum));
 

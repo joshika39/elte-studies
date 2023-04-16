@@ -3,13 +3,12 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>ZH1_Jeles</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="joshika39-Core" Version="0.2.0" />
+    <PackageReference Include="joshika39-Core" Version="0.2.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,6 +17,12 @@
 
   <ItemGroup>
     <None Update="Resources\inp.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\oep.zh1.input1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\oep.zh1.input2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
