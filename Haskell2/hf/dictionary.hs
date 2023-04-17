@@ -20,12 +20,12 @@ longest xs = helper xs (0,"")
 munch :: [String] -> String -> (Int,String,String)
 munch dict str = (fst longst, snd longst, [str !! x | x <- [length (snd longst)..length str - 1]])
   where
-    longst = longest (prefixes str dict) 
+    longst = longest (prefixes str dict)
 
 append :: [String] -> String -> String -> [String]
 append dict _ "" = dict
 append dict w1 w2
-  | notElem word dict = dict ++ [word] 
+  | word `notElem` dict = dict ++ [word]
   | otherwise = dict
   where
-    word = w1 ++ (take 1 w2)
+    word = w1 ++ take 1 w2
