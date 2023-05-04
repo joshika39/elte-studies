@@ -20,7 +20,7 @@ filter' :: (a -> Bool) -> [a] -> [a]
 filter' _ [] = []
 filter' f (x:xs)
   | f x = x : filter' f xs
-  | otherwise = filter' f xs 
+  | otherwise = filter' f xs
 
 count' :: (a -> Bool) -> [a] -> Int
 count' _ [] = 0
@@ -30,11 +30,11 @@ count' f (x:xs)
 
 all' :: (a -> Bool) -> [a] -> Bool
 all' _ [] = False
-all' f (x:xs) = (f x) && all' f xs
+all' f (x:xs) = f x && all' f xs
 
 any' :: (a -> Bool) -> [a] -> Bool
 any' _ [] = False
-any' f (x:xs) = (f x) || any' f xs
+any' f (x:xs) = f x || any' f xs
 
 takeWhile' :: (a -> Bool) -> [a] -> [a]
 takeWhile' _ [] = []

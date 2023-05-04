@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using ClassLibrary;
+using Core;
 
 namespace ZH1
 {
@@ -13,8 +14,8 @@ namespace ZH1
             foreach (var file in files)
             {
                 using var streamReader = new StreamReader(file);
-                
-                var testStudents = reader.ReadLine<Student>(streamReader, Student.TryParse).ToList();
+
+                var testStudents = reader.ReadAllLines<Student>(streamReader, Student.TryParse);
 
                 // 1. Task, Get the highest CreditSum from those, who have less than 4 subjects
                 var maxCredit = testStudents

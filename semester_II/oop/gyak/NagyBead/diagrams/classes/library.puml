@@ -1,0 +1,75 @@
+@startuml Library (id=LIBRARY) 
+
+interface IBookSource {
+	+ Books: IEnumerable<ILibraryBook>
+	+ StoreNewBook(book: ILibraryBook): void
+	+ GiveAway(book: ILibraryBook): void
+	+ SearchInBooks(query: string): ILibraryBook
+}
+
+class OnlineBooks implements IBookSource{
+	+ Books: IEnumerable<ILibraryBook>
+	+ StoreNewBook(book: ILibraryBook): void
+	+ GiveAway(book: ILibraryBook): void
+	+ SearchInBooks(query: string): ILibraryBook
+}
+
+class PhisycalBooks implements IBookSource{
+	+ Books: IEnumerable<ILibraryBook>
+	+ StoreNewBook(book: ILibraryBook): void
+	+ GiveAway(book: ILibraryBook): void
+	+ SearchInBooks(query: string): ILibraryBook
+}
+
+interface ILibrary{
+	+ Id: Guid
+	+ AllBooks: IList<IBook>
+	+ Members: IList<IMember>
+	+ LendBook(member: IMember, book: IBook): void
+	+ ReturnBook(member: IMember, book: ILibraryBook): void
+	+ ReturnBooks(member: IMember, books: IEnumerable<ILibraryBook>): void
+	+ GetNewBook(book: IBook, category: string): void
+	+ Register(name: string, username: string, bornAt: DateTime): void
+	+ Register(member: IMember): void
+}
+
+class LibraryClass{
+	- BorrowedBooks: IList<ILibraryBook>
+	- SearchBook(isbn: string, target: IEnumerable<ILibraryBook>): ILibraryBook
+	- _bookFactory: IBookFactory
+	+ Id: Guid
+	+ AllBooks: IList<IBook>
+	+ Members: IList<IMember>
+	+ LendBook(member: IMember, book: IBook): void
+	+ ReturnBook(member: IMember, book: ILibraryBook): void
+	+ ReturnBooks(member: IMember, books: IEnumerable<ILibraryBook>): void
+	+ GetNewBook(book: IBook, category: string): void
+	+ Register(name: string, username: string, bornAt: DateTime): void
+	+ Register(member: IMember): void
+}
+
+
+interface IMember{
+	+ Name: string
+	+ UserName: string
+	+ BornAt: Date
+	+ BorrowedBooks: IList<ILibraryBook>
+	+ PendingBills: IList<IBill>
+	+ Borrow(book: ILibraryBook): void
+}
+
+class Member{
+	- _lib: ILibrary
+	+ Name: string
+	+ UserName: string
+	+ BornAt: Date
+	+ BorrowedBooks: IList<ILibraryBook>
+	+ PendingBills: IList<IBill>
+	+ Borrow(book: ILibraryBook): void
+}
+
+ILibrary <.. LibraryClass
+ILibrary "0..1" *-- "*" IMember : Registers >
+IMember <.. Member
+
+@enduml

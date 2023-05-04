@@ -1,0 +1,34 @@
+@startuml Objects
+
+object BelaIro
+object LibraryClass
+
+map ScienceBook1{
+    ISBN => "123123123qweqwe123"
+    Title => "Jancsi es Julika"
+    PageCount => 132
+    Author *-> BelaIro
+}
+map ScienceBook2{
+    ISBN => "sadsadsdsd"
+    Title => "ValamiTudomant"
+    PageCount => 321
+    Author *-> BelaIro
+}
+object ScienceBook3
+object YouthBook1
+object YouthBook2
+object LiteratureBook1
+
+object Peter
+object John
+
+LibraryClass *-- ScienceBook3
+LibraryClass *-- YouthBook1
+LibraryClass *-- YouthBook2
+
+Peter *-- ScienceBook1
+Peter *-- ScienceBook2
+John *-- LiteratureBook1
+
+@enduml

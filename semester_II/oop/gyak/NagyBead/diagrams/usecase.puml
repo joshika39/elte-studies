@@ -1,0 +1,10 @@
+@startuml UseCase
+
+"Borrow the book" as (BorrowSF)
+"Logs into Library" as (LoginToLib)
+"Library Checks if the book is available" as (BookCheck)
+
+:Member: ..> (BorrowSF) : <include>
+(BorrowSF) ..> (LoginToLib) : <invokes>
+(LoginToLib) ..> (BookCheck) : <invokes>
+@enduml

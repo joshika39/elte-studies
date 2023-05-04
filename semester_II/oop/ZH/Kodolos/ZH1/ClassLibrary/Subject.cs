@@ -1,11 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ZH1
+﻿namespace ClassLibrary
 {
     public class Subject
     {
@@ -13,9 +6,9 @@ namespace ZH1
         public int Credit { get; set; }
         public double Grade { get; set; }
 
-        public Subject()
+        public Subject(string code)
         {
-
+            Code = code;
         }
 
         public Subject(string code, int credit, double grade)

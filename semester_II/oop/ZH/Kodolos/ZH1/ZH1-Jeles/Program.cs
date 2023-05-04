@@ -1,6 +1,6 @@
-﻿using Implementation.IO.Factories;
+﻿using ClassLibrary;
+using Implementation.IO.Factories;
 using Implementation.Logger.Factories;
-using ZH1;
 
 namespace ZH1_Jeles
 {
@@ -18,7 +18,7 @@ namespace ZH1_Jeles
 
             var streamReader = new StreamReader(@"Resources\inp.txt");
 
-            var testStudents = reader.ReadLine<Student>(streamReader, Student.TryParse).ToList();
+            var testStudents = reader.ReadAllLines<Student>(streamReader, Student.TryParse).ToList();
 
             var highestStud = testStudents.FirstOrDefault(stud => stud.CreditSum == testStudents.Max(s => s.CreditSum));
 

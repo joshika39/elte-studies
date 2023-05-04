@@ -1,33 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Core;
+﻿using Core;
 
 namespace HF2
 {
-    internal abstract class Program
+    internal class Program
     {
-        private static void Main()
+        static void Main(string[] args)
         {
             Bootstrapper.Initialize(out var reader);
-            var streamReader = new StreamReader(@"Res\imp.txt");
-            var smallest = int.MaxValue;
-            var hasPrime = "";
-            
-            foreach (var numList in reader.ReadLine<int>(streamReader, int.TryParse, ' '))
-            {
-                foreach (var num in numList)
-                {
-                    hasPrime = Tools.IsPrime(num) ? "van" : "nincs";
-                    if (num < smallest && num % 2 == 0)
-                    {
-                        smallest = num;
-                    }
-                }
-            }
+            var streamReader = new StreamReader(@"Res\inp.txt");
+            var list = reader.ReadAllLines<int>(streamReader, int.TryParse, ' ', '\t').ToList();
 
-            Console.WriteLine($"{smallest} {hasPrime}");
+            var hasPrime = list.Any(l => l.Any(n => Tools.IsPrime(n))) ? "van" : "nincs";
+            var smallest = list.SelectMany(x => x).Where(x => x % 2 == 0).Min();
+
+
+            Console.WriteLine($"A legkisseb szam: {smallest} es prim szam {hasPrime}");
         }
     }
 }

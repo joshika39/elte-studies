@@ -1,0 +1,9 @@
+@startuml Sequence
+
+actor Member
+Participant Library
+
+Member -> Library : Borrow()
+Library -> Library : LendBook()
+
+@enduml
