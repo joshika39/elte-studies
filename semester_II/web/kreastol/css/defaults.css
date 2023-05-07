@@ -1,3 +1,5 @@
+@import url('./icons.css');
+
 :root {
   --primary-1: #e7a8f7;
   --primary-2: #da86f0;
@@ -52,8 +54,27 @@ body {
   font-size: var(--larger-font);
 }
 
-body > *{
-  flex: 0 1 auto;
+.container {
+  /* height: 100%; */
+  display: flex;
+  flex-flow: column;
+  /* min-height: 100%;
+  flex: 1 1 auto; */
+}
+
+
+.container{
+  flex: 1;
+}
+ 
+@media only screen and (max-height: 700px) {
+  .container{
+    flex-flow: column;
+  }
+  .container > *{
+    flex: 0 1 auto;
+  }
+  
 }
 
 @media only screen and (max-height: 800px) {

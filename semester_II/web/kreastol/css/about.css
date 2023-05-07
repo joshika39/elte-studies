@@ -1,0 +1,43 @@
+@import url('./defaults.css');
+@import url('./base.css');
+
+/* *{
+	box-sizing: content-box;
+} */
+
+ul {
+	padding-inline-start: 2rem;
+}
+
+
+#comment {
+	border-radius: var(--small-padding);
+	padding: var(--small-padding);
+	margin: var(--small-padding);
+	;
+	width: 20rem;
+	float: right;
+	background-color: var(--primary-3);
+}
+
+#events img {
+	margin-top: 2rem;
+	float: right;
+	width: 15rem;
+	shape-outside: border-box;
+}
+
+.group.left{
+	float: left;
+}
+
+video{
+	margin: var(--medium-padding);
+	margin-top: 6rem;
+	shape-outside: border-box;
+}
+
+#workshops video {
+	float: left;
+	width: 30rem;
+}

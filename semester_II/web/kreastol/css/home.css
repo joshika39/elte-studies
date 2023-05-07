@@ -36,7 +36,7 @@
   top: 0;
   z-index: 0;
   display: block;
-  background-image: url("../img/Logo.png");
+  background-image: url("../assets/Logo.png");
   opacity: 0.5;
   background-position: center;
   background-repeat: no-repeat;
@@ -134,13 +134,7 @@
   border-radius: 5px;
 }
 
-.container {
-  height: 100%;
-  display: flex;
-  flex-flow: column;
-  min-height: 100%;
-  flex: 1 1 auto;
-}
+
 
 @media only screen and (max-width: 700px) {
   .events {
@@ -152,13 +146,7 @@
   .event-list-item{
     height: 20rem;
   }
-  .container{
-    flex-flow: column;
-  }
-  .container > *{
-    flex: 0 1 auto;
-  }
-  
+   
   .events{
     flex: 1 1 auto;
   }

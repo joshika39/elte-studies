@@ -1,6 +1,10 @@
 @import url('./defaults.css');
 @import url('./base.css');
 
+h1{
+    margin-block: 1rem;
+    text-align: center;
+}
 .container ul{
     list-style: none;
 }
