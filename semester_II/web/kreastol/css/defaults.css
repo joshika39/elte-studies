@@ -26,11 +26,13 @@
   --large-padding: 1.2rem;
 
   --small-font: 0.8em;
-  --normal-font: 1em;
+  --normal-font: calc(.7rem + .4vw);;
   --large-font: 1.1em;
   --larger-font: 1.2em;
   --x-large-font: 1.4em;
   --xx-large-font: 1.6em;
+
+  font-size: var(--normal-font);
 }
 
 html,
@@ -51,7 +53,7 @@ body {
   );
   background-repeat: no-repeat;
   color: var(--on-light-bg);
-  font-size: var(--larger-font);
+  /* font-size: var(--larger-font); */
 }
 
 .container {
@@ -77,10 +79,10 @@ body {
   
 }
 
-@media only screen and (max-height: 800px) {
+/* @media only screen and (max-height: 800px) {
   body {
     font-size: var(--large-font);
   }
-}
+} */
 
 

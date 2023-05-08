@@ -22,7 +22,7 @@ ul {
 
 #events img {
 	margin-top: 2rem;
-	float: right;
+	float: left;
 	width: 15rem;
 	shape-outside: border-box;
 }
@@ -33,11 +33,11 @@ ul {
 
 video{
 	margin: var(--medium-padding);
-	margin-top: 6rem;
+	margin-top: 3rem;
 	shape-outside: border-box;
 }
 
 #workshops video {
-	float: left;
+	float: right;
 	width: 30rem;
 }

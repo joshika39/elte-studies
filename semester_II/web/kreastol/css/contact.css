@@ -1,2 +1,113 @@
 @import url('./defaults.css');
 @import url('./base.css');
+
+
+.form{
+	display: flex;
+	flex-direction: row;
+}
+
+form{
+	width: 100%;
+	background-color: var(--light-bg);
+	padding: 1rem;
+}
+
+:root {
+  --size-bezel: .5rem;
+  --size-radius: 4px;
+  line-height: 1.4;
+  font-family: "Inter", sans-serif;
+  color: var(--color-text);
+  background: var(--light-bg);
+  font-weight: 300;
+  /* padding: 0 calc(var(--size-bezel) * 3); */
+}
+
+mark {
+  background: var(--accent-1);
+  color: var(--color-text);
+  font-weight: bold;
+  padding: 0 0.2em;
+}
+
+.input {
+  margin: .8rem 0;
+}
+
+.input-label {
+  position: relative;
+  /* margin: .2rem; */
+}
+
+.label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: calc(var(--size-bezel) * 0.75) calc(var(--size-bezel) * .5);
+  margin: calc(var(--size-bezel) * 0.75 + 3px) calc(var(--size-bezel) * .5);
+  background: pink;
+  white-space: nowrap;
+  transform: translate(0, 0);
+  transform-origin: 0 0;
+  background: var(--light-bg);
+  transition: transform 120ms ease-in;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.field {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  border: 3px solid currentColor;
+  padding: calc(var(--size-bezel) * 1.5) var(--size-bezel);
+  color: currentColor;
+  background: transparent;
+  border-radius: var(--size-radius);
+}
+.field:not(:-moz-placeholder-shown) + .label {
+  transform: translate(0.25rem, -65%) scale(0.8);
+  color: var(--accent-1);
+}
+.field:not(:-ms-input-placeholder) + .label {
+  transform: translate(0.25rem, -65%) scale(0.8);
+  color: var(--accent-1);
+}
+.field:focus + .label, .field:not(:placeholder-shown) + .label {
+  transform: translate(0.25rem, -65%) scale(0.8);
+  color: var(--accent-1);
+}
+
+.button-group {
+  margin-top: calc(var(--size-bezel) * 2.5);
+}
+
+button {
+  color: var(--primary-5);
+  padding: var(--size-bezel) calc(var(--size-bezel) * 2);
+  background: var(--primary-5);
+  border: none;
+  border-radius: var(--size-radius);
+  font-weight: 900;
+}
+
+button[type=reset] {
+  background: var(--light-bg);
+  font-weight: 200;
+}
+
+button + button {
+  margin-left: calc(var(--size-bezel) * 2);
+}
+
+/* .icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.5em;
+} */
+
+.hidden {
+  display: none;
+}
