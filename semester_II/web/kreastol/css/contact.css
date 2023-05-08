@@ -3,14 +3,17 @@
 
 
 .form{
+  margin: var(--small-padding);
 	display: flex;
 	flex-direction: row;
+  
 }
 
 form{
 	width: 100%;
 	background-color: var(--light-bg);
 	padding: 1rem;
+  border-radius: 1rem;
 }
 
 :root {
@@ -18,18 +21,18 @@ form{
   --size-radius: 4px;
   line-height: 1.4;
   font-family: "Inter", sans-serif;
-  color: var(--color-text);
+  color: var(--primary);
   background: var(--light-bg);
-  font-weight: 300;
+  font-weight: 200;
   /* padding: 0 calc(var(--size-bezel) * 3); */
 }
 
-mark {
-  background: var(--accent-1);
-  color: var(--color-text);
+/* mark {
+  background: var(--primary);
+  color: var(--primary);
   font-weight: bold;
   padding: 0 0.2em;
-}
+} */
 
 .input {
   margin: .8rem 0;
@@ -60,7 +63,7 @@ mark {
   box-sizing: border-box;
   display: block;
   width: 100%;
-  border: 3px solid currentColor;
+  border: 2px solid currentColor;
   padding: calc(var(--size-bezel) * 1.5) var(--size-bezel);
   color: currentColor;
   background: transparent;
@@ -68,15 +71,15 @@ mark {
 }
 .field:not(:-moz-placeholder-shown) + .label {
   transform: translate(0.25rem, -65%) scale(0.8);
-  color: var(--accent-1);
+  color: var(--primary);
 }
 .field:not(:-ms-input-placeholder) + .label {
   transform: translate(0.25rem, -65%) scale(0.8);
-  color: var(--accent-1);
+  color: var(--primary);
 }
 .field:focus + .label, .field:not(:placeholder-shown) + .label {
   transform: translate(0.25rem, -65%) scale(0.8);
-  color: var(--accent-1);
+  color: var(--primary);
 }
 
 .button-group {
@@ -84,17 +87,19 @@ mark {
 }
 
 button {
-  color: var(--primary-5);
+  color: var(--light-bg);
   padding: var(--size-bezel) calc(var(--size-bezel) * 2);
-  background: var(--primary-5);
+  background: var(--primary);
   border: none;
   border-radius: var(--size-radius);
   font-weight: 900;
 }
 
 button[type=reset] {
+  outline: var(--primary) solid 2px;
+  color: var(--primary);
   background: var(--light-bg);
-  font-weight: 200;
+  font-weight: 600;
 }
 
 button + button {

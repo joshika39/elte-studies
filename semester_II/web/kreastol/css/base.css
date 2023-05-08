@@ -61,43 +61,6 @@ a:visited:focus{
 	outline-offset: calc(var(--small-padding) / 2);
 }
 
-#nav {
-	color: var(--primary);
-	height: 5rem;
-	position: relative;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	padding-inline: var(--small-padding);
-}
-
-#nav h1 {
-	border-left: 2px solid;
-	padding: var(--small-padding);
-	margin-right: auto;
-	align-self: center;
-}
-
-#nav img {
-	object-fit: contain;
-	height: 100%;
-	padding: var(--small-padding);
-}
-
-#nav ul {
-	display: flex;
-	flex-direction: row;
-	list-style: none;
-	align-self: center;
-}
-
-#nav ul li {
-	align-self: center;
-}
-
-#nav ul li a {
-	text-decoration: none;
-}
 
 .material-symbols-outlined {
 	font-variation-settings:

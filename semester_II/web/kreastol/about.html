@@ -6,56 +6,77 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rólunk</title>
-  <link rel="stylesheet" type="text/css" href="css/about.css">
+  <link rel="stylesheet" type="text/css" href="css/nav.css">
   <link rel="shortcut icon" href="assets/Logo.png" type="image/x-icon">
 </head>
 
 <body>
-  <div id="nav"></div>
-  <hr>
+  <header id="navbar">
+    <nav class="navbar-container container">
+      <a href="/" class="home-link">
+        <div class="navbar-logo"></div>
+        Website Name
+      </a>
+      <button type="button" id="navbar-toggle" aria-controls="navbar-menu" aria-label="Toggle menu" aria-expanded="false">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div id="navbar-menu" aria-labelledby="navbar-toggle">
+        <ul class="navbar-links">
+          <li class="navbar-item"><a class="navbar-link" href="/about">About</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="/blog">Blog</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="/careers">Careers</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="/contact">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+</header>
+  <!-- <hr>
   <div class="container">
   <header>
     <h1>A mi történetünk..</h1>
   </header>
   <section id="events">
     <img src="assets/aboutus/aboutpic1.png" alt="Kreastol klub teljes logó">
-    <p>2018 óta kissebb nagyobb kivételekkel megjelentek minden rendezvényen(adanapok, moholnapok, mosolytenger,
-      mosolytanya) még Kiskőrösre is elhívták őket. Nagy valószínűséggel ők a következő környékünk rendezvényen is ott
-      lesznek. És te?</p>
+    <p>Kreastol <i>(kreatív asztalos - stolarski)</i> klub legfőbb célja, hogy gyermekeknek, fiataloknak és szülőknek is
+      biztosítani egy olyan helyet, ahol tudnak társalogni, kreatív kézimunkákat alkotni és játszani. A Klub <time
+        datetime="2018">2018</time> óta működik és <time datetime="2019">2019</time>-ben lett bejegyeztetve, mint civil
+      szervezet. Elejében a városi
+      könyvtár gyermek részlegében voltak az alkalmak megtartva, viszont <time datetime="2020">2020</time> óta, köszönve
+      az Adai Önkormányzatnak, a
+      Dózsa György u. 25. alatt vannak a foglalkozások.
+      Egész évben folyamatosan vannak műhelymunkák. Jelenleg iskolás előtti korosztálynak, iskolásoknak és
+      középiskolásoknak van lehetőségük részt venni a Klub alkalmain.
+      Nyár folyamán táborokban, városi napokon, fesztiválokon veszünk részt. Főleg fából és sok más különböző anyagokból
+      készítenek tárgyakat, amelyeket hazavihetnek, de van rá példa, hogy a községben is kihelyezzük őket (például
+      madárházakat).</p>
   </section>
   <section id="workshops">
       <video width="250" height="320" controls>
         <source src="assets/aboutus/aboutvid1.mp4">
       </video>
-      <p>Kreastol <i>(kreatív asztalos - stolarski)</i> klub legfőbb célja, hogy gyermekeknek, fiataloknak és szülőknek is
-        biztosítani egy olyan helyet, ahol tudnak társalogni, kreatív kézimunkákat alkotni és játszani. A Klub <time
-          datetime="2018">2018</time> óta működik és <time datetime="2019">2019</time>-ben lett bejegyeztetve, mint civil
-        szervezet. Elejében a városi
-        könyvtár gyermek részlegében voltak az alkalmak megtartva, viszont <time datetime="2020">2020</time> óta, köszönve
-        az Adai Önkormányzatnak, a
-        Dózsa György u. 25. alatt vannak a foglalkozások.
-        Egész évben folyamatosan vannak műhelymunkák. Jelenleg iskolás előtti korosztálynak, iskolásoknak és
-        középiskolásoknak van lehetőségük részt venni a Klub alkalmain.
-        Nyár folyamán táborokban, városi napokon, fesztiválokon veszünk részt. Főleg fából és sok más különböző anyagokból
-        készítenek tárgyakat, amelyeket hazavihetnek, de van rá példa, hogy a községben is kihelyezzük őket (például
-        madárházakat).</p>
+      <p>2018 óta kissebb nagyobb kivételekkel megjelentek minden rendezvényen(adanapok, moholnapok, mosolytenger,
+        mosolytanya) még Kiskőrösre is elhívták őket. Nagy valószínűséggel ők a következő környékünk rendezvényen is ott
+        lesznek. És te?</p>
+      
 
     <div class="group left">
       <h4>Tervek a jövőre nézve:</h4>
       <ul>
         <li>
-          <p><input type="checkbox" checked disabled> A Klub helység udvarában játszóteret szeretnénk felépíteni és ezzel
+          <p>✅ A Klub helység udvarában játszóteret szeretnénk felépíteni és ezzel
             lehetőséget adni alkalmanként több
             korosztálynak az együttlétre. A játszótér ilyen módon védett körülmények között lenne.</p>
         </li>
         <li>
-          <p><input type="checkbox" disabled> Szülőknek akarunk beindítani felnőtt alkalmakat, ahol úgyszintén különböző
+          <p>☑️ Szülőknek akarunk beindítani felnőtt alkalmakat, ahol úgyszintén különböző
             kreatív alkotásokat tudnának
             készíteni, ugyanakkor lehetőségük nyílik arra, hogy a mindennapi kötelezettségektől egy kicsit kilépjenek és
             tudjanak lazítani.</p>
         </li>
         <li>
-          <p><input type="checkbox" disabled> Mozis alkalmakat is szeretnénk megszervezni, ahol a társalgás mellett filmet
+          <p>☑️ Mozis alkalmakat is szeretnénk megszervezni, ahol a társalgás mellett filmet
             vetítenénk.</p>
         </li>
       </ul>
@@ -68,7 +89,7 @@
     </aside>
   </section>
   </div>
-  <footer id="footer" class="footer"></footer>
+  <footer id="footer" class="footer"></footer> -->
   <script src="js/jquery.js"></script>
   <script src="js/functions.js"></script>
   <script src="js/main.js"></script>
