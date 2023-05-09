@@ -15,8 +15,7 @@
 }
 
 .event-list-item {
-  /*width: 20rem;*/
-  height: 25rem;
+  height: 40vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -155,7 +154,7 @@
 @media only screen and (max-height: 800px) {
   .events {
     grid-auto-rows: 70%;
-    height: 50vh;
+    /* height: 50vh; */
   }
 }
 

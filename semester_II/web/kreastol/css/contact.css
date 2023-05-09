@@ -6,10 +6,10 @@
   margin: var(--small-padding);
 	display: flex;
 	flex-direction: row;
-  
 }
 
 form{
+  max-width: 400px;
 	width: 100%;
 	background-color: var(--light-bg);
 	padding: 1rem;
@@ -38,6 +38,29 @@ form{
   margin: .8rem 0;
 }
 
+.radio{
+  display: flex;
+  align-content: center;
+  font-weight: bold;
+  line-height: 1.2;
+  flex-direction: row;
+}
+
+.radio span{
+  width: .1rem;
+  background-color: #000;
+  margin-inline: .3rem;
+}
+
+.radio-label{
+  display: flex;
+  align-content: center;
+}
+
+.radio-label > *{
+  margin-inline: .3rem .1rem;
+}
+
 .input-label {
   position: relative;
   /* margin: .2rem; */
@@ -47,8 +70,8 @@ form{
   position: absolute;
   left: 0;
   top: 0;
-  padding: calc(var(--size-bezel) * 0.75) calc(var(--size-bezel) * .5);
-  margin: calc(var(--size-bezel) * 0.75 + 3px) calc(var(--size-bezel) * .5);
+  padding: calc(var(--size-bezel) * 0.50) calc(var(--size-bezel) * .5);
+  margin: calc(var(--size-bezel) * 0.50 + 3px) calc(var(--size-bezel) * .5);
   background: pink;
   white-space: nowrap;
   transform: translate(0, 0);
@@ -116,3 +139,11 @@ button + button {
 .hidden {
   display: none;
 }
+
+@media screen and (max-width: 700px) {
+  .form{
+    flex-direction: column-reverse;
+  }
+
+}
+

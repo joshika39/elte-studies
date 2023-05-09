@@ -1,0 +1,40 @@
+@import url('./defaults.css');
+@import url('./base.css');
+
+.part {
+	background: var(--accent-1);
+	margin: .5rem;
+	height: 100vh;
+}
+
+.short{
+	width: 30%;
+}
+
+.long{
+	width: 60%;
+}
+
+.achivements{
+	width: 30%;
+}
+
+@media only screen and (max-width: 800px) {
+	.part {
+		background: var(--accent-1);
+		margin-block: .5rem;
+		height: 100vh;
+	}
+
+	.short{
+		width: 100%;
+	}
+	
+	.long{
+		width: 100%;
+	}
+	
+	.achivements{
+		width: 100%;
+	}
+}

@@ -11,25 +11,38 @@
 </head>
 
 <body>
-  <nav id="nav"></nav>
+  <header id="navbar"></header>
   <hr>
   <div class="container">
+    <h1>Mondd el a véleményed</h1>
     <p>Kérlek jelezz, ha van bármi ötleted, vagy észrevételed. Nagyon szépen köszönjük.</p>
     <hr>
     <div class="form">
-      <form action="" method="post">
+      <form action="mailto:not.exists@domain.com" method="post" enctype="text/plain">
 
         <div class="input">
           <label for="email" class="input-label">
-            <input name="email" class="field" type="email" placeholder=" " />
+            <input id="email" name="email" class="field" type="email" placeholder=" " />
             <span class="label">Email</span>
           </label>
         </div>
 
         <div class="input">
           <label for="full-name" class="input-label">
-            <input class="field" name="full-name" type="text" placeholder=" " />
+            <input class="field" name="full-name" id="full-name" type="text" placeholder=" " />
             <span class="label">Teljes Név</span>
+          </label>
+        </div>
+
+        <div class="input radio">
+          <label for="male" class="radio-label">
+            Férfi
+            <input class="radio-field" name="gender" value="male" type="radio" id="male"/>
+          </label>
+          <span></span>
+          <label for="female" class="radio-label">
+            Nő
+            <input class="radio-field" name="gender" value="female" type="radio" id="female" />
           </label>
         </div>
 
@@ -48,7 +61,7 @@
         </div>
       </form>
       <section>
-        <p>A bal oldali űrlap segítségével küldhetsz üzenetet a vezetőknek, hogy még gyorsabban fejlődjön a
+        <p>Az oldalon található űrlap segítségével küldhetsz üzenetet a vezetőknek, hogy még gyorsabban fejlődjön a
           foglalkozások menete és minősége. Nyugodtan írd meg, ha valami nem tetszik, vagy nem jól sikerült.
           Azt is szeretnénk hallani, hiszen ha nem mondod el, nem tudunk javítani rajta.</p>
         <p>Az észrevételed, lehet bármilyen új ötlet, vagy aktivitás, ami még nincs bevezetve a foglalkozásokra.
@@ -59,7 +72,7 @@
       </section>
     </div>
   </div>
-  <footer id="footer" class="footer"></footer>
+  <footer id="footer" class="footer notprint"></footer>
   <script src="js/jquery.js"></script>
   <script src="js/functions.js"></script>
   <script src="js/main.js"></script>

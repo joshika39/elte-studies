@@ -1,10 +1,15 @@
 :root {
-	--navbar-bg-color: hsl(0, 0%, 15%);
+	/* --navbar-bg-color: hsl(0, 0%, 15%);
 	--navbar-text-color: hsl(0, 0%, 85%);
-	--navbar-text-color-focus: white;
+	--navbar-text-color-focus: white; */
 	--navbar-bg-contrast: hsl(0, 0%, 25%);
+	--navbar-bg-color: var(--primary-3);
+	--navbar-text-color: var(--accent-2);
+	--navbar-text-color-focus: var(--accent-2-2);
   }
-  * {
+
+
+  /* * {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
@@ -13,28 +18,32 @@
 	height: 100vh;
 	font-family: Arial, Helvetica, sans-serif;
 	line-height: 1.6;
-  }
-  .container {
-	max-width: 1000px;
-	padding-left: 1.4rem;
-	padding-right: 1.4rem;
-	margin-left: auto;
-	margin-right: auto;
-  }
+  } */
+
   #navbar {
 	--navbar-height: 64px;
-	position: fixed;
+	position: relative;
 	height: var(--navbar-height);
 	background-color: var(--navbar-bg-color);
 	left: 0;
 	right: 0;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
   }
+
+  #navbar .title{
+	border-left: 2px solid;
+	padding: var(--small-padding);
+  }
   .navbar-container {
 	display: flex;
 	justify-content: space-between;
 	height: 100%;
 	align-items: center;
+	max-width: 1000px;
+	padding-left: 1.4rem;
+	padding-right: 1.4rem;
+	margin-left: auto;
+	margin-right: auto;
   }
   .navbar-item {
 	margin: 0.4em;
@@ -43,7 +52,7 @@
   
   .home-link,
   .navbar-link {
-	color: var(--navbar-text-color);
+	color: var(--navbar-text-color) !important;
 	text-decoration: none;
 	display: flex;
 	font-weight: 400;
@@ -51,7 +60,7 @@
   }
   
   .home-link:is(:focus, :hover) {
-	color: var(--navbar-text-color-focus);
+	color: var(--navbar-text-color-focus) !important;
   }
   
   .navbar-link {
@@ -66,10 +75,9 @@
 	background-color: var(--navbar-bg-contrast);
   }
   .navbar-logo {
-	background-color: var(--navbar-text-color-focus);
-	border-radius: 50%;
+	/* background-color: var(--navbar-text-color-focus); */
+	/* border-radius: 50%; */
 	width: 30px;
-	height: 30px;
 	margin-right: 0.5em;
   }
   #navbar-toggle {
@@ -120,6 +128,7 @@
 	background-color: rgba(0, 0, 0, 0.4);
 	opacity: 1;
 	visibility: visible;
+	z-index: 10;
   }
   .navbar-links {
 	list-style: none;
