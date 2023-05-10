@@ -21,7 +21,8 @@
   justify-content: space-between;
   position: relative;
   overflow: hidden;
-  background-color: var(--primary); /* Used if the image is unavailable */
+  background-color: var(--accent-2);
+  /* Used if the image is unavailable */
   box-shadow: 6px 7px 6px #00000029;
   border-radius: 37px;
 
@@ -40,31 +41,33 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  -ms-filter: blur(2px);
-  filter: blur(2px);
+  /* -ms-filter: blur(2px);
+  filter: blur(2px); */
 }
 
 .event-title {
   padding: 0.5rem 1rem;
-  color: var(--accent-2);
-  backdrop-filter: blur(40px);
+  color: var(--accent-2-2);
+  background-color: var(--accent-2);
+  /* backdrop-filter: blur(40px); */
   width: auto;
   border-radius: 1rem;
   z-index: 5;
-  text-shadow: 1px 1px rgba(0, 0, 0, 0.2), -1px 1px rgba(0, 0, 0, 0.2),
-    1px -1px rgba(0, 0, 0, 0.2), -1px -1px rgba(0, 0, 0, 0.2);
+  /* text-shadow: 1px 1px rgba(0, 0, 0, 0.2), -1px 1px rgba(0, 0, 0, 0.2),
+    1px -1px rgba(0, 0, 0, 0.2), -1px -1px rgba(0, 0, 0, 0.2); */
 }
 
 .event-list-item .content {
   padding: 0.5rem 1rem;
   font-size: var(--large-font);
   display: block;
-  border-radius: 0.5rem;
-  color: var(--accent-2);
+  border-radius: 0;
+  color: var(--accent-2-2);
+  background-color: var(--accent-2);
   z-index: 5;
-  backdrop-filter: blur(40px);
-  text-shadow: 1px 1px rgba(0, 0, 0, 0.2), -1px 1px rgba(0, 0, 0, 0.2),
-    1px -1px rgba(0, 0, 0, 0.2), -1px -1px rgba(0, 0, 0, 0.2);
+  /* backdrop-filter: blur(40px); */
+  /* text-shadow: 1px 1px rgba(0, 0, 0, 0.2), -1px 1px rgba(0, 0, 0, 0.2),
+    1px -1px rgba(0, 0, 0, 0.2), -1px -1px rgba(0, 0, 0, 0.2); */
 }
 
 .event-list-item .link {
@@ -83,7 +86,7 @@
 
 .event-list-item .link a {
   z-index: 1;
-  color: var(--accent-2);
+  color: var(--primary-9);
   width: 100%;
   font-size: 1.1em;
   text-decoration: none;
@@ -110,7 +113,7 @@
   transform: translate(-50%, -50%);
   text-align: center;
   background-color: var(--accent-2);
-  color: var(--primary);
+  color: var(--accent-2-2);
 }
 
 .event-thumbnail img {
@@ -142,11 +145,12 @@
     grid-auto-rows: 55%;
     height: 60vh;
   }
-  .event-list-item{
+
+  .event-list-item {
     height: 20rem;
   }
-   
-  .events{
+
+  .events {
     flex: 1 1 auto;
   }
 }
@@ -159,12 +163,12 @@
 }
 
 @media only screen and (max-width: 350px) {
-    .events {
-      grid-auto-rows: 80%;
-      height: 45vh;
-    }
-    .event-list-item{
-      height: 18rem;
-    }
+  .events {
+    grid-auto-rows: 80%;
+    height: 45vh;
   }
-  
+
+  .event-list-item {
+    height: 18rem;
+  }
+}
