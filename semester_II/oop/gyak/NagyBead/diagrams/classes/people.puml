@@ -1,35 +1,38 @@
 @startuml People (id=PEOPLE)
 
-    interface IPublisher{
-        + PublishedBooks: IList<IBook>
-        + Publish(isbn: string, draft: IDraft, publishedAt: DateTime): IBook
-        + Publish(isbn: string, draft: IDraft): IBook
-        + Publish(draft: IDraft): IBook
-    }
+interface IPublisher{
+    + PublishedBooks: IList<IBook>
+    + Publish(isbn: string, draft: IDraft, publishedAt: DateTime): IBook
+    + Publish(isbn: string, draft: IDraft): IBook
+    + Publish(draft: IDraft): IBook
+}
 
-    class Publisher{
-        - _partnerAuthors: IList<IAuthor>
-        + PublishedBooks: IList<IBook>
-        + Publish(isbn: string, draft: IDraft, publishedAt: DateTime): IBook
-        + Publish(isbn: string, draft: IDraft): IBook
-        + Publish(draft: IDraft): IBook
-    }
+class Publisher{
+    - _partnerAuthors: IList<IAuthor>
+    + PublishedBooks: IList<IBook>
+    + Publish(isbn: string, draft: IDraft, publishedAt: DateTime): IBook
+    + Publish(isbn: string, draft: IDraft): IBook
+    + Publish(draft: IDraft): IBook
+}
+!startsub Rec
+interface IAuthor{
+    + Name: string
+    + BornAt: Date
+    + Books: IList<IBook>
+    + WriteBook(title: string, pageCount: int): IDraft
+    + Contribute(book: IDraft): void
+    + Publish(publisher: IPublisher, draft: IDraft): IBook
+}
+!endsub
 
-    interface IAuthor{
-        + Name: string
-        + BornAt: Date
-        + Books: IList<IBook>
-        + WriteBook(title: string, pageCount: int): IDraft
-        + Contribute(book: IDraft): void
-        + Publish(publisher: IPublisher, draft: IDraft): IBook
-    }
-    class Author{
-        + Name: string
-        + BornAt: Date
-        + Books: IList<IBook>
-        + WriteBook(title: string, pageCount: int): IDraft
-        + Contribute(book: IDraft): void
-        + Publish(publisher: IPublisher, draft: IDraft): IBook
-    }
+
+class Author{
+    + Name: string
+    + BornAt: Date
+    + Books: IList<IBook>
+    + WriteBook(title: string, pageCount: int): IDraft
+    + Contribute(book: IDraft): void
+    + Publish(publisher: IPublisher, draft: IDraft): IBook
+}
 
 @enduml

@@ -1,0 +1,16 @@
+@startuml Rec
+
+!includesub library.puml!Rec
+!includesub books.puml!Rec
+!includesub people.puml!Rec
+
+<> assoc
+
+assoc -- ILibraryBook
+assoc -- ILibrary
+assoc -- IMember
+
+IAuthor -- IBook : > Írja
+
+
+@enduml

@@ -23,6 +23,8 @@ abstract APhysicalBook {
 IeBook <.. AeBook
 IPhysicalBook <.. APhysicalBook 
 
+!startsub Rec
+
 interface ILibraryBook{
 	+ LibraryId: Guid
 	+ BookId: string
@@ -31,6 +33,19 @@ interface ILibraryBook{
 	+ ReturnAt: DateTime
 	+ ValidateReturn(returnDate: DateTime)
 }
+
+interface IBook{
+	+ ISBN: string
+	+ Title: string
+	+ PageCount: int
+	+ PublishedAt: Date
+	+ MainAuthor: IAuthor
+	+ Authors: IList<IAuthor>
+}
+
+IBook <|-- ILibraryBook
+
+!endsub
 
 abstract class ABook <<abstract>> {
 	# <<constructor>> ABook(book: IBook, libraryId: Guid, bookId: string)
@@ -45,17 +60,10 @@ abstract class ABook <<abstract>> {
 	+ BorrowedBy: Guid
 	+ BorrowedAt: DateTime
 	+ ReturnAt: DateTime
+	+ ValidateReturn(returnDate: DateTime)
 }
 
-
-interface IBook{
-	+ ISBN: string
-	+ Title: string
-	+ PageCount: int
-	+ PublishedAt: Date
-	+ MainAuthor: IAuthor
-	+ Authors: IList<IAuthor>
-}
+ILibraryBook <|-- ABook
 
 class PublishedBook implements IBook{
 	+ ISBN: string
@@ -92,9 +100,7 @@ class "ScienceBook" as S2{}
 class "YouthBook" as Y2{}
 class "LiteratureBook" as L2{}
 
-IBook <.. ILibraryBook
 
-ILibraryBook <.. ABook
 
 ABook <.. AeBook
 ABook <.. APhysicalBook

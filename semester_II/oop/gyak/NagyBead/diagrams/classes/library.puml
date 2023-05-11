@@ -21,6 +21,7 @@ class PhisycalBooks implements IBookSource{
 	+ SearchInBooks(query: string): ILibraryBook
 }
 
+!startsub Rec
 interface ILibrary{
 	+ Id: Guid
 	+ AllBooks: IList<IBook>
@@ -32,6 +33,18 @@ interface ILibrary{
 	+ Register(name: string, username: string, bornAt: DateTime): void
 	+ Register(member: IMember): void
 }
+
+interface IMember{
+	+ Name: string
+	+ UserName: string
+	+ BornAt: Date
+	+ BorrowedBooks: IList<ILibraryBook>
+	+ PendingBills: IList<IBill>
+	+ Borrow(book: ILibraryBook): void
+}
+
+!endsub
+
 
 class LibraryClass{
 	- BorrowedBooks: IList<ILibraryBook>
@@ -49,14 +62,7 @@ class LibraryClass{
 }
 
 
-interface IMember{
-	+ Name: string
-	+ UserName: string
-	+ BornAt: Date
-	+ BorrowedBooks: IList<ILibraryBook>
-	+ PendingBills: IList<IBill>
-	+ Borrow(book: ILibraryBook): void
-}
+
 
 class Member{
 	- _lib: ILibrary
