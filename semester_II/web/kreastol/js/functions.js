@@ -134,9 +134,9 @@ function getCookie(cname) {
 }
 
 
-function largerFont(){
+function largerFont() {
 	var size = parseFloat(getProperty(':root', '--font-value'));
-	if(size < 1.3){
+	if (size < 1.3) {
 		size += 0.1;
 		setProperty(':root', '--font-value', size + 'rem');
 		setCookie('font-size', size + 'rem', 60);
@@ -144,23 +144,23 @@ function largerFont(){
 
 }
 
-function smallerFont(){
+function smallerFont() {
 	var size = parseFloat(getProperty(':root', '--font-value'));
-	if(size > 0.6){
+	if (size > 0.6) {
 		size -= 0.1;
 		setProperty(':root', '--font-value', size + 'rem');
 		setCookie('font-size', size + 'rem', 60);
 	}
 }
 
-function resetFont(){
+function resetFont() {
 	setProperty(':root', '--font-value', '.9rem');
 	setCookie('font-size', '.9rem', 60);
 }
 
-function changeContrast(isHighcontrast){
+function changeContrast(isHighcontrast) {
 	setCookie('high-contrast', isHighcontrast, 60);
-	if(isHighcontrast){
+	if (isHighcontrast) {
 		setProperty(':root', '--primary-1', "#000");
 		setProperty(':root', '--primary-2', "#000");
 		setProperty(':root', '--primary-3', "#000");
@@ -176,7 +176,7 @@ function changeContrast(isHighcontrast){
 		setProperty(':root', '--accent-2-2', "lightblue");
 		setProperty(':root', '--on-light-bg', "yellow");
 	}
-	else{
+	else {
 		setProperty(':root', '--primary-1', "");
 		setProperty(':root', '--primary-2', "");
 		setProperty(':root', '--primary-3', "");
@@ -193,3 +193,28 @@ function changeContrast(isHighcontrast){
 		setProperty(':root', '--on-light-bg', "");
 	}
 }
+
+const b5toast = {
+	show: function (color, title, message) {
+		title = title ? title : "";
+		const html =
+			`<div class="notify-container">
+			<div class="rectangle ${color}">
+				<div class="notification-text">
+				<span><b>${title}:</b></span>
+				<span>&nbsp;&nbsp;${message}</span>
+				</div>
+			</div>
+		</div>`;
+		const toastElement = b5toast.htmlToElement(html);
+		document.getElementById("toast-container").appendChild(toastElement);
+		setTimeout(() => toastElement.remove(), b5toast.delayInMilliseconds);
+	},
+	delayInMilliseconds: 5000,
+	htmlToElement: (html) => {
+		const template = document.createElement("template");
+		html = html.trim();
+		template.innerHTML = html;
+		return template.content.firstChild;
+	}
+};

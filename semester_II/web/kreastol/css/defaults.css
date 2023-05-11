@@ -14,6 +14,7 @@
   --accent-1-2: #3b2035;
   --accent-2: #95ba57;
   --accent-2-2: #313b20;
+  --success: rgba(0, 232, 151, 0.9);
   --light-bg: #ebf0e9;
   --on-light-bg: #0f0f0f;
   --on-primary: var(--primary-1);

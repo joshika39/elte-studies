@@ -1,25 +1,52 @@
 <?php
 
-if(isset($_POST)){
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require_once 'mail/Exception.php';
+require_once 'mail/SMTP.php';
+require_once 'mail/PHPMailer.php';
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+	session_start();
+
 	$email = $_POST['email'];
 	$fName = $_POST['full-name'];
 	$gender = $_POST['gender'];
 	$comment = $_POST['comment'];
 
-	echo "Email: " . $email . "<br>";
-	echo "Full Name: " . $fName . "<br>";
-	echo "Gender: " . $gender . "<br>";
-	echo "Comment: " . $comment . "<br>";
+	$replyMessage = "Az ön által beküldött megjegyzés:\n" . $comment . "\n";
 
-	$replyMessage = "Az ön által beküldött megjegyzés:\n". $comment . "\n";
+	try {
+		$mail = new PHPMailer();
 
+		$mail->SMTPDebug = 0;
+		$mail->isSMTP();
+		$mail->Host = 'smtp-relay-censored-for-privacy';
+		$mail->SMTPAuth = true;
+		$mail->Username = 'username-censored-for-privacy';
+		$mail->Password = 'api-key-censored-for-privacy';
+		$mail->SMTPSecure = 'censored-for-privacy';
+		$mail->Port = 587;
+		$mail->CharSet = "UTF-8";
 
-	$response = mail($email, "Köszönjük, hogy kinyúlt felénk!", $replyMessage);
+		$mail->setFrom('joshua@kreastol.club', 'Joshua Hegedus');
+		$mail->addAddress($email, $fName);
 
-	if($response){
-		echo "Mail sent: " . $response;
-	}
-	else{
-		echo "Mail has not been sent: " . $response;
+		$mail->isHTML(true);
+		$mail->Subject = 'Köszönjük a visszajelzését';
+		$mail->Body = strip_tags($replyMessage);
+		$mail->AltBody = strip_tags($replyMessage);
+
+		$mail->send();
+
+		$_SESSION['message'] = "sent";
+		$_SESSION['shown'] = false;
+
+		header("Location: ../contact.php");
+
+	} catch (Exception $e) {
+		echo $e;
 	}
 }

@@ -1,3 +1,11 @@
+<?php
+
+session_start();
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="hu">
 
@@ -18,7 +26,7 @@
     <p>Kérlek jelezz, ha van bármi ötleted, vagy észrevételed. Nagyon szépen köszönjük.</p>
     <hr>
     <div class="form">
-      <form action="mailto:not.exists@domain.com" method="post" enctype="text/plain">
+      <form action="backend/send.php" method="post">
 
         <div class="input">
           <label for="email" class="input-label">
@@ -35,20 +43,24 @@
         </div>
 
         <div class="input radio">
+          <p>Nem: </p>
           <label for="male" class="radio-label">
             Férfi
-            <input class="radio-field" name="gender" value="male" type="radio" id="male"/>
+            <input class="radio-field" name="gender" value="male" type="radio" id="male" />
           </label>
           <span></span>
           <label for="female" class="radio-label">
             Nő
             <input class="radio-field" name="gender" value="female" type="radio" id="female" />
+          </label>          
+        </div>
+        <div class="input radio">
+        <label for="newsletter" class="radio-label">
+            Szeretnék hírleveleket
+            <input class="radio-field" name="newsletter" type="checkbox" id="newsletter" />
           </label>
         </div>
-
-        <!-- <div class="input">
-
-        </div> -->
+      
         <div class="input">
           <label for="comment" class="input-label">
             <textarea class="field" name="comment" id="comment" cols="30" rows="10" required placeholder=" "></textarea>
@@ -71,11 +83,20 @@
           se tartsd magadban. Bármi nemű hozzájárulást nagyon szépen köszönünk.</p>
       </section>
     </div>
+    <div id="toast-container"></div>
   </div>
   <footer id="footer" class="footer notprint"></footer>
   <script src="js/jquery.js"></script>
   <script src="js/functions.js"></script>
   <script src="js/main.js"></script>
+
+  <?php
+  if (isset($_SESSION['message']) && $_SESSION['shown'] == false) {
+    $_SESSION['shown'] = true;
+    ?>
+    <script>b5toast.show("success", "Siker", "Üzenet elküldve!");</script>
+  <?php } ?>
+
 </body>
 
 </html>
