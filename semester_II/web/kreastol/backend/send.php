@@ -23,11 +23,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		$mail->SMTPDebug = 0;
 		$mail->isSMTP();
-		$mail->Host = 'smtp-relay-censored-for-privacy';
+		$mail->Host = 'smtp-relay.sendinblue.com';
 		$mail->SMTPAuth = true;
-		$mail->Username = 'username-censored-for-privacy';
-		$mail->Password = 'api-key-censored-for-privacy';
-		$mail->SMTPSecure = 'censored-for-privacy';
+		$mail->Username = 'jhegedus9@gmail.com';
+		$mail->Password = '*****';
+		$mail->SMTPSecure = 'tls';
 		$mail->Port = 587;
 		$mail->CharSet = "UTF-8";
 
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		$_SESSION['message'] = "sent";
 		$_SESSION['shown'] = false;
-
+		
 		header("Location: ../contact.php");
 
 	} catch (Exception $e) {
