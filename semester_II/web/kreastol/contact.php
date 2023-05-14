@@ -15,6 +15,7 @@ session_start();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kapcsolat</title>
   <link rel="stylesheet" type="text/css" href="css/contact.css">
+  <link rel="stylesheet" type="text/css" href="css/print.css">
   <link rel="shortcut icon" href="assets/Logo.png" type="image/x-icon" />
 </head>
 
