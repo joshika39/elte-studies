@@ -6,7 +6,7 @@ $(function () {
     setProperty(':root', '--font-value', getCookie('font-size'));
   }
 
-  changeContrast(getCookie('high-contrast') == 'true'); 
+  changeContrast(getCookie('high-contrast') == 'true');
 
   loadHtml('layout/nav.html', 'navbar', createNavbar);
   loadHtml('layout/footer.html', 'footer', () => { });

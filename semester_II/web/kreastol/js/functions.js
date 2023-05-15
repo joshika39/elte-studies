@@ -36,33 +36,33 @@ function createNavbar() {
 	let navTitle = document.querySelector("#navbar .title");
 
 	navTitle.classList.add("title");
-	navTitle.textContent = document.title;
+	navTitle.textContent = document.title.replace('Kreastol ・ ', '');
 	setCurrentPage(document.title);
 }
 
 function setCurrentPage(title) {
-	if (title == "Kezdőlap") {
+	if (title.includes("Kezdőlap")) {
 		addSidewayMove();
 		if (document.querySelector("#home-page")) {
 			document.querySelector("#home-page").style.textDecoration = "underline";
 		}
 	}
-	else if (title == "Hírek") {
+	else if (title.includes("Hírek")) {
 		if (document.querySelector("#news-page")) {
 			document.querySelector("#news-page").style.textDecoration = "underline";
 		}
 	}
-	else if (title == "Rólunk") {
+	else if (title.includes("Rólunk")) {
 		if (document.querySelector("#about-page")) {
 			document.querySelector("#about-page").style.textDecoration = "underline";
 		}
 	}
-	else if (title == "Kapcsolat") {
+	else if (title.includes("Kapcsolat")) {
 		if (document.querySelector("#contact-page")) {
 			document.querySelector("#contact-page").style.textDecoration = "underline";
 		}
 	}
-	else if (title == "Profilom") {
+	else if (title.includes("Profilom")) {
 		if (document.querySelector("#profile-page")) {
 			document.querySelector("#profile-page").style.textDecoration = "underline";
 		}
@@ -70,32 +70,34 @@ function setCurrentPage(title) {
 }
 
 function addSidewayMove() {
-	const slider = document.querySelector(".events");
-	let mouseDown = false;
-	let startX, scrollLeft;
-
-	let startDragging = function (e) {
-		mouseDown = true;
-		startX = e.pageX - slider.offsetLeft;
-		scrollLeft = slider.scrollLeft;
-	};
-	let stopDragging = function (event) {
-		mouseDown = false;
-	};
-
-	slider.addEventListener("mousemove", (e) => {
-		e.preventDefault();
-		if (!mouseDown) {
-			return;
-		}
-		const x = e.pageX - slider.offsetLeft;
-		const scroll = x - startX;
-		slider.scrollLeft = scrollLeft - scroll;
-	});
-
-	slider.addEventListener("mousedown", startDragging, false);
-	slider.addEventListener("mouseup", stopDragging, false);
-	slider.addEventListener("mouseleave", stopDragging, false);
+	if (document.title.includes("Kezdőlap")){
+		const slider = document.querySelector("#events");
+		let mouseDown = false;
+		let startX, scrollLeft;
+	
+		let startDragging = function (e) {
+			mouseDown = true;
+			startX = e.pageX - slider.offsetLeft;
+			scrollLeft = slider.scrollLeft;
+		};
+		let stopDragging = function (event) {
+			mouseDown = false;
+		};
+	
+		slider.addEventListener("mousemove", (e) => {
+			e.preventDefault();
+			if (!mouseDown) {
+				return;
+			}
+			const x = e.pageX - slider.offsetLeft;
+			const scroll = x - startX;
+			slider.scrollLeft = scrollLeft - scroll;
+		});
+	
+		slider.addEventListener("mousedown", startDragging, false);
+		slider.addEventListener("mouseup", stopDragging, false);
+		slider.addEventListener("mouseleave", stopDragging, false);
+	}
 }
 
 function getProperty(element, propertyName) {
