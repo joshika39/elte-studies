@@ -1,0 +1,9 @@
+<archetype>
+  <id>Beadando</id>
+  <sources>
+    <source>src/main/java/com.yqmhwo.App.java</source>
+  </sources>
+  <testSources>
+    <source>src/test/java/AppTest.java</source>
+  </testSources>
+</archetype>
