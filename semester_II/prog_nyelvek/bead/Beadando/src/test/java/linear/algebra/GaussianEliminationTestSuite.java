@@ -1,4 +1,4 @@
-package com.yqmhwo;
+package linear.algebra;
 
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;

@@ -1,4 +1,4 @@
-package com.yqmhwo;
+package linear.algebra;
 
 import static check.CheckThat.*;
 import static check.CheckThat.Condition.*;

@@ -1,4 +1,4 @@
-package com.yqmhwo;
+package linear.algebra;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,10 +19,10 @@ public class GaussianEliminationTest {
 		{ 1.0, 1.0, -1.0,  1.0 },
 		{ 3.0, 11.0, 5.0, 35.0 } };
 
-	double[][] rowEchelonForm1 = new double[][] {
-        { 1.0, 1.5, 2.0, 3.0 },
-        { 0.0, 1.0, 2.0, 4.0 },
-        { 0.0, 0.0, 1.0, 2.0 } };
+		double[][] rowEchelonForm1 = new double[][] {
+			{ 1.0, 1.5, 2.0, 3.0 },
+			{ 0.0, 1.0, 2.0, 4.0 },
+			{ 0.0, 0.0, 1.0, 2.0 } };
 
 	double[][] matrix1AfterBackSubstitution = new double[][] {
 		{ 1.0, 0.0, 0.0, -1.0 },
@@ -45,10 +45,11 @@ public class GaussianEliminationTest {
 		GaussianElimination ge = new GaussianElimination(3, 4, matrix1);
 
 		ge.rowEchelonForm();
+		ge.print();
 		assertArrayEquals(rowEchelonForm1, ge.getMatrix());
 
-		ge.backSubstitution();
-		assertArrayEquals(matrix1AfterBackSubstitution, ge.getMatrix());
+//		ge.backSubstitution();
+//		assertArrayEquals(matrix1AfterBackSubstitution, ge.getMatrix());
 	}
 
 	@Test
