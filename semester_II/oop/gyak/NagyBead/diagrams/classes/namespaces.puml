@@ -21,11 +21,6 @@ package LibraryCore{
     ILibrary "0..1" *-- "*" ILibraryBook : Lends >
     IDraft "1.." *-- IAuthor : Contains >
 
-    ' diamond libraryAssoc
-
-    ' libraryAssoc -- ILibraryBook
-    ' libraryAssoc -- IMember
-    ' libraryAssoc -- ILibrary
 
 
 }

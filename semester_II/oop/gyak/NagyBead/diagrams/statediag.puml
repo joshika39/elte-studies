@@ -1,0 +1,19 @@
+@startuml State
+[*] --> InLib
+
+state InLib
+
+InLib: BorrowedBy: null
+InLib: BorrowedAt: default
+InLib: ReturnAt: default
+
+state Borrowed 
+
+Borrowed: BorrowedBy: IMember object
+Borrowed: BorrowedAt: DateTime object
+Borrowed: ReturnAt: DateTime object
+
+InLib --> Borrowed : LendBook(IBook book, DateTime date, Guid memberId)
+Borrowed --> InLib : ReturnBook(IBook book, DateTime date, Guid memberId)
+
+@enduml

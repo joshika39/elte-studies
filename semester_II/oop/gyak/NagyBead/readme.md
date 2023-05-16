@@ -35,23 +35,31 @@ Használjon ***tervezési mintákat***, és mutasson rá, hogy hol melyiket alka
 
 # Jegyzet
 
-[Összes osztály megtekintése böngészőben](https://shorturl.at/hAPQY  "Classes")
+A kölcsönzési tevékenységet nem láttam effektív módjának a megvalósításnak, de ehhez hasonlóan létrehoztam egy `MemberDTO` *([Data Transfer Object](https://www.okta.com/identity-101/dto/))*-t amely segített a bejelentkezést és a könyv kölcsönzést biztonságossá tenni, mert ez a DTO eltárolja a member-t és egy egyedi ID-t amit csak a könyvtár és a member ismer, (kívülről nem elérhető)
 
-[Követelmény osztályok megtekintése](https://shorturl.at/hAPQY  "Classes")
+### Osztály diagramok
 
-A kölcsönzési tevékenységet nem láttam effektív módjának a megvalósításnak, de ehhez hasonlóan létrehoztam egy `MemberDTO` *([Data Transfer Object](https://www.okta.com/identity-101/dto/))*-t amely segített a bejelentkezést és a könyv kölcsönzést biztonságossá tenni, mert ez a  
+**[Összes osztály megtekintése böngészőben](https://shorturl.at/hAPQY  "Classes")**
+
+[Követelmény szerinti osztálydiagram megtekintése](https://shorturl.at/gqyV7)
+
+### Egyéb diagramok
+
+- [Link a használati eset diagramhoz](https://shorturl.at/mnuw8)
+- [Link a objectum diagramhoz](https://shorturl.at/bgmrY)
+- [Link a szekvenciális diagramhoz](https://shorturl.at/COP58)
+- [Link a állapotgép diagramhoz](https://shorturl.at/gmCE5)
+
 
 ## Alkalmazott tervezési minták
 
 - Abstract Factory
 - Template Method
 - Strategy pattern
+- Dependency Inversion
+- **SOLID** elvek a liskov elv nélkül
 
-## Diagramok
+## Fontos linkek
 
-- [ ] használati eset diagram
-- [ ] objektum diagram
-- [ ] osztály diagramját
-    - [ ] objektum-kapcsolatokat létrehozó metódusok
-    - [ ] feladat kérdéseit megválaszoló metódusok
-- [ ] egy könyv objektum állapotgépe
+- [Diagram struktúra megtegintése GitHub-on](https://github.com/joshika39/college/tree/progress/semester_II/oop/gyak/NagyBead/diagrams)
+- [Ez a README legfirsseb változata GitHub-on](https://github.com/joshika39/college/tree/progress/semester_II/oop/gyak/NagyBead)

@@ -2,8 +2,15 @@
 
 actor Member
 Participant Library
+Participant Bill
 
 Member -> Library : Borrow()
-Library -> Library : LendBook()
+Member <- Library : LendBook()
+
+Member -> Library : Return()
+Member <- Library : ReturnBook()
+
+Member -> Bill : Pay(amount)
+Member <- Bill : Pay(amount)
 
 @enduml
