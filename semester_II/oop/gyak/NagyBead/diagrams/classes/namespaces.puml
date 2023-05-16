@@ -9,10 +9,10 @@ package LibraryCore{
     !include misc.puml!MISC
 
 
-    IBill <.. LateReturnBill
+    IBill <|.. LateReturnBill
 
-    IAuthor <.. Author
-    IPublisher <.. Publisher
+    IAuthor <|.. Author
+    IPublisher <|.. Publisher
 
 
     IPublisher "0..1" *-- "*" IBook : Publishes <

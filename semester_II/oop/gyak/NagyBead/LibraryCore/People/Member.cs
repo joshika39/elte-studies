@@ -1,4 +1,5 @@
-﻿using LibraryCore.Book;
+﻿using System.Collections.Immutable;
+using LibraryCore.Book;
 using LibraryCore.Lib;
 
 namespace LibraryCore.People;
@@ -17,7 +18,7 @@ public class Member : IMember
     public string UserName { get; }
     public DateTime BornAt { get; }
     public double Balance { get; set; }
-    public IEnumerable<ILibraryBook> BorrowedBooks => _borrowedBooks;
+    public IImmutableList<ILibraryBook> BorrowedBooks => _borrowedBooks.ToImmutableList();
     public IList<IBill> PendingBills { get; }
 
 
@@ -89,9 +90,8 @@ public class Member : IMember
 
     public void Pay(IBill bill, double amount)
     {
-        if (PendingBills.Any(b => b.Id == bill.Id))
-        {
-            Balance = bill.Pay(amount);
-        }
+        if (PendingBills.All(b => b.Id != bill.Id)) return;
+        Balance -= amount;
+        Balance += bill.Pay(amount);
     }
 }

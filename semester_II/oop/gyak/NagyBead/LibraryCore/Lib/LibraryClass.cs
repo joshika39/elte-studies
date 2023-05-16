@@ -1,4 +1,5 @@
-﻿using Infrastructure.IO;
+﻿using System.Collections.Immutable;
+using Infrastructure.IO;
 using LibraryCore.Book;
 using LibraryCore.Book.Factory;
 using LibraryCore.People;
@@ -12,9 +13,9 @@ namespace LibraryCore.Lib
         private readonly IBookFactory _bookFactory;
         private readonly IList<MemberDTO> _members;
         
-        public IEnumerable<ILibraryBook> AvailableBooks => AllBooks.Where(b => !_borrowedBooks.Contains(b));
+        public IImmutableList<ILibraryBook> AvailableBooks => AllBooks.Where(b => !_borrowedBooks.Contains(b)).ToImmutableList();
         public Guid Id { get; }
-        public IList<ILibraryBook> AllBooks { get; }
+        public IEnumerable<ILibraryBook> AllBooks { get; private set; }
 
         public LibraryClass(IBookFactory bookFactory, IReader reader)
         {
@@ -41,7 +42,10 @@ namespace LibraryCore.Lib
         public void GetNewBook(IBook book, string category)
         {
             var libBook = _bookFactory.CreateGeneralBook(book, Id, category);
-            AllBooks.Add(libBook);
+            
+            var tempBooks = AllBooks.ToList();
+            tempBooks.Add(libBook);
+            AllBooks = tempBooks;
         }
 
         public bool LendBook(IBook book, DateTime date, Guid memberId)
@@ -119,10 +123,10 @@ namespace LibraryCore.Lib
         
         private void GetNewBook(ILibraryBook book)
         {
-            if (AllBooks.Any(b => b.LibraryId != book.LibraryId))
-            {
-                AllBooks.Add(book);
-            }
+            if (AllBooks.Any(b => b.LibraryId == book.LibraryId)) return;
+            var tempBooks = AllBooks.ToList();
+            tempBooks.Add(book);
+            AllBooks = tempBooks;
         }
 
         private bool SearchBook(string isbn, IEnumerable<ILibraryBook> target, out ILibraryBook? result)

@@ -33,6 +33,14 @@ Használjon ***tervezési mintákat***, és mutasson rá, hogy hol melyiket alka
 
 ***Implementálja*** a modelljét! Szerkesszen olyan ***szöveges állományt***, amelyből fel lehet ***populálni*** egy könyvtár könyveit, könyvtári tagjait, néhány kölcsönzést és könyv visszahozást. Számoljuk ki egy tag pótdíját! Készítsen teszteseteket, néhánynak rajzolja fel a ***szekvencia diagramját***, és hozzon létre ezek kipróbálására ***automatikusan tesztkörnyezetet***!
 
+# Jegyzet
+
+[Összes osztály megtekintése böngészőben](https://shorturl.at/hAPQY  "Classes")
+
+[Követelmény osztályok megtekintése](https://shorturl.at/hAPQY  "Classes")
+
+A kölcsönzési tevékenységet nem láttam effektív módjának a megvalósításnak, de ehhez hasonlóan létrehoztam egy `MemberDTO` *([Data Transfer Object](https://www.okta.com/identity-101/dto/))*-t amely segített a bejelentkezést és a könyv kölcsönzést biztonságossá tenni, mert ez a  
+
 ## Alkalmazott tervezési minták
 
 - Abstract Factory

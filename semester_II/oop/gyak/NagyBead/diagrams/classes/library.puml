@@ -24,59 +24,82 @@ class PhisycalBooks implements IBookSource{
 !startsub Rec
 interface ILibrary{
 	+ Id: Guid
-	+ AllBooks: IList<IBook>
-	+ LendBook(member: IMember, book: IBook): void
-	+ ReturnBook(member: IMember, book: ILibraryBook): void
-	+ ReturnBooks(member: IMember, books: IEnumerable<ILibraryBook>): void
+	+ AllBooks: IEnumerable<ILibraryBook>
+    + AvailableBooks: IImmutableList<ILibraryBook>
+    + Login(username: string): IMember
 	+ GetNewBook(book: IBook, category: string): void
+	+ LendBook(book: IBook, date: DateTime, memberId: Guid): bool
+	+ ReturnBook(book: ILibraryBook, date: DateTime, memberId: Guid): bool
 	+ Register(name: string, username: string, bornAt: DateTime): void
-	+ Register(member: IMember): void
+	+ LoadBooks(path: string): void
+    + LoadMembers(path: string): void
 }
 
 interface IMember{
 	+ Name: string
 	+ UserName: string
 	+ BornAt: Date
+	+ Balance: double
 	+ PendingBills: IList<IBill>
 	+ BorrowedBooks: IEnumerable<ILibraryBook>
 	+ Borrow(book: ILibraryBook): void
 	+ Return(book: ILibraryBook): void
 	+ Pay(): void
+	+ Pay(amount: double): void
+	+ Pay(bill: IBill, amount: double): void
 }
-
-!endsub
-
 
 class LibraryClass{
 	- _borrowedBooks: IList<ILibraryBook>
-	- SearchBook(isbn: string, target: IEnumerable<ILibraryBook>): ILibraryBook
 	- _bookFactory: IBookFactory
 	- _members: IList<IMember>
 	+ Id: Guid
-	+ AllBooks: IList<IBook>
-	+ LendBook(member: IMember, book: IBook): void
-	+ ReturnBook(member: IMember, book: ILibraryBook): void
-	+ ReturnBooks(member: IMember, books: IEnumerable<ILibraryBook>): void
+	+ AllBooks: IEnumerable<ILibraryBook>
+    + AvailableBooks: IImmutableList<ILibraryBook>
+    + Login(username: string): IMember
 	+ GetNewBook(book: IBook, category: string): void
+	+ LendBook(book: IBook, date: DateTime, memberId: Guid): bool
+	+ ReturnBook(book: ILibraryBook, date: DateTime, memberId: Guid): bool
 	+ Register(name: string, username: string, bornAt: DateTime): void
-	+ Register(member: IMember): void
+	+ LoadBooks(path: string): void
+    + LoadMembers(path: string): void
+	+ <<constructor>> LibraryClass(bookFactory: IBookFactory, reader: IReader)
+	- GetNewBook(book: ILibraryBook): void
+	- SearchBook(isbn: string, target: IEnumerable<ILibraryBook>, result: *ILibraryBook): bool
+	- SearchUser(Guid memberId, member: *IMember): bool
+	- MemberTryParse(line: string, member: *IMember): bool
+
 }
 
 class Member{
 	- _lib: ILibrary
 	- _borrowedBooks: IList<ILibraryBook>
+	- _id: Guid
 	+ Name: string
 	+ UserName: string
 	+ BornAt: Date
+	+ Balance: double
 	+ PendingBills: IList<IBill>
 	+ BorrowedBooks: IEnumerable<ILibraryBook>
 	+ Borrow(book: ILibraryBook): void
 	+ Return(book: ILibraryBook): void
 	+ Pay(): void
+	+ Pay(amount: double): void
+	+ Pay(bill: IBill, amount: double): void
+	+ <<constructor>> Member(name: string, userName: string, bornAt: DateTime, lib: ILibrary)
 }
 
-ILibrary <.. LibraryClass
-ILibrary "0..1" *-- "*" IMember : Registers >
-IMember <.. Member
+class MemberDTO {
+	+ Member: IMember
+	+ Id: Guid
+}
+
+ILibrary <|.. LibraryClass
+ILibrary -- IMember : Registers >
+LibraryClass "0..1" *-- "*" MemberDTO
+IMember <|.. Member
+MemberDTO *-- IMember
+
+!endsub
 
 @enduml
