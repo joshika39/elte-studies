@@ -1,12 +1,13 @@
-﻿namespace Library;
-
-public class Constants
+﻿namespace LibraryCore
 {
-    public class BookTypes
+    public static class Constants
     {
-        public const string SCIENCE_BOOK = "természettudományi";
-        public const string LITERATURE_BOOK = "szépirodalmi";
-        public const string YOUTH_BOOK = "ifijúsági";
+        public static class BookTypes
+        {
+            public const string SCIENCE_BOOK = "természettudományi";
+            public const string LITERATURE_BOOK = "szépirodalmi";
+            public const string YOUTH_BOOK = "ifijúsági";
         
+        }
     }
 }

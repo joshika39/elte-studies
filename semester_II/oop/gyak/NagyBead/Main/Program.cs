@@ -1,19 +1,23 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using Library;
+using Core;
 using LibraryCore;
 using LibraryCore.Book.Factory;
 using LibraryCore.Lib;
 using LibraryCore.People;
-Console.WriteLine("Hello, World!");
 
-int[,] tomb = new int[4,4];
-tomb[0, 0] = 3;
-tomb[1, 0] = 3;
-tomb[2, 0] = 3;
-tomb[3, 0] = 3;
+Bootstrapper.Initialize(out var reader);
+var bookFact = new BookFactory();
+ILibrary lib = new LibraryClass(bookFact, reader);
 
-// ILibrary lib = new LibraryClass(new BookFactory());
+lib.LoadBooks(@"Resources\books.txt");
+lib.LoadMembers(@"Resources\members.txt");
+
+lib.LendBook(lib.Members[0], lib.AllBooks[0], new DateTime(2023, 05, 01));
+lib.ReturnBook(lib.Members[0], lib.AllBooks[0], new DateTime(2023, 06, 14));
+
+Console.WriteLine(lib.Members[0].PendingBills[0]);
+
 // IMember member = new Member("asd", ":asd", new DateTime(), lib);
 //
 // IAuthor ks = new Author("Kovács Sándor", new DateTime(1652, 3, 24));

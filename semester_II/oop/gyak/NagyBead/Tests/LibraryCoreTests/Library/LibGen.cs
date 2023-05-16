@@ -1,4 +1,4 @@
-﻿using Library;
+﻿using Core;
 using LibraryCore;
 using LibraryCore.Book.Factory;
 using LibraryCore.Lib;
@@ -10,7 +10,8 @@ public static class LibGen
 {
     public static ILibrary GetTestLibrary()
     {
-        return new LibraryClass(new BookFactory());
+        Bootstrapper.Initialize(out var reader);
+        return new LibraryClass(new BookFactory(), reader);
     }
 
     public static ILibrary PopulateLibraryMembers(this ILibrary library)

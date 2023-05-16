@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="joshika39-Core" Version="0.2.3.1" />
+    </ItemGroup>
+
 </Project>

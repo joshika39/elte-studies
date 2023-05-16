@@ -10,4 +10,9 @@ public class LateReturnBill : IBill
         Id = Guid.NewGuid();
         Amount = amount;
     }
+
+    public override string ToString()
+    {
+        return $"Bill ID: {Id}\nAmount: ${Amount}";
+    }
 }

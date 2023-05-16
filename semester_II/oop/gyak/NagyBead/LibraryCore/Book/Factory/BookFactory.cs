@@ -1,13 +1,13 @@
-﻿using Library;
+﻿using Infrastructure.IO;
 using LibraryCore.Book.Types;
 using LibraryCore.Book.Types.Online;
 using LibraryCore.Book.Types.Physical;
+using LibraryCore.People;
 
 namespace LibraryCore.Book.Factory
 {
     public class BookFactory : IBookFactory
     {
-
         public IeBook CreateOnlineBook(IBook book, Guid libraryId, string bookId, double size, string format, string category)
         {
             if (book == null) throw new ArgumentNullException(nameof(book));
@@ -78,6 +78,41 @@ namespace LibraryCore.Book.Factory
                     throw new InvalidOperationException("Invalid book category");
             }
             return libBook;
+        }
+
+        public static bool LibBookTryParse(string line, out ILibraryBook libBook)
+        {
+            var data = line.Trim().Split(new []{';', '\t'}, StringSplitOptions.RemoveEmptyEntries);
+            var authors = new List<IAuthor>();
+            
+            foreach (var authorStr in data[7].Split(',', StringSplitOptions.RemoveEmptyEntries))
+            {
+                authors.Add(new Author(authorStr, new DateTime()));
+            }
+
+            var book = new PublishedBook(
+                data[1], 
+                data[2], 
+                int.Parse(data[3]), 
+                DateTime.Parse(data[6]), 
+                authors.ToArray());
+
+            switch (data[0])
+            {
+                case Constants.BookTypes.SCIENCE_BOOK:
+                    libBook = new ScienceBook(book, Guid.Parse(data[4]), data[5], 100);
+                    break;
+                case Constants.BookTypes.LITERATURE_BOOK:
+                    libBook = new LiteratureBook(book, Guid.Parse(data[4]), data[5], 100);
+                    break;
+                case Constants.BookTypes.YOUTH_BOOK:
+                    libBook = new YouthBook(book, Guid.Parse(data[4]), data[5], 100);
+                    break;
+                default:
+                    throw new InvalidOperationException("Invalid book category");
+            }
+
+            return true;
         }
     }
 }
