@@ -12,24 +12,22 @@ public abstract class ABook : ILibraryBook
     public IAuthor MainAuthor => Authors.FirstOrDefault()!;
     public IList<IAuthor> Authors { get; }
     public Guid LibraryId { get; }
-    public string BookId { get; }
-    public IMember BorrowedBy { get; set; }
+    public IMember? BorrowedBy { get; set; }
     public DateTime BorrowedAt { get; set; }
     public DateTime ReturnAt { get; set; }
 
-    protected ABook(IBook book, Guid libraryId, string bookId)
+    protected ABook(IBook book, Guid libraryId)
     {
         if (book == null) throw new ArgumentNullException(nameof(book));
         
         LibraryId = libraryId;
-        BookId = bookId;
         ISBN = book.ISBN;
         Title = book.Title;
         PageCount = book.PageCount;
         PublishedAt = book.PublishedAt;
         Authors = book.Authors;
     }
-    
+
     public abstract void ValidateReturn(DateTime returnDate);
 
     protected void ValidateReturn(DateTime returnDate, int amount)

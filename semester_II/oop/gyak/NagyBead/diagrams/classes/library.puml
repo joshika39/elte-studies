@@ -25,7 +25,6 @@ class PhisycalBooks implements IBookSource{
 interface ILibrary{
 	+ Id: Guid
 	+ AllBooks: IList<IBook>
-	+ Members: IList<IMember>
 	+ LendBook(member: IMember, book: IBook): void
 	+ ReturnBook(member: IMember, book: ILibraryBook): void
 	+ ReturnBooks(member: IMember, books: IEnumerable<ILibraryBook>): void
@@ -38,21 +37,23 @@ interface IMember{
 	+ Name: string
 	+ UserName: string
 	+ BornAt: Date
-	+ BorrowedBooks: IList<ILibraryBook>
 	+ PendingBills: IList<IBill>
+	+ BorrowedBooks: IEnumerable<ILibraryBook>
 	+ Borrow(book: ILibraryBook): void
+	+ Return(book: ILibraryBook): void
+	+ Pay(): void
 }
 
 !endsub
 
 
 class LibraryClass{
-	- BorrowedBooks: IList<ILibraryBook>
+	- _borrowedBooks: IList<ILibraryBook>
 	- SearchBook(isbn: string, target: IEnumerable<ILibraryBook>): ILibraryBook
 	- _bookFactory: IBookFactory
+	- _members: IList<IMember>
 	+ Id: Guid
 	+ AllBooks: IList<IBook>
-	+ Members: IList<IMember>
 	+ LendBook(member: IMember, book: IBook): void
 	+ ReturnBook(member: IMember, book: ILibraryBook): void
 	+ ReturnBooks(member: IMember, books: IEnumerable<ILibraryBook>): void
@@ -61,17 +62,17 @@ class LibraryClass{
 	+ Register(member: IMember): void
 }
 
-
-
-
 class Member{
 	- _lib: ILibrary
+	- _borrowedBooks: IList<ILibraryBook>
 	+ Name: string
 	+ UserName: string
 	+ BornAt: Date
-	+ BorrowedBooks: IList<ILibraryBook>
 	+ PendingBills: IList<IBill>
+	+ BorrowedBooks: IEnumerable<ILibraryBook>
 	+ Borrow(book: ILibraryBook): void
+	+ Return(book: ILibraryBook): void
+	+ Pay(): void
 }
 
 ILibrary <.. LibraryClass

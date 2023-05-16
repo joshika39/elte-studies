@@ -4,8 +4,8 @@ namespace LibraryCore.Book.Types.Physical;
 
 public class LiteratureBook : APhysicalBook
 {
-    public LiteratureBook(IBook book, Guid libraryId, string bookId, float preservation)
-        : base(book, libraryId, bookId, preservation)
+    public LiteratureBook(IBook book, Guid libraryId, float preservation)
+        : base(book, libraryId, preservation)
     { }
     
     public override void ValidateReturn(DateTime returnDate)

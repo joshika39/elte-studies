@@ -8,23 +8,22 @@ namespace LibraryCore.Book.Factory
 {
     public class BookFactory : IBookFactory
     {
-        public IeBook CreateOnlineBook(IBook book, Guid libraryId, string bookId, double size, string format, string category)
+        public IeBook CreateOnlineBook(IBook book, Guid libraryId, double size, string format, string category)
         {
             if (book == null) throw new ArgumentNullException(nameof(book));
-            if (bookId == null) throw new ArgumentNullException(nameof(bookId));
             if (format == null) throw new ArgumentNullException(nameof(format));
             if (category == null) throw new ArgumentNullException(nameof(category));
             IeBook libBook;
             switch (category)
             {
                 case Constants.BookTypes.SCIENCE_BOOK:
-                    libBook = new EScienceBook(book, libraryId, bookId, size, format);
+                    libBook = new EScienceBook(book, libraryId, size, format);
                     break;
                 case Constants.BookTypes.LITERATURE_BOOK:
-                    libBook = new ELiteratureBook(book, libraryId, bookId, size, format);
+                    libBook = new ELiteratureBook(book, libraryId, size, format);
                     break;
                 case Constants.BookTypes.YOUTH_BOOK:
-                    libBook = new EYouthBook(book, libraryId, bookId, size, format);
+                    libBook = new EYouthBook(book, libraryId, size, format);
                     break;
                 default:
                     throw new InvalidOperationException("Invalid book category");
@@ -32,23 +31,22 @@ namespace LibraryCore.Book.Factory
             return libBook;
         }
         
-        public IPhysicalBook CreateBook(IBook book, Guid libraryId, string bookId, float preservation, string category)
+        public IPhysicalBook CreateBook(IBook book, Guid libraryId, float preservation, string category)
         {
             if (book == null) throw new ArgumentNullException(nameof(book));
-            if (bookId == null) throw new ArgumentNullException(nameof(bookId));
             if (category == null) throw new ArgumentNullException(nameof(category));
             
             IPhysicalBook libBook;
             switch (category)
             {
                 case Constants.BookTypes.SCIENCE_BOOK:
-                    libBook = new ScienceBook(book, libraryId, bookId, preservation);
+                    libBook = new ScienceBook(book, libraryId, preservation);
                     break;
                 case Constants.BookTypes.LITERATURE_BOOK:
-                    libBook = new LiteratureBook(book, libraryId, bookId, preservation);
+                    libBook = new LiteratureBook(book, libraryId, preservation);
                     break;
                 case Constants.BookTypes.YOUTH_BOOK:
-                    libBook = new YouthBook(book, libraryId, bookId, preservation);
+                    libBook = new YouthBook(book, libraryId, preservation);
                     break;
                 default:
                     throw new InvalidOperationException("Invalid book category");
@@ -56,23 +54,22 @@ namespace LibraryCore.Book.Factory
             return libBook;
         }
 
-        public ILibraryBook CreateGeneralBook(IBook book, Guid libraryId, string bookId, string category)
+        public ILibraryBook CreateGeneralBook(IBook book, Guid libraryId, string category)
         {
             if (book == null) throw new ArgumentNullException(nameof(book));
-            if (bookId == null) throw new ArgumentNullException(nameof(bookId));
             if (category == null) throw new ArgumentNullException(nameof(category));
             
             ILibraryBook libBook;
             switch (category)
             {
                 case Constants.BookTypes.SCIENCE_BOOK:
-                    libBook = new ScienceBook(book, libraryId, bookId, 100);
+                    libBook = new ScienceBook(book, libraryId, 100);
                     break;
                 case Constants.BookTypes.LITERATURE_BOOK:
-                    libBook = new LiteratureBook(book, libraryId, bookId, 100);
+                    libBook = new LiteratureBook(book, libraryId, 100);
                     break;
                 case Constants.BookTypes.YOUTH_BOOK:
-                    libBook = new YouthBook(book, libraryId, bookId, 100);
+                    libBook = new YouthBook(book, libraryId, 100);
                     break;
                 default:
                     throw new InvalidOperationException("Invalid book category");
@@ -85,7 +82,7 @@ namespace LibraryCore.Book.Factory
             var data = line.Trim().Split(new []{';', '\t'}, StringSplitOptions.RemoveEmptyEntries);
             var authors = new List<IAuthor>();
             
-            foreach (var authorStr in data[7].Split(',', StringSplitOptions.RemoveEmptyEntries))
+            foreach (var authorStr in data[6].Split(',', StringSplitOptions.RemoveEmptyEntries))
             {
                 authors.Add(new Author(authorStr, new DateTime()));
             }
@@ -94,19 +91,19 @@ namespace LibraryCore.Book.Factory
                 data[1], 
                 data[2], 
                 int.Parse(data[3]), 
-                DateTime.Parse(data[6]), 
+                DateTime.Parse(data[5]), 
                 authors.ToArray());
 
             switch (data[0])
             {
                 case Constants.BookTypes.SCIENCE_BOOK:
-                    libBook = new ScienceBook(book, Guid.Parse(data[4]), data[5], 100);
+                    libBook = new ScienceBook(book, Guid.Parse(data[4]), 100);
                     break;
                 case Constants.BookTypes.LITERATURE_BOOK:
-                    libBook = new LiteratureBook(book, Guid.Parse(data[4]), data[5], 100);
+                    libBook = new LiteratureBook(book, Guid.Parse(data[4]), 100);
                     break;
                 case Constants.BookTypes.YOUTH_BOOK:
-                    libBook = new YouthBook(book, Guid.Parse(data[4]), data[5], 100);
+                    libBook = new YouthBook(book, Guid.Parse(data[4]), 100);
                     break;
                 default:
                     throw new InvalidOperationException("Invalid book category");

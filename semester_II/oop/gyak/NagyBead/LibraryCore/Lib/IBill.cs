@@ -3,5 +3,7 @@
 public interface IBill
 {
     Guid Id { get; }
-    int Amount { get; }
+    double Amount { get; }
+    bool IsPaid { get; }
+    double Pay(double amount);
 }

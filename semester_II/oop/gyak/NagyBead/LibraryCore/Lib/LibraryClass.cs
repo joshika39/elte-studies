@@ -8,14 +8,13 @@ namespace LibraryCore.Lib
     public class LibraryClass : ILibrary
     {
         private readonly IReader _reader;
+        private readonly IList<ILibraryBook> _borrowedBooks;
+        private readonly IBookFactory _bookFactory;
+        private readonly IList<MemberDTO> _members;
+        
+        public IEnumerable<ILibraryBook> AvailableBooks => AllBooks.Where(b => !_borrowedBooks.Contains(b));
         public Guid Id { get; }
         public IList<ILibraryBook> AllBooks { get; }
-        private IEnumerable<ILibraryBook> AvailableBooks => AllBooks.Where(b => !BorrowedBooks.Contains(b));
-    
-        private IList<ILibraryBook> BorrowedBooks { get; }
-        private readonly IBookFactory _bookFactory;
-    
-        public IList<IMember> Members { get; }
 
         public LibraryClass(IBookFactory bookFactory, IReader reader)
         {
@@ -23,93 +22,106 @@ namespace LibraryCore.Lib
             _reader = reader ?? throw new ArgumentNullException(nameof(reader));
             Id = Guid.NewGuid();
             AllBooks = new List<ILibraryBook>();
-            BorrowedBooks = new List<ILibraryBook>();
-            Members = new List<IMember>();
-        }
-    
-        public void GetNewBook(IBook book, string category)
-        {
-            var libBook = _bookFactory.CreateGeneralBook(book, Id, Guid.NewGuid().ToString(), category);
-            AllBooks.Add(libBook);
-        }
-    
-        public void GetNewBook(ILibraryBook book)
-        {
-            if (AllBooks.All(b => b.LibraryId != book.LibraryId))
-            {
-                AllBooks.Add(book);
-            }
+            _borrowedBooks = new List<ILibraryBook>();
+            _members = new List<MemberDTO>();
         }
 
-        public void LendBook(IMember member, IBook book, DateTime date)
+        public IMember? Login(string username)
         {
-            if (member == null) throw new ArgumentNullException(nameof(member));
+            var memberDto = _members.FirstOrDefault(m => m.Member.UserName == username);
+            if (memberDto != null)
+            {
+                return memberDto.Member;
+            }
+
+            Console.WriteLine($"No member is registered with the username: {username}");
+            return default;
+        }
+
+        public void GetNewBook(IBook book, string category)
+        {
+            var libBook = _bookFactory.CreateGeneralBook(book, Id, category);
+            AllBooks.Add(libBook);
+        }
+
+        public bool LendBook(IBook book, DateTime date, Guid memberId)
+        {
             if (book == null) throw new ArgumentNullException(nameof(book));
             if (date == default) throw new ArgumentNullException(nameof(date));
-        
+            if (!SearchUser(memberId, out var member))
+            {
+                Console.WriteLine($"No member was found with the id: {memberId}");
+                return false;
+            }
+
             if (SearchBook(book.ISBN, AvailableBooks, out var res))
             {
                 res!.BorrowedAt = date;
                 res.ReturnAt = date + new TimeSpan(21, 0, 0, 0);
                 res.BorrowedBy = member;
-            
-                member.BorrowedBooks.Add(res);
-                BorrowedBooks.Add(res);
+                _borrowedBooks.Add(res);
+                return true;
             }
-            else
-            {
-                Console.WriteLine($"The book: {book.Title} ({book.ISBN}) was not found");
-            }
+
+            Console.WriteLine($"The book: {book.Title} ({book.ISBN}) was not found");
+            return false;
         }
 
-        public void ReturnBook(IMember member, IBook book, DateTime date)
+        public bool ReturnBook(IBook book, DateTime date, Guid memberId)
         {
             if (book == null) throw new ArgumentNullException(nameof(book));
+            if (!SearchUser(memberId, out _))
+            {
+                Console.WriteLine($"No member was found with the id: {memberId}");
+                return false;
+            }
 
-            if (SearchBook(book.ISBN, BorrowedBooks, out var res))
+            if (SearchBook(book.ISBN, _borrowedBooks, out var res))
             {
                 res!.ValidateReturn(date);
-        
-                member.BorrowedBooks.Remove(res);
-        
                 res.ReturnAt = default;
                 res.BorrowedAt = default;
                 res.BorrowedBy = default!;
-        
-                BorrowedBooks.Remove(res);
+                _borrowedBooks.Remove(res);
+                return true;
             }
-            else
-            {
-                Console.WriteLine($"The book: {book.Title} ({book.ISBN}) was not found");
-            }
+
+            Console.WriteLine($"The book: {book.Title} ({book.ISBN}) was not found");
+            return false;
         }
 
         public void Register(string name, string username, DateTime bornAt)
         {
-            Register(new Member(name, username, bornAt, this));
-        }
-    
-        public void Register(IMember member)
-        {
-            if (Members.Count == 0 || Members.Any(m => m.UserName != member.UserName))
+            if (_members.Count != 0 && _members.Any(m => m.Member.UserName == username))
             {
-                Members.Add(member);
+                return;
             }
+            var guid = Guid.NewGuid();
+            _members.Add(new MemberDTO(new Member(name, username, bornAt, this, guid), guid));
         }
-        
+
         public void LoadBooks(string path)
         {
-            foreach (var book in _reader.ReadAllLines<ILibraryBook>(new StreamReader(path), BookFactory.LibBookTryParse))
+            foreach (var book in
+                     _reader.ReadAllLines<ILibraryBook>(new StreamReader(path), BookFactory.LibBookTryParse))
             {
                 GetNewBook(book);
             }
         }
-        
+
         public void LoadMembers(string path)
         {
             foreach (var person in _reader.ReadAllLines<IMember>(new StreamReader(path), MemberTryParse))
             {
-                Register(person);
+                Register(person.Name, person.UserName, person.BornAt);
+            }
+        }
+        
+        private void GetNewBook(ILibraryBook book)
+        {
+            if (AllBooks.Any(b => b.LibraryId != book.LibraryId))
+            {
+                AllBooks.Add(book);
             }
         }
 
@@ -123,13 +135,27 @@ namespace LibraryCore.Lib
                 result = list.FirstOrDefault(b => b.ISBN == isbn);
                 return true;
             }
+
             result = default;
+            return false;
+        }
+
+        private bool SearchUser(Guid memberId, out IMember? member)
+        {
+            var memberDto = _members.FirstOrDefault(dto => dto.Id == memberId);
+            if (memberDto != null)
+            {
+                member = memberDto.Member;
+                return true;
+            }
+
+            member = default;
             return false;
         }
 
         private bool MemberTryParse(string line, out IMember member)
         {
-            var data = line.Trim().Split(new []{';', '\t'}, StringSplitOptions.RemoveEmptyEntries);
+            var data = line.Trim().Split(new[] { ';', '\t' }, StringSplitOptions.RemoveEmptyEntries);
             member = new Member(data[0], data[1], DateTime.Parse(data[2]), this);
             return true;
         }

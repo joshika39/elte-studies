@@ -7,15 +7,13 @@ namespace LibraryCore.Lib
     {
         Guid Id { get; }
         IList<ILibraryBook> AllBooks { get; }
-        IList<IMember> Members { get; }
+        IEnumerable<ILibraryBook> AvailableBooks { get; }
+        IMember? Login(string username);
         void GetNewBook(IBook book, string category);
-        void GetNewBook(ILibraryBook book);
-        void LendBook(IMember member, IBook book, DateTime date);
-        void ReturnBook(IMember member, IBook book, DateTime date);
+        bool LendBook(IBook book, DateTime date, Guid memberId);
+        bool ReturnBook(IBook book, DateTime date, Guid memberId);
         void Register(string name, string username, DateTime bornAt);
-        void Register(IMember member);
-
-
+        
         void LoadBooks(string path);
         void LoadMembers(string path);
     }

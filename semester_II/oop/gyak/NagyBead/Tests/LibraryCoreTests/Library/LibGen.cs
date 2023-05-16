@@ -25,7 +25,7 @@ public static class LibGen
 
         library.GetNewBook(diffEq, Constants.BookTypes.SCIENCE_BOOK);
 
-        library.Register(new Member("Joshua Hegedus", "joshika39", new DateTime(2003, 01, 17), library));
+        library.Register("Joshua Hegedus", "joshika39", new DateTime(2003, 01, 17));
         return library;
     }
     

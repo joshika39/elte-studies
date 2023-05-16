@@ -2,8 +2,8 @@
 
 public class EYouthBook : AeBook
 {
-    public EYouthBook(IBook book, Guid libraryId, string bookId, double size, string format) 
-        : base(book, libraryId, bookId, size, format)
+    public EYouthBook(IBook book, Guid libraryId, double size, string format) 
+        : base(book, libraryId, size, format)
     { }
     public override void ValidateReturn(DateTime returnDate)
     {
