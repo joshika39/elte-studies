@@ -10,4 +10,8 @@
       <ProjectReference Include="..\..\..\..\..\..\cs-tools\Solution\Infrastructure\Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="joshika39-Core" Version="0.2.5.2" />
+    </ItemGroup>
+
 </Project>

@@ -1,5 +1,7 @@
 ﻿természettudományi;978-963-4930-99-0;Differenciaegyenletek;456;18321e90-9b73-48e4-88db-93aed7e370b7;2020-02-12;Kocsvacs Sandor
 természettudományi;978-0132350884;Clean Code;464;6e3d779a-8194-4531-beab-705e09f3ca5a;2008-08-01;Robert C. Martin
 szépirodalmi;951-0132350884;Narnia 1;464;7a3ae137-7edb-45c6-901d-e447ed6d357d;2005-08-01;C. S. Lewis
+szépirodalmi;951-0132350884;Narnia 1;464;7a3a2137-7edb-45c6-901d-e4123d6d357d;2005-08-01;C. S. Lewis
+szépirodalmi;951-0132350884;Narnia 1;464;7a3ae137-712b-45c6-901d-e447ed6d357d;2005-08-01;C. S. Lewis
 szépirodalmi;978-3215468431;Narnia 2;456;e9219a48-b21c-4c95-ba43-f2d5b20c3cb1;2006-08-01;C. S. Lewis
 szépirodalmi;258-1478523698;Narnia 3;521;7d6965c0-bacd-42ff-87a7-da8ebf307501;2007-08-01;C. S. Lewis

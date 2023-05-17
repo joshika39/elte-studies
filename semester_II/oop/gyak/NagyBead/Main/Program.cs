@@ -29,20 +29,19 @@ writer.PrintSystemDetails("joshika39",
     "Library",
     "This is a library management system created for a University assignment.");
 
-var uname = reader.ReadLine<string>(Dummy, "Enter your username (after submit finish with the END OF FILE character): ", "");
+var uname = reader.ReadLine<string>(Dummy, "Enter your username: ", "");
 var loggedInUser = lib.Login(uname.Replace("\r\n", ""));
-
-
+writer.CompleteClear();
 if (loggedInUser != null)
 {
     var mainNavElements = new List<INavigatorElement<string>>()
     {
         new NavigatorElement<string>("Borrow Book", "", SelectBook),
         new NavigatorElement<string>("Return Book", "", ReturnBook),
-        new NavigatorElement<string>("Add Balance", "", AddBalance),
-        new NavigatorElement<string>("Pay Bill", "", PayBill),
-        new NavigatorElement<string>($"Show {loggedInUser.UserName}'s Details", "", Details),
-        new NavigatorElement<string>($"Log Out", "", () =>
+        new NavigatorElement<string>($"{Constants.EscapeColors.GREEN}Add Balance{Constants.EscapeColors.RESET}", "", AddBalance),
+        new NavigatorElement<string>($"Pay Bill", "", PayBill),
+        new NavigatorElement<string>($"Show {Constants.EscapeColors.YELLOW}{loggedInUser.UserName}{Constants.EscapeColors.RESET}'s Details", "", Details),
+        new NavigatorElement<string>($"{Constants.EscapeColors.RED}Log Out{Constants.EscapeColors.RESET}", "", () =>
         {
             logger.Dispose();
             Environment.Exit(0);
@@ -103,7 +102,7 @@ if (loggedInUser != null)
 
         foreach (var bill in loggedInUser.PendingBills)
         {
-            bills.Add(new NavigatorElement<IBill>($"bill.Amount.ToString(CultureInfo.CurrentCulture)HUF", bill));
+            bills.Add(new NavigatorElement<IBill>($"{bill.Amount.ToString(CultureInfo.CurrentCulture)}HUF", bill));
         }
 
         var nav = new NavigatorFactory().CreateNavigator(writer, bills);

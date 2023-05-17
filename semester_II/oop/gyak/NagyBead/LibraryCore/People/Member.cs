@@ -102,14 +102,15 @@ public class Member : IMember
         writer.WriteLine(Constants.EscapeColors.YELLOW, $"Personal details: ");
         writer.WriteLine(Constants.EscapeColors.GREEN, $"\tName: {Name}");
         writer.WriteLine(Constants.EscapeColors.GREEN, $"\tUsername: {UserName}");
-        writer.WriteLine(Constants.EscapeColors.GREEN, $"\tBorn At: {BornAt}\n");
+        writer.WriteLine(Constants.EscapeColors.GREEN, $"\tBorn At: {BornAt}");
+        writer.WriteLine(Constants.EscapeColors.CYAN, $"\tBalance: {Balance}\n");
         
         writer.WriteLine(Constants.EscapeColors.YELLOW, $"Borrowed books: ");
         foreach (var book in _borrowedBooks)
         {
-            writer.WriteLine(Constants.EscapeColors.GREEN, $"Title: {book.Title}");
-            writer.WriteLine(Constants.EscapeColors.GREEN, $"Borrowed date: {book.BorrowedAt}");
-            writer.WriteLine(Constants.EscapeColors.GREEN, $"Return due: {book.BorrowedAt + new TimeSpan(15, 0, 0, 0)}");
+            writer.WriteLine(Constants.EscapeColors.CYAN, $"Title: {book.Title}");
+            writer.WriteLine(Constants.EscapeColors.GREEN, $"\tBorrowed date: {book.BorrowedAt}");
+            writer.WriteLine(Constants.EscapeColors.GREEN, $"\tReturn due: {book.BorrowedAt + new TimeSpan(15, 0, 0, 0)}");
         }
         writer.WriteLine("");
         
