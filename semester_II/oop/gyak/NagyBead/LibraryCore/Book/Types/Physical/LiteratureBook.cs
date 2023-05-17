@@ -1,4 +1,5 @@
-﻿using LibraryCore.Book.Types.Online;
+﻿using Infrastructure.IO;
+using LibraryCore.Book.Types.Online;
 
 namespace LibraryCore.Book.Types.Physical;
 
@@ -8,9 +9,9 @@ public class LiteratureBook : APhysicalBook
         : base(book, libraryId, preservation)
     { }
     
-    public override void ValidateReturn(DateTime returnDate)
+    public override void ValidateReturn(DateTime returnDate, IWriter writer)
     {
-        ValidateReturn(returnDate, 30);
+        ValidateReturn(returnDate, 30, writer);
     }
    
 }

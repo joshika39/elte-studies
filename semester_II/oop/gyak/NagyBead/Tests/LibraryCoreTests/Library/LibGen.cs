@@ -10,8 +10,8 @@ public static class LibGen
 {
     public static ILibrary GetTestLibrary()
     {
-        Bootstrapper.Initialize(out var reader);
-        return new LibraryClass(new BookFactory(), reader);
+        Bootstrapper.Initialize(out var writer, out var reader);
+        return new LibraryClass(new BookFactory(), reader, writer);
     }
 
     public static ILibrary PopulateLibraryMembers(this ILibrary library)

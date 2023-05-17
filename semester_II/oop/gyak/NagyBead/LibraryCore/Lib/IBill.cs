@@ -6,4 +6,5 @@ public interface IBill
     double Amount { get; }
     bool IsPaid { get; }
     double Pay(double amount);
+    void Print();
 }

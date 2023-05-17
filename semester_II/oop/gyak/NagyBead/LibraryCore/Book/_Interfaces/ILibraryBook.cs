@@ -1,4 +1,5 @@
-﻿using LibraryCore.People;
+﻿using Infrastructure.IO;
+using LibraryCore.People;
 
 namespace LibraryCore.Book;
 
@@ -8,5 +9,5 @@ public interface ILibraryBook : IBook
     IMember? BorrowedBy { get; set; }
     DateTime BorrowedAt { get; set; }
     DateTime ReturnAt { get; set; }
-    void ValidateReturn(DateTime returnDate);
+    void ValidateReturn(DateTime returnDate, IWriter writer);
 }

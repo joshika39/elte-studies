@@ -24,6 +24,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\..\..\..\..\cs-tools\Solution\Core\Core.csproj" />
       <ProjectReference Include="..\..\LibraryCore\LibraryCore.csproj" />
     </ItemGroup>
 

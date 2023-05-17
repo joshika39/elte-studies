@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using Infrastructure.IO;
 using LibraryCore.Book;
 using LibraryCore.Lib;
 
@@ -93,5 +94,30 @@ public class Member : IMember
         if (PendingBills.All(b => b.Id != bill.Id)) return;
         Balance -= amount;
         Balance += bill.Pay(amount);
+    }
+
+    public void PrintDetails(IWriter writer)
+    {
+        
+        writer.WriteLine(Constants.EscapeColors.YELLOW, $"Personal details: ");
+        writer.WriteLine(Constants.EscapeColors.GREEN, $"\tName: {Name}");
+        writer.WriteLine(Constants.EscapeColors.GREEN, $"\tUsername: {UserName}");
+        writer.WriteLine(Constants.EscapeColors.GREEN, $"\tBorn At: {BornAt}\n");
+        
+        writer.WriteLine(Constants.EscapeColors.YELLOW, $"Borrowed books: ");
+        foreach (var book in _borrowedBooks)
+        {
+            writer.WriteLine(Constants.EscapeColors.GREEN, $"Title: {book.Title}");
+            writer.WriteLine(Constants.EscapeColors.GREEN, $"Borrowed date: {book.BorrowedAt}");
+            writer.WriteLine(Constants.EscapeColors.GREEN, $"Return due: {book.BorrowedAt + new TimeSpan(15, 0, 0, 0)}");
+        }
+        writer.WriteLine("");
+        
+        writer.WriteLine(Constants.EscapeColors.YELLOW, $"Pending bills: ");
+        foreach (var bill in PendingBills)
+        {
+            bill.Print();
+        }
+
     }
 }

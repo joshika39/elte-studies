@@ -8,6 +8,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\..\..\..\cs-tools\Solution\Core\Core.csproj" />
+      <ProjectReference Include="..\..\..\..\..\..\cs-tools\Solution\Implementation\Implementation.csproj" />
       <ProjectReference Include="..\LibraryCore\LibraryCore.csproj" />
     </ItemGroup>
 

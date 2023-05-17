@@ -1,4 +1,5 @@
-﻿using LibraryCore.Lib;
+﻿using Infrastructure.IO;
+using LibraryCore.Lib;
 using LibraryCore.People;
 
 namespace LibraryCore.Book;
@@ -28,9 +29,9 @@ public abstract class ABook : ILibraryBook
         Authors = book.Authors;
     }
 
-    public abstract void ValidateReturn(DateTime returnDate);
+    public abstract void ValidateReturn(DateTime returnDate, IWriter writer);
 
-    protected void ValidateReturn(DateTime returnDate, int amount)
+    protected void ValidateReturn(DateTime returnDate, int amount, IWriter writer)
     {
         if (BorrowedBy is null)
         {
@@ -44,6 +45,6 @@ public abstract class ABook : ILibraryBook
 
         var daysDue = new DateTime(returnDate.Ticks - ReturnAt.Ticks).Day;
         
-        BorrowedBy.PendingBills.Add(new LateReturnBill(amount * daysDue));
+        BorrowedBy.PendingBills.Add(new LateReturnBill(amount * daysDue, writer));
     }
 }

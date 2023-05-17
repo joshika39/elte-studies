@@ -9,6 +9,7 @@ namespace LibraryCore.Lib
     public class LibraryClass : ILibrary
     {
         private readonly IReader _reader;
+        private readonly IWriter _writer;
         private readonly IList<ILibraryBook> _borrowedBooks;
         private readonly IBookFactory _bookFactory;
         private readonly IList<MemberDTO> _members;
@@ -17,10 +18,11 @@ namespace LibraryCore.Lib
         public Guid Id { get; }
         public IEnumerable<ILibraryBook> AllBooks { get; private set; }
 
-        public LibraryClass(IBookFactory bookFactory, IReader reader)
+        public LibraryClass(IBookFactory bookFactory, IReader reader, IWriter writer)
         {
             _bookFactory = bookFactory ?? throw new ArgumentNullException(nameof(bookFactory));
             _reader = reader ?? throw new ArgumentNullException(nameof(reader));
+            _writer = writer ?? throw new ArgumentNullException(nameof(writer));
             Id = Guid.NewGuid();
             AllBooks = new List<ILibraryBook>();
             _borrowedBooks = new List<ILibraryBook>();
@@ -82,7 +84,7 @@ namespace LibraryCore.Lib
 
             if (SearchBook(book.ISBN, _borrowedBooks, out var res))
             {
-                res!.ValidateReturn(date);
+                res!.ValidateReturn(date, _writer);
                 res.ReturnAt = default;
                 res.BorrowedAt = default;
                 res.BorrowedBy = default!;
