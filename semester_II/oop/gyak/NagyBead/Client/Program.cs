@@ -35,6 +35,7 @@ namespace Client
         public static void Dispose()
         {
             _logger.Dispose();
+            Environment.Exit(0);
         }
     }
 }
