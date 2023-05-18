@@ -32,7 +32,7 @@ namespace Client
         }
 
 
-        public static void Dispose()
+        public static void DisposeApp()
         {
             _logger.Dispose();
             Environment.Exit(0);

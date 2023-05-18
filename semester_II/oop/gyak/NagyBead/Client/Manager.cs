@@ -45,7 +45,7 @@ namespace Client
                     new NavigatorElement<string>($"{Constants.EscapeColors.GREEN}Add Balance{Constants.EscapeColors.RESET}", "", AddBalance),
                     new NavigatorElement<string>($"Pay Bill", "", PayBill),
                     new NavigatorElement<string>($"Show {Constants.EscapeColors.YELLOW}{_loggedInUser.UserName}{Constants.EscapeColors.RESET}'s Details", "", Details),
-                    new NavigatorElement<string>($"{Constants.EscapeColors.RED}Log Out{Constants.EscapeColors.RESET}", "", Program.Dispose)
+                    new NavigatorElement<string>($"{Constants.EscapeColors.RED}Log Out{Constants.EscapeColors.RESET}", "", Program.DisposeApp)
                 };
 
                 while (true)
@@ -60,13 +60,8 @@ namespace Client
 
         private void SelectBook()
         {
-            if (_loggedInUser == null)
-            {
-                _writer.WriteLine(MessageSeverity.Error, "No user is logged in");
-                Program.Dispose();
-                return;
-            }
-            
+
+
             var books = new List<INavigatorElement<ILibraryBook>>();
 
             foreach (var book in _lib.AvailableBooks)
@@ -77,20 +72,15 @@ namespace Client
             var nav = new NavigatorFactory().CreateNavigator(_writer, books);
 
             var selectedBook = nav.Show();
-            _loggedInUser.Borrow(selectedBook);
+            _loggedInUser!.Borrow(selectedBook);
         }
 
         private void ReturnBook()
         {
-            if (_loggedInUser == null)
-            {
-                _writer.WriteLine(MessageSeverity.Error, "No user is logged in");
-                Program.Dispose();
-                return;
-            }
+            ValidateUser();
             var books = new List<INavigatorElement<ILibraryBook>>();
 
-            foreach (var book in _loggedInUser.BorrowedBooks)
+            foreach (var book in _loggedInUser!.BorrowedBooks)
             {
                 books.Add(new NavigatorElement<ILibraryBook>(book.Title, book));
             }
@@ -106,26 +96,16 @@ namespace Client
 
         private void AddBalance()
         {
-            if (_loggedInUser == null)
-            {
-                _writer.WriteLine(MessageSeverity.Error, "No user is logged in");
-                Program.Dispose();
-                return;
-            }
+            ValidateUser();
             var amount = _reader.ReadLine<double>(double.TryParse, "Enter the amount that you want to upload: ",
                 "Wrong double format!");
-            _loggedInUser.Balance += amount;
+            _loggedInUser!.Balance += amount;
         }
 
         private void PayBill()
         {
-            if (_loggedInUser == null)
-            {
-                _writer.WriteLine(MessageSeverity.Error, "No user is logged in");
-                Program.Dispose();
-                return;
-            }
-            
+            ValidateUser();
+
             var bills = new List<INavigatorElement<IBill>>();
 
             foreach (var bill in _loggedInUser?.PendingBills!)
@@ -144,19 +124,23 @@ namespace Client
 
         private void Details()
         {
-            if (_loggedInUser == null)
-            {
-                _writer.WriteLine(MessageSeverity.Error, "No user is logged in");
-                Program.Dispose();
-                return;
-            }
-            _loggedInUser.PrintDetails(_writer);
+            ValidateUser();
+            _loggedInUser!.PrintDetails(_writer);
         }
 
         private bool Dummy(string line, out string res)
         {
             res = line;
             return true;
+        }
+
+        private void ValidateUser()
+        {
+            if (_loggedInUser == null)
+            {
+                _writer.WriteLine(MessageSeverity.Error, "No user is logged in");
+                Program.DisposeApp();
+            }
         }
 
     }

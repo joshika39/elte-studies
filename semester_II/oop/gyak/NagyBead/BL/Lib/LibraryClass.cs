@@ -12,7 +12,7 @@ namespace BL.Lib
         private readonly IWriter _writer;
         private readonly IList<ILibraryBook> _borrowedBooks;
         private readonly IBookFactory _bookFactory;
-        private readonly IList<MemberDTO> _members;
+        private readonly IList<MemberDto> _members;
         
         public IImmutableList<ILibraryBook> AvailableBooks => AllBooks.Where(b => !_borrowedBooks.Contains(b)).ToImmutableList();
         public Guid Id { get; }
@@ -26,7 +26,7 @@ namespace BL.Lib
             Id = Guid.NewGuid();
             AllBooks = new List<ILibraryBook>();
             _borrowedBooks = new List<ILibraryBook>();
-            _members = new List<MemberDTO>();
+            _members = new List<MemberDto>();
         }
 
         public IMember? Login(string username)
@@ -103,7 +103,7 @@ namespace BL.Lib
                 return;
             }
             var guid = Guid.NewGuid();
-            _members.Add(new MemberDTO(new Member(name, username, bornAt, this, guid), guid));
+            _members.Add(new MemberDto(new Member(name, username, bornAt, this, guid), guid));
         }
 
         public void LoadBooks(string path)

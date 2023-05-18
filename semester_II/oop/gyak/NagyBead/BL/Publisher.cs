@@ -1,4 +1,5 @@
-﻿using BL.Book;
+﻿using System.Text;
+using BL.Book;
 using BL.People;
 
 namespace BL
@@ -7,7 +8,7 @@ namespace BL
     {
         public IList<IBook> PublishedBooks { get; }
 
-        private IList<IAuthor> _partnerAuthors;
+        private readonly IList<IAuthor> _partnerAuthors;
 
         public Publisher()
         {
@@ -19,7 +20,7 @@ namespace BL
         {
             if (isbn == null) throw new ArgumentNullException(nameof(isbn));
             if (draft == null) throw new ArgumentNullException(nameof(draft));
-            var title = draft.DraftTitle ?? throw new ArgumentNullException(nameof(draft.DraftTitle));
+            var title = draft.DraftTitle ?? throw new ArgumentNullException(nameof(draft));
 
             _partnerAuthors.Add(draft.Contributors.FirstOrDefault()!);
             var book = new PublishedBook(isbn, title, draft.DraftPageCount, publishedAt, draft.Contributors.ToArray());
@@ -39,13 +40,13 @@ namespace BL
         {
             if (draft == null) throw new ArgumentNullException(nameof(draft));
 
-            return Publish(GenerateISBN(), draft);
+            return Publish(GenerateIsbn(), draft);
         }
     
-        private static string GenerateISBN()
+        private static string GenerateIsbn()
         {
+            var stringBuilder = new StringBuilder();
             var rnd = new Random();
-            var isbn = "";
             for (var i = 0; i < 13; i++)
             {
                 switch (i)
@@ -53,14 +54,15 @@ namespace BL
                     case 1:
                     case 6:
                     case 11:
-                        isbn += "-";
+                        stringBuilder.Append('-');
                         break;
                     default:
-                        isbn += rnd.Next(0, 10).ToString();
+                        stringBuilder.Append(rnd.Next(0, 10));
                         break;
                 }
             }
-            return isbn;
+            
+            return stringBuilder.ToString();
         }
     }
 }
