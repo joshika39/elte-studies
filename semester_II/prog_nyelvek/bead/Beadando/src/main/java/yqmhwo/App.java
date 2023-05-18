@@ -1,24 +1,26 @@
 package yqmhwo;
 
 import linear.algebra.GaussianElimination;
+import linear.algebra.RREF;
 
 public class App {
     public static void main(String[] args) {
 
-//        double[][] matrix = {
-//                {2, -3, 1, 5},
-//                {1, 1, -1, 0},
-//                {3, -2, 4, 6}
-//        };
-        double[][] matrix = new double[][] {
-                {2.0, 3.0, 5.0, 8.0},
-                {1.0, 2.0, 3.0, 5.0},
-                {4.0, 6.0, 8.0, 12.0} };
+        double[][] matrix = {
+            {2.0, 3.0, 5.0, 8.0},
+            {1.0, 2.0, 3.0, 5.0},
+            {4.0, 6.0, 8.0, 12.0}
+        };
 
-        ToReducedRowEchelonForm(matrix);
-
-        GaussianElimination.print(matrix);
+//        RREF.rref(matrix);
+        GaussianElimination ge = new GaussianElimination(3, 4, matrix);
+//
+        ge.rowEchelonForm();
+        ge.print();
+//        ToReducedRowEchelonForm(matrix);
+//        GaussianElimination.print(matrix);
     }
+
 
     public static void ToReducedRowEchelonForm(double[][] matrix) {
         int lead = 0;

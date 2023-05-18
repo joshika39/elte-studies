@@ -44,35 +44,66 @@ public class GaussianElimination {
         }
     }
 
+//    public void rowEchelonForm() {
+//        int lead = 0;
+//
+//        for (int r = 0; r < _rows; r++) {
+//            if (_cols <= lead){
+//                return;
+//            }
+//            int i = r;
+//
+//            while (_matrix[i][lead] == 0){
+//                i++;
+//                if(_rows == i){
+//                    i = r;
+//                    lead++;
+//                    if(_cols == lead){
+//                        return;
+//                    }
+//                }
+//            }
+//            if(i != r){ swapRows(i, r); }
+//            multiplyRow(r, 1/_matrix[r][lead]);
+//            for(int j = 0; j < _rows; j++){
+//                if(j != r){
+//                    multiplyAndAddRow(r, j,((-1) * _matrix[j][lead]));
+//                }
+//            }
+//            lead++;
+//        }
+//
+//    }
+
     public void rowEchelonForm() {
-        int lead = 0;
+        int h = 0;
+        int k = 0;
 
-        for (int r = 0; r < _rows; r++) {
-            if (_cols <= lead){
-                return;
+        while (h < _rows && k < _cols){
+//            i_max := argmax (i = h ... m, abs(A[i, k]))
+            int iMax = 0;
+            for(int i = h; i < _rows; i++){
+                if(Math.abs(_matrix[i][k]) > iMax){
+                    iMax = i;
+                }
             }
-            int i = r;
-
-            while (_matrix[i][lead] == 0){
-                i++;
-                if(_rows == i){
-                    i = r;
-                    lead++;
-                    if(_cols == lead){
-                        return;
+            if(_matrix[iMax][k] == 0){
+                k++;
+            }
+            else{
+                swapRows(h, iMax);
+                for (int i = h + 1; i < _rows; i++) {
+                    double f = _matrix[i][k] / _matrix[h][k];
+                    _matrix[i][k] = 0;
+                    for (int j = k + 1; j < _cols; j++) {
+                        _matrix[i][j] =_matrix[i][j] - _matrix[h][j] * f;
                     }
-                }
-            }
-            if(i != r){ swapRows(i, r); }
-            multiplyRow(r, 1/_matrix[r][lead]);
-            for(int j = 0; j < _rows; j++){
-                if(j != r){
-                    multiplyAndAddRow(r, j,((-1) * _matrix[j][lead]));
-                }
-            }
-            lead++;
-        }
 
+                }
+                h++;
+                k++;
+            }
+        }
     }
 
     public void backSubstitution(){
@@ -163,13 +194,13 @@ public class GaussianElimination {
             for (int j = 0; j < matrix[0].length; j++) {
                 double num = matrix[i][j];
                 String text;
-                if (matrix[0].length - 1 == i) {
+                if (matrix[i].length - 1 == j) {
                     text = String.format("=%.2f", num);
                 } else {
-                    if (num >= 0) {
-                        text = String.format("%c%.2f%c", '+', num, variables[i]);
+                    if (num < 0) {
+                        text = String.format("%.2f%c", num, variables[j]);
                     } else {
-                        text = String.format("%.2f%c", num, variables[i]);
+                        text = String.format("%c%.2f%c", '+', num, variables[j]);
                     }
                 }
                 System.out.print(text);

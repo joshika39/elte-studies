@@ -136,6 +136,22 @@
   border-radius: 5px;
 }
 
+table{
+  align-self: center;
+  width: 20rem;
+}
+tr:nth-child(even) {
+  background: var(--primary-2);
+}
+
+caption{
+  caption-side: bottom;
+}
+
+.day{
+  display: inline-block;
+  min-width: 5rem;
+}
 
 
 @media only screen and (max-width: 700px) {
@@ -162,7 +178,10 @@
   }
 }
 
-@media only screen and (max-width: 350px) {
+@media only screen and (max-width: 400px) {
+  table{
+    width: 100%;
+  }
   .events {
     grid-auto-rows: 80%;
     height: 45vh;
