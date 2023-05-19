@@ -49,11 +49,15 @@ a:hover {
 }
 
 a:visited {
-	color: var(--accent-1-2);
+	color: darkred;
 }
 
 a:visited:hover {
 	color: var(--accent-1);
+}
+
+a:active, a:visited:active{
+	color: red;
 }
 
 a:focus {

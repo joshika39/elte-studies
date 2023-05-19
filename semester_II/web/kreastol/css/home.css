@@ -138,7 +138,7 @@
 
 table{
   align-self: center;
-  width: 20rem;
+  width: 30rem;
 }
 tr:nth-child(even) {
   background: var(--primary-2);

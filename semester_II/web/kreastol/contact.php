@@ -15,7 +15,7 @@ session_start();
     <title>Kapcsolat</title>
     <link rel="stylesheet" type="text/css" href="css/contact.css">
     <link rel="stylesheet" type="text/css" href="css/print.css">
-    <link rel="shortcut icon" href="assets/Logo.png" type="image/x-icon"/>
+    <link rel="shortcut icon" href="assets/Logo.png" type="image/x-icon">
 </head>
 
 <body>
@@ -30,14 +30,14 @@ session_start();
 
             <div class="input">
                 <label for="email" class="input-label">
-                    <input id="email" name="email" class="field" type="email" placeholder=" "/>
+                    <input id="email" name="email" class="field" type="email" placeholder=" " maxlength="25">
                     <span class="label">Email</span>
                 </label>
             </div>
 
             <div class="input">
                 <label for="full-name" class="input-label">
-                    <input class="field" name="full-name" id="full-name" type="text" placeholder=" "/>
+                    <input class="field" name="full-name" id="full-name" type="text" placeholder=" " maxlength="45">
                     <span class="label">Teljes Név</span>
                 </label>
             </div>
@@ -46,25 +46,25 @@ session_start();
                 <p>Nem: </p>
                 <label for="male" class="radio-label">
                     Férfi
-                    <input class="radio-field" name="gender" value="male" type="radio" id="male"/>
+                    <input class="radio-field" name="gender" value="male" type="radio" id="male">
                 </label>
                 <span></span>
                 <label for="female" class="radio-label">
                     Nő
-                    <input class="radio-field" name="gender" value="female" type="radio" id="female"/>
+                    <input class="radio-field" name="gender" value="female" type="radio" id="female">
                 </label>
             </div>
             <div class="input radio">
                 <label for="newsletter" class="radio-label">
                     Szeretnék hírleveleket
-                    <input class="radio-field" name="newsletter" type="checkbox" id="newsletter"/>
+                    <input class="radio-field" name="newsletter" type="checkbox" id="newsletter">
                 </label>
             </div>
 
             <div class="input">
                 <label for="comment" class="input-label">
                     <textarea class="field" name="comment" id="comment" cols="30" rows="10" required
-                              placeholder=" "></textarea>
+                              placeholder=" " maxlength="2000"></textarea>
                     <span class="label">Megjegyzés</span>
                 </label>
             </div>
@@ -74,6 +74,7 @@ session_start();
             </div>
         </form>
         <section>
+            <h2>Mit adunk cserébe:</h2>
             <p>Az oldalon található űrlap segítségével küldhetsz üzenetet a vezetőknek, hogy még gyorsabban fejlődjön a
                 foglalkozások menete és minősége. Nyugodtan írd meg, ha valami nem tetszik, vagy nem jól sikerült.
                 Azt is szeretnénk hallani, hiszen ha nem mondod el, nem tudunk javítani rajta.</p>

@@ -52,7 +52,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--body-bg);
+  background: var(--primary-1);
   background-repeat: no-repeat;
   color: var(--on-light-bg);
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

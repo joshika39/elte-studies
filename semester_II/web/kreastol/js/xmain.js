@@ -8,5 +8,5 @@ $(document).ready(function () {
   changeContrast(getCookie('high-contrast') == 'true');
 
   loadHtml("layout/nav.html", "navbar", createNavbar, "application/xhtml+xml");
-  loadHtml("layout/footer.html", "footer", () => {}, "application/xhtml+xml"); 
+  loadHtml("layout/xfooter.html", "footer", () => {}, "application/xhtml+xml"); 
 });
