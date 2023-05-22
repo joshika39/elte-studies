@@ -76,34 +76,44 @@ public class GaussianElimination {
 //    }
 
     public void rowEchelonForm() {
+        double [][] A = _matrix;
+        int m = _rows;
+        int n = _cols;
         int h = 0;
         int k = 0;
 
-        while (h < _rows && k < _cols){
-//            i_max := argmax (i = h ... m, abs(A[i, k]))
-            int iMax = 0;
-            for(int i = h; i < _rows; i++){
-                if(Math.abs(_matrix[i][k]) > iMax){
-                    iMax = i;
-                }
-            }
-            if(_matrix[iMax][k] == 0){
+        while (h < m && k < n){
+            int i_max = argMax(h, k);
+            if(A[i_max][k] == 0){
                 k++;
+                h++;
             }
             else{
-                swapRows(h, iMax);
-                for (int i = h + 1; i < _rows; i++) {
-                    double f = _matrix[i][k] / _matrix[h][k];
-                    _matrix[i][k] = 0;
-                    for (int j = k + 1; j < _cols; j++) {
-                        _matrix[i][j] =_matrix[i][j] - _matrix[h][j] * f;
+                swapRows(h, i_max);
+                for (int i = h + 1; i < m; i++) {
+                    double f = A[i][k] / A[h][k];
+                    A[i][k] = 0;
+                    for (int j = k + 1; j < n; j++) {
+                        A[i][j] -= A[h][j] * f;
                     }
-
                 }
                 h++;
                 k++;
             }
         }
+    }
+
+    private int argMax(int h, int k){
+        double [][] A = _matrix;
+        int iMax = h;
+        double max = Math.abs(A[h][k]);
+        for(int i = h; i < _rows; i++){
+            if(Math.abs(A[i][k]) >= max){
+                iMax = i;
+                max = Math.abs(A[i][k]);
+            }
+        }
+        return iMax;
     }
 
     public void backSubstitution(){

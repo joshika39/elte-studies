@@ -7,10 +7,9 @@ public class App {
     public static void main(String[] args) {
 
         double[][] matrix = {
-            {2.0, 3.0, 5.0, 8.0},
-            {1.0, 2.0, 3.0, 5.0},
-            {4.0, 6.0, 8.0, 12.0}
-        };
+                {2.0, 3.0, 5.0, 8.0},
+                {1.0, 2.0, 3.0, 5.0},
+                {4.0, 6.0, 8.0, 12.0}};
 
 //        RREF.rref(matrix);
         GaussianElimination ge = new GaussianElimination(3, 4, matrix);
