@@ -48,8 +48,8 @@ public class GaussianEliminationTest {
         ge.print();
         assertArrayEquals(rowEchelonForm1, ge.getMatrix());
 
-//		ge.backSubstitution();
-//		assertArrayEquals(matrix1AfterBackSubstitution, ge.getMatrix());
+		ge.backSubstitution();
+		assertArrayEquals(matrix1AfterBackSubstitution, ge.getMatrix());
     }
 
     @Test

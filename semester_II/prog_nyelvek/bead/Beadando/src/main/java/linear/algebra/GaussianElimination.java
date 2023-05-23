@@ -20,7 +20,7 @@ public class GaussianElimination {
     }
 
     public void setMatrix(double[][] matrix) {
-        if(matrix.length != _rows || matrix[0].length != _cols){
+        if (matrix.length != _rows || matrix[0].length != _cols) {
             throw new IllegalArgumentException();
         }
         _matrix = matrix;
@@ -50,52 +50,19 @@ public class GaussianElimination {
         }
     }
 
-//    public void rowEchelonForm() {
-//        int lead = 0;
-//
-//        for (int r = 0; r < _rows; r++) {
-//            if (_cols <= lead){
-//                return;
-//            }
-//            int i = r;
-//
-//            while (_matrix[i][lead] == 0){
-//                i++;
-//                if(_rows == i){
-//                    i = r;
-//                    lead++;
-//                    if(_cols == lead){
-//                        return;
-//                    }
-//                }
-//            }
-//            if(i != r){ swapRows(i, r); }
-//            multiplyRow(r, 1/_matrix[r][lead]);
-//            for(int j = 0; j < _rows; j++){
-//                if(j != r){
-//                    multiplyAndAddRow(r, j,((-1) * _matrix[j][lead]));
-//                }
-//            }
-//            lead++;
-//        }
-//
-//    }
-
     public void rowEchelonForm() {
         int h = 0, m = _rows;
         int k = 0, n = _cols;
 
-        while (h < m && k < n){
+        while (h < m && k < n) {
             int iMax = argMax(h, k);
-            if(_matrix[iMax][k] == 0){
+            if (_matrix[iMax][k] == 0) {
                 k++;
                 h++;
-            }
-            else{
+            } else {
                 swapRows(h, iMax);
                 for (int i = h + 1; i < m; i++) {
-//                    _matrix[i][k] = 0;
-                    multiplyAndAddRow(h, i, k);
+                    multiplyAndAddRow(i, h, k);
                 }
                 multiplyRow(h, k);
                 h++;
@@ -104,25 +71,25 @@ public class GaussianElimination {
         }
     }
 
-    private int argMax(int h, int k){
-        double [][] A = _matrix;
+    private int argMax(int h, int k) {
         int iMax = h;
-        double max = Math.abs(A[h][k]);
-        for(int i = h + 1; i < _rows; i++){
-            if(Math.abs(A[i][k]) >= max){
+        double max = Math.abs(_matrix[h][k]);
+        for (int i = h + 1; i < _rows; i++) {
+            if (Math.abs(_matrix[i][k]) >= max) {
                 iMax = i;
-                max = Math.abs(A[i][k]);
+                max = Math.abs(_matrix[i][k]);
             }
         }
         return iMax;
     }
 
-    public void backSubstitution(){
-        for (int i = 0; i < _matrix.length; i++) {
-            for (int j = 0; j < _matrix[0].length; j++) {
-                if(_matrix[i][j] == 0){
-                    throw new IllegalArgumentException();
-                }
+    public void backSubstitution() {
+        for (int i = _rows - 1; i >= 0; i--) {
+            if(_matrix[i][i] == 0){
+                throw new IllegalArgumentException();
+            }
+            for (int j = i - 1; j >= 0; j--) {
+                multiplyAndAddRow(j, i, i);
             }
         }
     }
@@ -132,16 +99,15 @@ public class GaussianElimination {
      *
      * @param rowIndex1 int index of row to swap
      * @param rowIndex2 int index of row to swap
-     *
      */
-    private void swapRows(int rowIndex1, int rowIndex2){
+    private void swapRows(int rowIndex1, int rowIndex2) {
         // number of columns in matrix
         int numColumns = _matrix[0].length;
 
         // holds number to be swapped
         double hold;
 
-        for(int k = 0; k < numColumns; k++){
+        for (int k = 0; k < numColumns; k++) {
             hold = _matrix[rowIndex2][k];
             _matrix[rowIndex2][k] = _matrix[rowIndex1][k];
             _matrix[rowIndex1][k] = hold;
@@ -151,19 +117,19 @@ public class GaussianElimination {
     /**
      * Adds a row by the scalar of another row
      * row2 = row2 + (row1 * scalar)
-     * @param addRow int index of row to be added
-     * @param mulRow int index or row that row1 is added to
-     * @param colIndex double to scale row by
      *
+     * @param addRow   int index of row to be added
+     * @param mulRow   int index or row that row1 is added to
+     * @param colIndex double to scale row by
      */
-    private void multiplyAndAddRow(int addRow, int mulRow, int colIndex){
-        for(int j = 0; j < _matrix[addRow].length; j++){
-            double f = _matrix[addRow][colIndex] / _matrix[mulRow][colIndex];
-            _matrix[addRow][j] -= f * mulRow;
+    private void multiplyAndAddRow(int addRow, int mulRow, int colIndex) {
+        double f = _matrix[addRow][colIndex] / _matrix[mulRow][colIndex];
+        for (int j = 0; j < _matrix[addRow].length; j++) {
+            _matrix[addRow][j] -= (f * _matrix[mulRow][j]);
         }
     }
 
-    private void multiplyRow(int h, int k){
+    private void multiplyRow(int h, int k) {
         double f = _matrix[h][k];
         for (int i = 0; i < _matrix[h].length; i++) {
             _matrix[h][i] /= f;

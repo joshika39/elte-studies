@@ -11,12 +11,12 @@ public class App {
                 {1.0, 2.0, 3.0, 5.0},
                 {4.0, 6.0, 8.0, 12.0}};
 
-//        RREF.rref(matrix);
         GaussianElimination ge = new GaussianElimination(3, 4, matrix);
-//
+
         ge.rowEchelonForm();
         ge.print();
-//        GaussianElimination.print(matrix);
+        ge.backSubstitution();
+        ge.print();
     }
 
 

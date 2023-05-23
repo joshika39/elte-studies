@@ -8,7 +8,7 @@ public class EquationSolver {
         ge.print();
         ge.rowEchelonForm();
         ge.print();
-//        ge.backSubstitution();
-//        ge.print();
+        ge.backSubstitution();
+        ge.print();
     }
 }

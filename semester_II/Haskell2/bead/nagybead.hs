@@ -31,8 +31,16 @@ wrongGame1 = Game [Red] (10, []) Ongoing
 wrongGame2 :: Game
 wrongGame2 = Game (repeat Purple) (2, []) Ongoing
 
+
+checkLength :: Int -> Guess -> ColorRow -> Bool
+checkLength _ [] [] = True
+checkLength _ [] l = False
+checkLength _ l [] = False
+checkLength n (l1:l1s) (l2:l2s) = checkLength (n - 1) l1s l2s
+
 -- matchingColorsRightPlace függvény megvalósítása
 matchingColorsRightPlace :: Guess -> ColorRow -> Maybe Int
+
 matchingColorsRightPlace guess colors
-  | length guess /= 4 || length colors /= 4 = Nothing
+  | not (checkLength 4 guess colors) = Nothing
   | otherwise = Just $ length $ filter id $ zipWith (==) guess colors
