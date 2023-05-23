@@ -107,7 +107,7 @@ public class GaussianElimination {
         double [][] A = _matrix;
         int iMax = h;
         double max = Math.abs(A[h][k]);
-        for(int i = h; i < _rows; i++){
+        for(int i = h + 1; i < _rows; i++){
             if(Math.abs(A[i][k]) >= max){
                 iMax = i;
                 max = Math.abs(A[i][k]);

@@ -16,7 +16,6 @@ public class App {
 //
         ge.rowEchelonForm();
         ge.print();
-//        ToReducedRowEchelonForm(matrix);
 //        GaussianElimination.print(matrix);
     }
 
