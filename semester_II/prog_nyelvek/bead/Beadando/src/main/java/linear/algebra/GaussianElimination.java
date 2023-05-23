@@ -32,14 +32,20 @@ public class GaussianElimination {
         _matrix = matrix;
     }
 
-    public GaussianElimination(int rows, String[] data) {
-        _rows = rows;
-        _cols = data.length / rows;
+    public GaussianElimination(String data) {
+        this(data.split(" "));
+    }
+
+    public GaussianElimination(String[] data) {
+        _rows = data.length;
+        _cols = data[0].split(",").length;
         _matrix = new double[_rows][_cols];
 
         for (int i = 0; i < _rows; i++) {
-            for (int j = 0; j < _cols; j++) {
-                _matrix[i][j] = Double.parseDouble(data[j + _cols * i]);
+            String rowStr = data[i];
+            String[] numStr = rowStr.split(",");
+            for (int j = 0; j < numStr.length; j++) {
+                _matrix[i][j] = Double.parseDouble(numStr[j]);
             }
         }
     }
@@ -76,27 +82,22 @@ public class GaussianElimination {
 //    }
 
     public void rowEchelonForm() {
-        double [][] A = _matrix;
-        int m = _rows;
-        int n = _cols;
-        int h = 0;
-        int k = 0;
+        int h = 0, m = _rows;
+        int k = 0, n = _cols;
 
         while (h < m && k < n){
-            int i_max = argMax(h, k);
-            if(A[i_max][k] == 0){
+            int iMax = argMax(h, k);
+            if(_matrix[iMax][k] == 0){
                 k++;
                 h++;
             }
             else{
-                swapRows(h, i_max);
+                swapRows(h, iMax);
                 for (int i = h + 1; i < m; i++) {
-                    double f = A[i][k] / A[h][k];
-                    A[i][k] = 0;
-                    for (int j = k + 1; j < n; j++) {
-                        A[i][j] -= A[h][j] * f;
-                    }
+//                    _matrix[i][k] = 0;
+                    multiplyAndAddRow(h, i, k);
                 }
+                multiplyRow(h, k);
                 h++;
                 k++;
             }
@@ -148,50 +149,24 @@ public class GaussianElimination {
     }
 
     /**
-     * Adds 2 rows together row2 = row2 + row1
-     *
-     * @param rowIndex1 int index of row to be added
-     * @param rowIndex2 int index or row that row1 is added to
-     *
-     */
-    private void rowAdd(int rowIndex1, int rowIndex2){
-        // number of columns in _matrix
-        int numColumns = _matrix[0].length;
-
-        for(int k = 0; k < numColumns; k++){
-            _matrix[rowIndex2][k] += (double)_matrix[rowIndex1][k];
-        }
-    }
-
-    /**
-     * Multiplies a row by a scalar
-     *
-     * @param rowIndex int index of row to be scaled
-     * @param scalar double to scale row by
-     *
-     */
-    private void multiplyRow(int rowIndex, double scalar){
-        // number of columns in _matrix
-        int numColumns = _matrix[0].length;
-
-        for(int k = 0; k < numColumns; k++){
-            _matrix[rowIndex][k] *= scalar;
-        }
-    }
-
-    /**
      * Adds a row by the scalar of another row
      * row2 = row2 + (row1 * scalar)
-     * @param rowIndex1 int index of row to be added
-     * @param rowIndex2 int index or row that row1 is added to
-     * @param scalar double to scale row by
+     * @param addRow int index of row to be added
+     * @param mulRow int index or row that row1 is added to
+     * @param colIndex double to scale row by
      *
      */
-    private void multiplyAndAddRow(int rowIndex1, int rowIndex2, double scalar){
-        int numColumns = _matrix[0].length;
+    private void multiplyAndAddRow(int addRow, int mulRow, int colIndex){
+        for(int j = 0; j < _matrix[addRow].length; j++){
+            double f = _matrix[addRow][colIndex] / _matrix[mulRow][colIndex];
+            _matrix[addRow][j] -= f * mulRow;
+        }
+    }
 
-        for(int k = 0; k < numColumns; k++){
-            _matrix[rowIndex2][k] += ((double)_matrix[rowIndex1][k] * scalar);
+    private void multiplyRow(int h, int k){
+        double f = _matrix[h][k];
+        for (int i = 0; i < _matrix[h].length; i++) {
+            _matrix[h][i] /= f;
         }
     }
 
