@@ -59,33 +59,29 @@ matchingColorsWrongPlace guess colors
   | not (checkLength 4 guess colors) = Nothing
   | otherwise = Just (guessInColor guess colors)
 
+
 getMarks :: Guess -> ColorRow -> [Mark]
-getMarks [] [] = []
-getMarks (l1:l1s) (l2:l2s)
-  | l1 `notElem` (l2:l2s) = getMarks l1s l2s
-  | l1 == l2 = Black : getMarks l1s l2s
-  | l1 /= l2 = White : getMarks l1s l2s
+getMarks guess colors = replicate black Black ++ replicate white White
+  where
+    black = fromJust $ matchingColorsRightPlace guess colors
+    white = fromJust $ matchingColorsWrongPlace guess colors
 
 guessOnce :: Guess -> ColorRow -> AvailableGuesses -> Maybe (AvailableGuesses, GuessResp)
 guessOnce guess colors remGuess
   | not $ checkLength 4 guess colors || remGuess == 0 = Nothing
-  | otherwise = Just (remGuess - 1, Resp guess (sort (getMarks guess colors)))
+  | otherwise = Just (remGuess - 1, Resp guess (getMarks guess colors))
 
--- gameState :: Either String Game -> String
 
 gameUpdate :: Maybe Guess -> Either String Game -> Either String Game
 gameUpdate _ (Right (Game _ _ (Failure _))) = Left "Ezt a jatekot mar korabban elvesztetted!"
 gameUpdate _ (Right (Game _ _ (Success _))) = Left "Ezt a jatekot mar korabban megnyerted!"
 gameUpdate Nothing (Right (Game c resp Ongoing)) = Right $ Game c resp (Failure "Feladtad a jatekot!")
 gameUpdate guess (Right (Game colors (rem, guessResp) _))
-  | fromJust (matchingColorsRightPlace (fromJust guess) colors) ==  4 = Right $ Game colors (rem, guessResp) (Success rem)
-  | otherwise = Right $ Game colors (rem, guessResp) (Success rem)
+  | fromJust (matchingColorsRightPlace (fromJust guess) colors) == 4 = Right $ Game colors (rem, guessResp) (Success rem)
+  | otherwise = Right $ Game colors (fst remGuess, guessResp ++ [resp]) Ongoing
   where
-    remGuess = guessOnce (fromJust guess) colors rem
--- gameUpdate (Just guess) (Right game)
---   | remainingGuesses game == 1 && guess /= secretCode game = Right (Failure "Elfogytak a tippek!")
---   | guess == secretCode game = Right (Success (length (previousGuesses game)))
---   | otherwise = Right (Ongoing (guess : previousGuesses game) (remainingGuesses game - 1))
+    remGuess = fromJust (guessOnce (fromJust guess) colors rem)
+    resp = snd remGuess
 
 stringToColor :: String -> Maybe Color
 stringToColor colorStr
