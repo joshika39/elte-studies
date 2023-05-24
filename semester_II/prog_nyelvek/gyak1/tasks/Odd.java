@@ -5,9 +5,9 @@ public class Odd {
         if( args.length != 1 ){
             System.err.println("Adjon meg pontosan egy számot a parancssorban!");
         } else {
-            var num = Integer.parseInt(args[0]);
-            var answer = (num % 2 == 1) ? "páratlan" : "páros";
-            System.out.println( answer );
+            // var num = Integer.parseInt(args[0]);
+            // var answer = (num % 2 == 1) ? "páratlan" : "páros";
+            // System.out.println( answer );
         }
     }
 }

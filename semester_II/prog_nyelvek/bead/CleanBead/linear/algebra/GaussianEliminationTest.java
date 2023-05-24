@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-//import linear.algebra.GaussianElimination;
+// import GaussianElimination;
 
 public class GaussianEliminationTest {
     double[][] matrix1 = new double[][]{
