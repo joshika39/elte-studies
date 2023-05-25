@@ -99,22 +99,22 @@ namespace BL.People
         public void PrintDetails(IWriter writer)
         {
         
-            writer.WriteLine(Constants.EscapeColors.YELLOW, $"Personal details: ");
-            writer.WriteLine(Constants.EscapeColors.GREEN, $"\tName: {Name}");
-            writer.WriteLine(Constants.EscapeColors.GREEN, $"\tUsername: {UserName}");
-            writer.WriteLine(Constants.EscapeColors.GREEN, $"\tBorn At: {BornAt}");
-            writer.WriteLine(Constants.EscapeColors.CYAN, $"\tBalance: {Balance}\n");
+            writer.WriteLine(Implementation.Constants.EscapeColors.YELLOW, $"Personal details: ");
+            writer.WriteLine(Implementation.Constants.EscapeColors.GREEN, $"\tName: {Name}");
+            writer.WriteLine(Implementation.Constants.EscapeColors.GREEN, $"\tUsername: {UserName}");
+            writer.WriteLine(Implementation.Constants.EscapeColors.GREEN, $"\tBorn At: {BornAt}");
+            writer.WriteLine(Implementation.Constants.EscapeColors.CYAN, $"\tBalance: {Balance}\n");
         
-            writer.WriteLine(Constants.EscapeColors.YELLOW, $"Borrowed books: ");
+            writer.WriteLine(Implementation.Constants.EscapeColors.YELLOW, $"Borrowed books: ");
             foreach (var book in _borrowedBooks)
             {
-                writer.WriteLine(Constants.EscapeColors.CYAN, $"Title: {book.Title}");
-                writer.WriteLine(Constants.EscapeColors.GREEN, $"\tBorrowed date: {book.BorrowedAt}");
-                writer.WriteLine(Constants.EscapeColors.GREEN, $"\tReturn due: {book.BorrowedAt + new TimeSpan(15, 0, 0, 0)}");
+                writer.WriteLine(Implementation.Constants.EscapeColors.CYAN, $"Title: {book.Title}");
+                writer.WriteLine(Implementation.Constants.EscapeColors.GREEN, $"\tBorrowed date: {book.BorrowedAt}");
+                writer.WriteLine(Implementation.Constants.EscapeColors.GREEN, $"\tReturn due: {book.BorrowedAt + new TimeSpan(15, 0, 0, 0)}");
             }
             writer.WriteLine("");
         
-            writer.WriteLine(Constants.EscapeColors.YELLOW, $"Pending bills: ");
+            writer.WriteLine(Implementation.Constants.EscapeColors.YELLOW, $"Pending bills: ");
             foreach (var bill in PendingBills)
             {
                 bill.Print();

@@ -1,4 +1,4 @@
-import Data.List (sort)
+import Data.List (sort, delete)
 import Data.Char (toUpper)
 import Data.Either
 import Data.Maybe (isNothing, fromJust)
@@ -54,10 +54,16 @@ guessInColor (l1:l1s) (l2:l2s)
   | elem l1 (l2:l2s) && l1 /= l2 = 1 + guessInColor l1s l2s
   | otherwise = guessInColor l1s l2s
 
+countEm :: Int -> Guess -> ColorRow -> Int
+countEm count [] l2 = count
+countEm count (x : xs) l2
+  | elem x l2 = countEm (count + 1) xs (delete x l2)
+  | otherwise = countEm count xs l2
+
 matchingColorsWrongPlace :: Guess -> ColorRow -> Maybe Int
 matchingColorsWrongPlace guess colors
   | not (checkLength 4 guess colors) = Nothing
-  | otherwise = Just (guessInColor guess colors)
+  | otherwise = Just ((countEm 0 guess colors) - fromJust (matchingColorsRightPlace guess colors))
 
 
 getMarks :: Guess -> ColorRow -> [Mark]
@@ -78,10 +84,10 @@ gameUpdate _ (Right (Game _ _ (Success _))) = Left "Ezt a jatekot mar korabban m
 gameUpdate Nothing (Right (Game c resp Ongoing)) = Right $ Game c resp (Failure "Feladtad a jatekot!")
 gameUpdate guess (Right (Game colors (rem, guessResp) _))
   | fromJust (matchingColorsRightPlace (fromJust guess) colors) == 4 = Right $ Game colors (rem, guessResp) (Success rem)
-  | otherwise = Right $ Game colors (fst remGuess, guessResp ++ [resp]) Ongoing
+  | otherwise = Right $ Game colors (fst remGuess, guessResp ++ [snd resp]) Ongoing
   where
     remGuess = fromJust (guessOnce (fromJust guess) colors rem)
-    resp = snd remGuess
+    resp = remGuess
 
 stringToColor :: String -> Maybe Color
 stringToColor colorStr
@@ -102,9 +108,10 @@ stringToColor' c = fromJust (stringToColor c)
 
 split :: Char -> String -> [String]
 split c s = case rest of
-                []     -> [chunk]
-                _:rest -> chunk : split c rest
-  where (chunk, rest) = break (==c) s
+  []     -> [chunk]
+  _:rest -> chunk : split c rest
+  where
+    (chunk, rest) = break (==c) s
 
 trim :: String -> String
 trim xs = [ x | x <- xs, x `notElem` " \t" ]

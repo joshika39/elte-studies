@@ -1,13 +1,14 @@
 ﻿using System.Globalization;
+using BL;
 using BL.Book;
 using BL.Lib;
 using BL.People;
-using Implementation;
 using Implementation.Navigator;
 using Implementation.Navigator.Factories;
 using Infrastructure;
 using Infrastructure.IO;
 using Infrastructure.Navigator;
+using Constants = Implementation.Constants;
 
 namespace Client
 {
@@ -141,6 +142,18 @@ namespace Client
                 _writer.WriteLine(MessageSeverity.Error, "No user is logged in");
                 Program.DisposeApp();
             }
+        }
+
+        public void Sample()
+        {
+            IAuthor ks = new Author("Kovács Sándor", new DateTime(1652, 3, 24));
+            IAuthor hj = new Author("Hegedus Joshua", new DateTime(2003, 1, 17));
+            var diffEqDraft = ks.WriteBook("Differenciaegyenletek", 456);
+            hj.Contribute(diffEqDraft);
+            
+            IPublisher typoTex = new Publisher();
+            var diffEq = typoTex.Publish("978-963-4930-99-0", diffEqDraft, new DateTime(2020, 02, 12));
+            _lib.GetNewBook(diffEq, BL.Constants.BookTypes.SCIENCE_BOOK);
         }
 
     }

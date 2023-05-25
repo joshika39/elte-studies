@@ -2,15 +2,9 @@
 using BL.Book;
 using BL.Book.Factory;
 using BL.Lib;
-using BL.People;
-using Implementation;
 using Implementation.IO.Factories;
 using Implementation.Logger.Factories;
-using Implementation.Navigator;
-using Implementation.Navigator.Factories;
-using Infrastructure;
 using Infrastructure.Logger;
-using Infrastructure.Navigator;
 
 namespace Client
 {

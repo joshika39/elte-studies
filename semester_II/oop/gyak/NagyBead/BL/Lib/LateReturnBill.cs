@@ -50,24 +50,24 @@ namespace BL.Lib
         {
             if (IsPaid)
             {
-                _writer.WriteLine(Constants.EscapeColors.CYAN, $"Bill ID: {Id}");
-                _writer.WriteLine(Constants.EscapeColors.CYAN, $"\tOriginal amount: {Math.Round(_originalPrice * 1.00f, 2)}HUF");
-                _writer.WriteLine(Constants.EscapeColors.GREEN, $"\tStatus: Paid\n");
+                _writer.WriteLine(Implementation.Constants.EscapeColors.CYAN, $"Bill ID: {Id}");
+                _writer.WriteLine(Implementation.Constants.EscapeColors.CYAN, $"\tOriginal amount: {Math.Round(_originalPrice * 1.00f, 2)}HUF");
+                _writer.WriteLine(Implementation.Constants.EscapeColors.GREEN, $"\tStatus: Paid\n");
             }
             else
             {
                 if (_originalPrice.Equals(Amount))
                 {
-                    _writer.WriteLine(Constants.EscapeColors.CYAN, $"Bill ID: {Id}");
-                    _writer.WriteLine(Constants.EscapeColors.CYAN, $"\tRemaining amount: {Math.Round(Amount * 1.00f, 2)}HUF");
-                    _writer.WriteLine(Constants.EscapeColors.RED, $"\tStatus: Not yet paid\n");
+                    _writer.WriteLine(Implementation.Constants.EscapeColors.CYAN, $"Bill ID: {Id}");
+                    _writer.WriteLine(Implementation.Constants.EscapeColors.CYAN, $"\tRemaining amount: {Math.Round(Amount * 1.00f, 2)}HUF");
+                    _writer.WriteLine(Implementation.Constants.EscapeColors.RED, $"\tStatus: Not yet paid\n");
                 }
                 else
                 {
-                    _writer.WriteLine(Constants.EscapeColors.CYAN, $"Bill ID: {Id}");
-                    _writer.WriteLine(Constants.EscapeColors.CYAN, $"\tOriginal amount: {Math.Round(_originalPrice * 1.00f, 2)}HUF");
-                    _writer.WriteLine(Constants.EscapeColors.CYAN, $"\tRemaining amount: {Math.Round(Amount * 1.00f, 2)}HUF");
-                    _writer.WriteLine(Constants.EscapeColors.YELLOW, $"\tStatus: Not yet paid\n");
+                    _writer.WriteLine(Implementation.Constants.EscapeColors.CYAN, $"Bill ID: {Id}");
+                    _writer.WriteLine(Implementation.Constants.EscapeColors.CYAN, $"\tOriginal amount: {Math.Round(_originalPrice * 1.00f, 2)}HUF");
+                    _writer.WriteLine(Implementation.Constants.EscapeColors.CYAN, $"\tRemaining amount: {Math.Round(Amount * 1.00f, 2)}HUF");
+                    _writer.WriteLine(Implementation.Constants.EscapeColors.YELLOW, $"\tStatus: Not yet paid\n");
                 }
             }
         }

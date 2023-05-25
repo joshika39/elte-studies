@@ -1,4 +1,4 @@
-package linear.algebra;
+package linear;
 
 import static check.CheckThat.*;
 import static check.CheckThat.Condition.*;
