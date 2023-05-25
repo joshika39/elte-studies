@@ -147,9 +147,7 @@ namespace Client
         public void Sample()
         {
             IAuthor ks = new Author("Kovács Sándor", new DateTime(1652, 3, 24));
-            IAuthor hj = new Author("Hegedus Joshua", new DateTime(2003, 1, 17));
             var diffEqDraft = ks.WriteBook("Differenciaegyenletek", 456);
-            hj.Contribute(diffEqDraft);
             
             IPublisher typoTex = new Publisher();
             var diffEq = typoTex.Publish("978-963-4930-99-0", diffEqDraft, new DateTime(2020, 02, 12));

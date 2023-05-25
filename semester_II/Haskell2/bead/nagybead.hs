@@ -1,6 +1,6 @@
 import Data.List (sort, delete)
 import Data.Char (toUpper)
-import Data.Either
+import Data.Either ()
 import Data.Maybe (isNothing, fromJust)
 -- Színek definíciója
 data Color = Purple | DarkGreen | Orange | Pink | Yellow | Red | Gray | DarkBlue | Green | Blue deriving (Eq, Show)
@@ -57,13 +57,13 @@ guessInColor (l1:l1s) (l2:l2s)
 countEm :: Int -> Guess -> ColorRow -> Int
 countEm count [] l2 = count
 countEm count (x : xs) l2
-  | elem x l2 = countEm (count + 1) xs (delete x l2)
+  | x `elem` l2 = countEm (count + 1) xs (delete x l2)
   | otherwise = countEm count xs l2
 
 matchingColorsWrongPlace :: Guess -> ColorRow -> Maybe Int
 matchingColorsWrongPlace guess colors
   | not (checkLength 4 guess colors) = Nothing
-  | otherwise = Just ((countEm 0 guess colors) - fromJust (matchingColorsRightPlace guess colors))
+  | otherwise = Just (countEm 0 guess colors - fromJust (matchingColorsRightPlace guess colors))
 
 
 getMarks :: Guess -> ColorRow -> [Mark]
@@ -77,17 +77,33 @@ guessOnce guess colors remGuess
   | not $ checkLength 4 guess colors || remGuess == 0 = Nothing
   | otherwise = Just (remGuess - 1, Resp guess (getMarks guess colors))
 
+checkWinningMarks :: [Mark] -> Bool
+checkWinningMarks [Black, Black, Black, Black] = True
+checkWinningMarks _ = False
 
 gameUpdate :: Maybe Guess -> Either String Game -> Either String Game
 gameUpdate _ (Right (Game _ _ (Failure _))) = Left "Ezt a jatekot mar korabban elvesztetted!"
 gameUpdate _ (Right (Game _ _ (Success _))) = Left "Ezt a jatekot mar korabban megnyerted!"
 gameUpdate Nothing (Right (Game c resp Ongoing)) = Right $ Game c resp (Failure "Feladtad a jatekot!")
 gameUpdate guess (Right (Game colors (rem, guessResp) _))
-  | fromJust (matchingColorsRightPlace (fromJust guess) colors) == 4 = Right $ Game colors (rem, guessResp) (Success rem)
-  | otherwise = Right $ Game colors (fst remGuess, guessResp ++ [snd resp]) Ongoing
+  | not (checkLength 4 (fromJust guess) colors) = Left "A tippeles nem sikerult!"
+  | fromJust (matchingColorsRightPlace (fromJust guess) colors) == 4 = Right $ Game colors (newRem, newResp) (Success $ length newResp)
+  | fst remGuess == 0 = Right $ Game colors (newRem, newResp) (Failure "Elfogytak a tippek!")
+  | otherwise = Right $ Game colors (newRem, newResp) Ongoing
   where
     remGuess = fromJust (guessOnce (fromJust guess) colors rem)
     resp = remGuess
+    newRem = fst remGuess
+    newResp = guessResp ++ [snd resp]
+
+
+gameState :: Either String Game -> String
+gameState (Left "") = "HIBA"
+gameState (Left string) = "HIBA: " ++ string
+gameState (Right (Game _ (rem, _) Ongoing)) = "A jatek meg folyamatban van, meg " ++ show rem ++ " tipped van hatra."
+gameState (Right (Game _ _ (Success tipps) )) = "A jatekot megnyerted " ++ show tipps ++" tippbol."
+gameState (Right (Game _ _ (Failure str) )) = "A jatekot elvesztetted. " ++ str
+
 
 stringToColor :: String -> Maybe Color
 stringToColor colorStr
@@ -132,3 +148,5 @@ stringToGuess string
   where
     strList = split ',' (trim string)
 
+gameUpdateFromString :: String -> Either String Game -> Either String Game
+gameUpdateFromString str = gameUpdate (stringToGuess str)
