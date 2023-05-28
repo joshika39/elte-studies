@@ -1,5 +1,6 @@
 package linear.algebra;
 
+
 public class GaussianElimination {
 
     private static char[] variables = {'x', 'y', 'z', 'q', 'a', 'b', 'c'};
@@ -49,17 +50,16 @@ public class GaussianElimination {
     }
 
     public void rowEchelonForm() {
-        int h = 0, m = rows;
-        int k = 0, n = cols;
+        int h = 0;
+        int k = 0;
 
-        while (h < m && k < n) {
+        while (h < rows && k < cols) {
             int iMax = argMax(h, k);
             if (matrix[iMax][k] == 0) {
                 k++;
-                h++;
             } else {
                 swapRows(h, iMax);
-                for (int i = h + 1; i < m; i++) {
+                for (int i = h + 1; i < rows; i++) {
                     multiplyAndAddRow(i, h, k);
                 }
                 multiplyRow(h, k);
