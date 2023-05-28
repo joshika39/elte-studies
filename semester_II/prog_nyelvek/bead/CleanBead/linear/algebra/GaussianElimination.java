@@ -32,21 +32,13 @@ public class GaussianElimination {
     }
 
     public GaussianElimination(String data) {
-        this(data.split(" "));
+        this(stringsToDoubles(data.split(" ")));
     }
 
-    public GaussianElimination(String[] data) {
+    public GaussianElimination(double[][] data) {
         rows = data.length;
-        cols = data[0].split(",").length;
-        matrix = new double[rows][cols];
-
-        for (int i = 0; i < rows; i++) {
-            String rowStr = data[i];
-            String[] numStr = rowStr.split(",");
-            for (int j = 0; j < numStr.length; j++) {
-                matrix[i][j] = Double.parseDouble(numStr[j]);
-            }
-        }
+        cols = data[0].length;
+        matrix = data;
     }
 
     public void rowEchelonForm() {
@@ -138,6 +130,12 @@ public class GaussianElimination {
         print(matrix);
     }
 
+    private void checkMatrixDimensions(double[][] matrix){
+        if (matrix.length != rows || matrix[0].length != cols) {
+            throw new IllegalArgumentException();
+        }
+    }
+
     public static void print(double[][] matrix) {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
@@ -160,9 +158,16 @@ public class GaussianElimination {
         System.out.println();
     }
 
-    private void checkMatrixDimensions(double[][] matrix){
-        if (matrix.length != rows || matrix[0].length != cols) {
-            throw new IllegalArgumentException();
+    public static double[][] stringsToDoubles(String[] strings) {
+        int colLen = strings[0].split(",").length;
+        double[][] result = new double[strings.length][colLen]; 
+        for (int i = 0; i < strings.length; i++) {
+            String rowStr = strings[i];
+            String[] numStr = rowStr.split(",");
+            for (int j = 0; j < numStr.length; j++) {
+                result[i][j] = Double.parseDouble(numStr[j]);
+            }
         }
+        return result;
     }
 }
