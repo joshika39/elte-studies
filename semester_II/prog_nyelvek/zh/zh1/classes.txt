@@ -1,0 +1,5 @@
+F:\Home\github\college\semester_II\prog_nyelvek\zh\zh1\game\Player.java
+F:\Home\github\college\semester_II\prog_nyelvek\zh\zh1\game\utils\VehicleException.java
+F:\Home\github\college\semester_II\prog_nyelvek\zh\zh1\game\vehicles\Car.java
+F:\Home\github\college\semester_II\prog_nyelvek\zh\zh1\game\vehicles\Train.java
+F:\Home\github\college\semester_II\prog_nyelvek\zh\zh1\game\vehicles\Vehicle.java

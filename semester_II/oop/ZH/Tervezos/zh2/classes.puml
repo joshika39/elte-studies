@@ -1,0 +1,41 @@
+@startuml Cukrasz
+
+enum Size{
+    Small,
+    Normal,
+    Large
+}
+
+interface IFlavour{
+    + Name: string
+    + StockSize: int
+}
+
+class Falvour implements IFlavour{
+    + Name: string
+    + StockSize: int
+}
+
+
+
+interface IOrederResponse{
+    + Message: string
+}
+
+class FailedResponse implements IOrederResponse{
+    + Message: string
+}
+
+class SuccessResponse implements IOrederResponse{
+    + Message: string
+}
+
+interface IConfectioner{
+    + Name:  string
+    + Location: string
+    + Flavours: List<IFlavour>
+    + GetOrder(): IOrederResponse
+}
+
+
+@enduml
