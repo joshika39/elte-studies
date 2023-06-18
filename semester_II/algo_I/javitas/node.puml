@@ -1,0 +1,9 @@
+@startuml Node
+
+class Node{
+    + data: any
+    + next: Node
+    + prev: Node
+}
+
+@enduml
