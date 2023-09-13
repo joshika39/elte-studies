@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labirinth", "Labirinth\Labirinth.csproj", "{9E907A32-9F1C-4C4D-B002-3E9122F83B6E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labirinth.UI.Forms", "Labirinth.UI.Forms\Labirinth.UI.Forms.csproj", "{9E907A32-9F1C-4C4D-B002-3E9122F83B6E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labyrinth.BL.Impl", "Labyrinth.BL.Impl\Labyrinth.BL.Impl.csproj", "{3C9953F3-F8E2-428A-AE6F-A6BD1AA1C4B1}"
 EndProject

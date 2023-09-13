@@ -8,7 +8,7 @@ namespace Labyrinth.BL.Impl.Labyrinth
     public class Labyrinth2D : ILabyrinth2D
     {
         public int SizeX { get; }
-        public int SizeY {get; }
+        public int SizeY { get; }
         public IEnumerable<IPlayer2D> Players { get; }
         public IEnumerable<IWall2D> Walls { get; }
         public IEnumerable<IFloor2D> Floors { get; }
@@ -19,12 +19,12 @@ namespace Labyrinth.BL.Impl.Labyrinth
             {
                 throw new ArgumentException("The size must be greater or equal than 4", nameof(sizeX));
             }
-            
+
             if (sizeY < 1 && sizeX > 2)
             {
                 throw new ArgumentException("The size must be greater or equal than 4", nameof(sizeY));
             }
-            
+
             SizeX = sizeX;
             SizeY = sizeY;
             Players = players ?? throw new ArgumentNullException(nameof(players));
