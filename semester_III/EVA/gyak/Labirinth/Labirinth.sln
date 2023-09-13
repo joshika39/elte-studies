@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labirinth", "Labirinth\Labirinth.csproj", "{9E907A32-9F1C-4C4D-B002-3E9122F83B6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labyrinth.BL.Impl", "Labyrinth.BL.Impl\Labyrinth.BL.Impl.csproj", "{3C9953F3-F8E2-428A-AE6F-A6BD1AA1C4B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labyrinth.BL", "Labyrinth.BL\Labyrinth.BL.csproj", "{35D7D1B0-214F-4348-91BE-C6BD7AEAC8B3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CFDF2815-5949-49B0-BE02-31F04A114E14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labyrinth.BL.Int.Tests", "Labyrinth.BL.Int.Tests\Labyrinth.BL.Int.Tests.csproj", "{0FACA73D-D864-4641-8690-7FEA075D634F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E907A32-9F1C-4C4D-B002-3E9122F83B6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E907A32-9F1C-4C4D-B002-3E9122F83B6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E907A32-9F1C-4C4D-B002-3E9122F83B6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E907A32-9F1C-4C4D-B002-3E9122F83B6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C9953F3-F8E2-428A-AE6F-A6BD1AA1C4B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C9953F3-F8E2-428A-AE6F-A6BD1AA1C4B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C9953F3-F8E2-428A-AE6F-A6BD1AA1C4B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C9953F3-F8E2-428A-AE6F-A6BD1AA1C4B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35D7D1B0-214F-4348-91BE-C6BD7AEAC8B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35D7D1B0-214F-4348-91BE-C6BD7AEAC8B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35D7D1B0-214F-4348-91BE-C6BD7AEAC8B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35D7D1B0-214F-4348-91BE-C6BD7AEAC8B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FACA73D-D864-4641-8690-7FEA075D634F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FACA73D-D864-4641-8690-7FEA075D634F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FACA73D-D864-4641-8690-7FEA075D634F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FACA73D-D864-4641-8690-7FEA075D634F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0FACA73D-D864-4641-8690-7FEA075D634F} = {CFDF2815-5949-49B0-BE02-31F04A114E14}
+	EndGlobalSection
+EndGlobal
