@@ -30,17 +30,17 @@ namespace Labyrinth.UI.Forms.View.Floor
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
+            SuspendLayout();
             // 
             // FloorView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.Name = "FloorView";
-            this.Size = new System.Drawing.Size(30, 30);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.AppWorkspace;
+            Margin = new Padding(3, 2, 3, 2);
+            Name = "FloorView";
+            Size = new Size(30, 30);
+            ResumeLayout(false);
         }
 
         #endregion

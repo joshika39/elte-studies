@@ -12,9 +12,9 @@ namespace Labyrinth.BL.Impl.Player
         public string Name { get; }
         public string Email { get; }
 
-        public Player2D(Guid id, string name, string email, IPosition2D position) : base(position)
+        public Player2D(string name, string email, IPosition2D position) : base(position)
         {
-            Id = id;
+            Id = Guid.NewGuid();
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Email = email ?? throw new ArgumentNullException(nameof(email));
         }

@@ -30,17 +30,17 @@ namespace Labyrinth.UI.Forms.View.Wall
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
+            SuspendLayout();
             // 
             // WallUserControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.Name = "WallUserControl";
-            this.Size = new System.Drawing.Size(30, 30);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ControlDarkDark;
+            Margin = new Padding(3, 2, 3, 2);
+            Name = "WallUserControl";
+            Size = new Size(30, 30);
+            ResumeLayout(false);
         }
 
         #endregion

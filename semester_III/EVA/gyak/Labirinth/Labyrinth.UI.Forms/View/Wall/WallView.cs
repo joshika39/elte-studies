@@ -11,4 +11,3 @@ namespace Labyrinth.UI.Forms.View.Wall
     }
 }
 
-    

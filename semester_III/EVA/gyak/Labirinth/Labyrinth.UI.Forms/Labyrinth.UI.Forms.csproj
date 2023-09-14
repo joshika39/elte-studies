@@ -25,12 +25,9 @@
 
 
     <ItemGroup>
-      <Folder Include="Model\" />
-    </ItemGroup>
-
-
-    <ItemGroup>
       <ProjectReference Include="..\Labyrinth.BL.Impl\Labyrinth.BL.Impl.csproj" />
     </ItemGroup>
+
+
 
 </Project>
