@@ -1,0 +1,18 @@
+﻿@startuml forms-mvp
+
+interface IView {
+
+}
+
+interface IWindow extends IView{
+    
+}
+
+interface IWindowPresenter {
+    + <<get>> Window: IWindow
+    + <<get>> GetForm(): Form
+    + Show(): void
+}
+
+IWindowPresenter *-- IWindow
+@enduml
