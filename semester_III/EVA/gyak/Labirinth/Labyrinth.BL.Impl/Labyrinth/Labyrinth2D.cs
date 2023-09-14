@@ -1,11 +1,10 @@
-﻿using Labyrinth.BL.Floor;
-using Labyrinth.BL.Labyrinth;
+﻿using Labyrinth.BL.Labyrinth;
+using Labyrinth.BL.LabyrinthElements;
 using Labyrinth.BL.Player;
-using Labyrinth.BL.Wall;
 
 namespace Labyrinth.BL.Impl.Labyrinth
 {
-    public class Labyrinth2D : ILabyrinth2D
+    internal class Labyrinth2D : ILabyrinth2D
     {
         public int SizeX { get; }
         public int SizeY { get; }

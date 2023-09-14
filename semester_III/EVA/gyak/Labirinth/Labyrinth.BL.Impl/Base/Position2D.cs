@@ -1,8 +1,9 @@
-﻿using Labyrinth.BL.Labyrinth;
+﻿using Labyrinth.BL.Base;
+using Labyrinth.BL.Labyrinth;
 
 namespace Labyrinth.BL.Impl.Base
 {
-    public class Position2D : IPosition2D
+    internal class Position2D : IPosition2D
     {
 
         public int X { get; }

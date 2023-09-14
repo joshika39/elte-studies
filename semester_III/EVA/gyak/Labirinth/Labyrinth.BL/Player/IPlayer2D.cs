@@ -1,4 +1,5 @@
 ﻿using Labyrinth.BL.Labyrinth;
+using Labyrinth.BL.LabyrinthElements;
 
 namespace Labyrinth.BL.Player
 {

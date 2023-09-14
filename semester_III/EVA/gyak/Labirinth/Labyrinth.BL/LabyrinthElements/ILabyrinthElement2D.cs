@@ -1,4 +1,6 @@
-﻿namespace Labyrinth.BL.Labyrinth
+﻿using Labyrinth.BL.Base;
+
+namespace Labyrinth.BL.LabyrinthElements
 {
     public interface ILabyrinthElement2D
     {

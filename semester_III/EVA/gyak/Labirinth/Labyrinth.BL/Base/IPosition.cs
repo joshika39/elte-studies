@@ -1,4 +1,4 @@
-﻿namespace Labyrinth.BL.Labyrinth
+﻿namespace Labyrinth.BL.Base
 {
     public interface IPosition
     {

@@ -1,6 +1,5 @@
-﻿using Labyrinth.BL.Floor;
+﻿using Labyrinth.BL.LabyrinthElements;
 using Labyrinth.BL.Player;
-using Labyrinth.BL.Wall;
 
 namespace Labyrinth.BL.Labyrinth
 {

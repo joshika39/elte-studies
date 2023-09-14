@@ -1,10 +1,12 @@
-﻿using Labyrinth.BL.Impl.Labyrinth;
+﻿using Labyrinth.BL.Base;
+using Labyrinth.BL.Impl.Labyrinth;
+using Labyrinth.BL.Impl.LabyrinthElements;
 using Labyrinth.BL.Labyrinth;
 using Labyrinth.BL.Player;
 
 namespace Labyrinth.BL.Impl.Player
 {
-    public class Player2D : ALabyrinthElement2D, IPlayer2D {
+    internal class Player2D : ALabyrinthElement2D, IPlayer2D {
 
         public Guid Id { get; }
         public string Name { get; }
