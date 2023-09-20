@@ -9,6 +9,10 @@ enum 2DMove {
     Right
 }
 
+interface IConfigurationService {
+    + <<get>> Dimension: int;
+}
+
 interface IPosition {
 
 }
@@ -28,41 +32,25 @@ interface IPlayer2D extends IPlayer {
     + MoveUp(direction: 2DMove): void
 }
 
-interface ILabyrinth2D {
+interface IMap2D {
     + <<get>> SizeX: int
     + <<get>> SizeY: int 
     + <<get>> Players: List<IPlayer2D>
-    + <<get>> Floors: List<IFloor2D>
-    + <<get>> Walls: List<IWall2D>
+    + <<get>> MapObjects: List<IMapElement2D>
 }
 
-interface ILabyrinthElement2D {
+interface IMapElement2D {
     + <<get>> Position: IPosition2D 
 }
 
 
-abstract A2DLabyrinthElement implements ILabyrinthElement2D {
+abstract AMapElement2D implements IMapElement2D {
     + <<get>> Position: IPosition2D 
 }
 
-interface IWall2D extends ILabyrinthElement2D {
-    + <<get>> Position: IPosition2D 
-}
 
-interface IFloor2D extends ILabyrinthElement2D {
-    + <<get>> Position: IPosition2D 
-}
-
-class Wall2D implements IWall2D {
-}
-
-class Floor2D implements IFloor2D {
-}
-
-ILabyrinthElement2D *-- IPosition2D
-IPlayer2D --|> ILabyrinthElement2D
-Wall2D --|> A2DLabyrinthElement
-Floor2D --|> A2DLabyrinthElement
-ILabyrinth2D "1" *-- "0..many" IPlayer2D
+IMapElement2D *-- IPosition2D
+IPlayer2D --|> IMapElement2D
+IMap2D "1" *-- "0..many" IPlayer2D
 
 @enduml
