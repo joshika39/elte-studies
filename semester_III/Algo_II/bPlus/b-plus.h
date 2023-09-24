@@ -13,6 +13,7 @@ class bNode {
     bool leaf;
 
 public:
+    bNode(int t1, int k);
     bNode(int t1, bool leaf1);
 
     void insertNonFull(int k);

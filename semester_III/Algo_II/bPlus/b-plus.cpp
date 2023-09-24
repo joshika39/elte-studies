@@ -6,13 +6,21 @@
 #include <queue>
 #include "b-plus.h"
 
+bNode::bNode(int _d, int k) {
+    d = _d;
+    leaf = true;
+    keys = new int[d - 1];
+    keys[0] = k;
+    n = 1;
+    children = new bNode* [d];
+}
+
 bNode::bNode(int _d, bool _leaf) {
     d = _d;
     leaf = _leaf;
     keys = new int[d - 1];
-    children = new bNode* [d];
-
     n = 0;
+    children = new bNode* [d];
 }
 
 void bNode::display() {
