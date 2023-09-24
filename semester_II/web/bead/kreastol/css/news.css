@@ -1,0 +1,30 @@
+@import url('./defaults.css');
+@import url('./base.css');
+
+h1{
+    margin-block: 1rem;
+    text-align: center;
+}
+.container ul{
+    list-style: none;
+}
+
+.news .title{
+    display: block;
+}
+
+.news .title h2{
+    display: inline;
+    padding: var(--small-padding);
+}
+
+.news hr{
+    width: 20vw;
+}
+
+
+.container ul{
+    padding: 1rem;
+    margin-left: 1rem;
+    border-left: var(--accent-1) solid 2px;
+}

@@ -1,0 +1,70 @@
+@import url('./defaults.css');
+@import url('./base.css');
+
+.part {
+	position: relative;
+	display: flex;
+	justify-content: flex-start;
+	/* align-items: center; */
+	flex-direction: column;
+	background: var(--primary-1);
+	margin: var(--small-padding);
+	padding: var(--medium-padding);
+	box-sizing: border-box;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+	border-radius: var(--medium-padding);
+}
+
+.short{
+	width: 30%;
+}
+
+.long{
+	width: 60%;
+}
+
+.achivements{
+	width: 30%;
+}
+
+.profilepic{
+	display: inline-block;
+	height: 20vh;
+	border-radius: 50%;
+	padding: 1rem;
+	align-self: center;
+}
+
+@media only screen and (max-width: 800px) {
+	.profilepic{
+		height: unset;
+		width: calc(40% + 10vw * 1.5);
+	}
+
+	.part {
+		height: unset;
+	}
+
+	.short, .long, .achivements{
+		width: calc(100% - var(--small-padding) * 2);
+	}
+}
+
+
+tr:nth-child(even) {
+	background: var(--primary-2);
+}
+
+caption{
+	caption-side: bottom;
+}
+
+
+@media only screen and (max-width: 400px) {
+	.part{
+		border-radius: 0 0 var(--small-padding) var(--small-padding);
+		width: 100%;
+		margin: var(--small-padding) 0;
+		padding: var(--medium-padding) 0;
+	}
+}

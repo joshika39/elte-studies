@@ -1,0 +1,98 @@
+@import url("./defaults.css");
+@import url("./base.css");
+
+#comment {
+  border-radius: var(--small-padding);
+  padding: var(--small-padding);
+  margin: var(--small-padding);
+  width: 20rem;
+  float: right;
+  background-color: var(--primary-3);
+}
+
+#events img {
+  filter: invert(1);
+  margin-top: 3rem;
+  float: left;
+  width: 15rem;
+  shape-outside: border-box;
+}
+
+.group.left {
+  float: left;
+}
+
+.v-container{
+  display: flex;
+  flex-direction: column;
+  margin: var(--medium-padding);
+  margin-top: 3rem;
+  shape-outside: border-box;
+}
+
+.v-container a{
+  padding: var(--small-padding);
+}
+
+#workshops .v-container {
+  float: right;
+  width: 30rem;
+}
+
+/* video {
+  margin: var(--medium-padding);
+  margin-top: 3rem;
+  shape-outside: border-box;
+}
+
+#workshops video {
+  float: right;
+  width: 30rem;
+} */
+
+figure {
+  padding: var(--medium-padding);
+  margin: auto;
+}
+
+figcaption {
+  background-color: black;
+  color: white;
+  font-style: italic;
+  padding: var(--small-padding);
+  text-align: center;
+}
+
+figure img{
+	width: 100%;
+}
+
+@media screen and (max-width: 700px) {
+  img {
+    width: 100%;
+  }
+
+  /* video {
+    margin: 0;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    shape-outside: border-box;
+  }
+
+  #workshops video {
+    float: unset;
+    width: 100%;
+  } */
+
+  .v-container {
+    margin: 0;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    shape-outside: border-box;
+  }
+
+  #workshops .v-container {
+    float: unset;
+    width: 100%;
+  }
+}

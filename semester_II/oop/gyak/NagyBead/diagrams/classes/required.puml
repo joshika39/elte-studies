@@ -1,0 +1,8 @@
+@startuml Rec
+
+!includesub library.puml!Rec
+!includesub books.puml!Rec
+
+ILibrary *-- ILibraryBook 
+
+@enduml

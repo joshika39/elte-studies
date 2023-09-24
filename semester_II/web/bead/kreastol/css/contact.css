@@ -1,0 +1,159 @@
+@import url('./defaults.css');
+@import url('./base.css');
+
+
+.form{
+  margin: var(--small-padding);
+	display: flex;
+	flex-direction: row;
+}
+
+form{
+  max-width: 400px;
+	width: 100%;
+	background-color: var(--light-bg);
+	padding: 1rem;
+  border-radius: 1rem;
+}
+
+:root {
+  --size-bezel: .5rem;
+  --size-radius: 4px;
+  line-height: 1.4;
+  font-family: "Inter", sans-serif;
+  color: var(--primary);
+  background: var(--light-bg);
+  font-weight: 200;
+  /* padding: 0 calc(var(--size-bezel) * 3); */
+}
+
+/* mark {
+  background: var(--primary);
+  color: var(--primary);
+  font-weight: bold;
+  padding: 0 0.2em;
+} */
+
+.input {
+  margin: .8rem 0;
+}
+
+.radio{
+  display: flex;
+  align-content: center;
+  font-weight: bold;
+  line-height: 1.2;
+  flex-direction: row;
+}
+
+.radio p{
+  padding: 0;
+  margin: 0;
+  padding-inline: .2rem;
+}
+
+.radio span{
+  width: .1rem;
+  background-color: #000;
+  margin-inline: .3rem;
+}
+
+.radio-label{
+  display: flex;
+  align-content: center;
+}
+
+.radio-label > *{
+  margin-inline: .3rem .1rem;
+}
+
+.input-label {
+  position: relative;
+  /* margin: .2rem; */
+}
+
+.label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: calc(var(--size-bezel) * 0.50) calc(var(--size-bezel) * .5);
+  margin: calc(var(--size-bezel) * 0.50 + 3px) calc(var(--size-bezel) * .5);
+  background: pink;
+  white-space: nowrap;
+  transform: translate(0, 0);
+  transform-origin: 0 0;
+  background: var(--light-bg);
+  transition: transform 120ms ease-in;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.field {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  border: 2px solid currentColor;
+  padding: calc(var(--size-bezel) * 1.5) var(--size-bezel);
+  color: currentColor;
+  background: transparent;
+  border-radius: var(--size-radius);
+}
+.field:not(:-moz-placeholder-shown) + .label {
+  transform: translate(0.25rem, -65%) scale(0.8);
+  color: var(--primary);
+}
+.field:not(:-ms-input-placeholder) + .label {
+  transform: translate(0.25rem, -65%) scale(0.8);
+  color: var(--primary);
+}
+.field:focus + .label, .field:not(:placeholder-shown) + .label {
+  transform: translate(0.25rem, -65%) scale(0.8);
+  color: var(--primary);
+}
+
+.button-group {
+  margin-top: calc(var(--size-bezel) * 2.5);
+}
+
+textarea{
+  resize: vertical;
+}
+
+button {
+  color: var(--light-bg);
+  padding: var(--size-bezel) calc(var(--size-bezel) * 2);
+  background: var(--primary);
+  border: none;
+  border-radius: var(--size-radius);
+  font-weight: 900;
+}
+
+button[type=reset] {
+  outline: var(--primary) solid 2px;
+  color: var(--primary);
+  background: var(--light-bg);
+  font-weight: 600;
+}
+
+button + button {
+  margin-left: calc(var(--size-bezel) * 2);
+}
+
+/* .icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.5em;
+} */
+
+.hidden {
+  display: none;
+}
+
+@media screen and (max-width: 700px) {
+  .form{
+    flex-direction: column-reverse;
+  }
+
+}
+

@@ -1,0 +1,35 @@
+@startuml Classes
+
+
+package LibraryCore{
+
+    !include library.puml!LIBRARY
+    !include books.puml!BOOKS
+    !include people.puml!PEOPLE
+    !include misc.puml!MISC
+
+
+    IBill <|.. LateReturnBill
+
+    IAuthor <|.. Author
+    IPublisher <|.. Publisher
+
+
+    IPublisher "0..1" *-- "*" IBook : Publishes <
+    IMember "0..1" -- "*" ILibraryBook : Borrows >
+
+    ILibrary "0..1" *-- "*" ILibraryBook : Lends >
+    IDraft "1.." *-- IAuthor : Contains >
+
+
+
+}
+
+
+package Main{
+    class Program{
+        {static} -Main(args: string[])
+    }
+}
+
+@enduml

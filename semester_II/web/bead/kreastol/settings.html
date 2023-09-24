@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Kreastol ・ Beállítások</title>
+	<link rel="stylesheet" type="text/css" href="css/settings.css">
+	<link rel="shortcut icon" href="assets/Logo.png" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="css/print.css">
+</head>
+
+<body>
+	<header id="navbar"></header>
+	<h1 id="content">Weboldal beállítások</h1>
+	<hr>
+	<h2>Betűméret</h2>
+	<div class="fontsize-cahnge">
+		<p>Az alábbi alcímen és szövegen tesztelheti a betűméretet.</p>
+		<div class="test">
+			<h3>Jonh 3:16</h3>
+			<p>
+				'For God <em>so loved</em> the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have <strong>everlasting life</strong>. '
+				<a href="https://my.bible.com/bible/1/JHN.3.16">Source</a>
+			</p>
+		</div>
+		<div class="buttons">
+			<button class="button" onclick="largerFont()">+</button>
+			<button class="button" onclick="smallerFont()">-</button>
+			<button class="button" onclick="resetFont()">Visszaállít</button>
+		</div>
+	</div>
+
+	<h2>Kontraszt</h2>
+	<div class="fontsize-cahnge">
+		<div class="buttons">
+			<button class="button" onclick="changeContrast(true)">Bekapcsol</button>
+			<button class="button" onclick="changeContrast(false)">Kikapcsol</button>
+		</div>
+	</div>
+
+	<div class="container">
+	</div>
+	<footer id="footer" class="footer notprint"></footer>
+	<script src="js/jquery.js"></script>
+	<script src="js/functions.js"></script>
+	<script src="js/main.js"></script>
+</body>
+
+</html>

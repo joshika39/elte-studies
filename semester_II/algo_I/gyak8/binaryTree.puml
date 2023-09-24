@@ -1,0 +1,41 @@
+@startuml BinTree
+
+class Node{
+	+ key: T
+	+ left: Node*
+	+ right: Node*
+
+	+ <<constructor>> Node()
+	+ <<constructor>> Node(x: T)
+}
+
+class Node3{
+	+ key: T
+	+ left: Node3*
+	+ right: Node3*
+	+ parent: Node3*
+
+	+ <<constructor>> Node(p: Node3*)
+	+ <<constructor>> Node(x: T, p: Node3*)
+}
+
+note right of Node::Node()
+	left := right := ∅ 
+end note
+
+note right of Node::"Node(x: T)"
+	left := right := ∅ 
+	key := x
+end note
+
+note right of Node3::"Node(p: Node3*)"
+	left := right := ∅ 
+	parent := p 
+end note
+
+note right of Node3::"Node(x: T, p: Node3*)"
+	left := right := ∅ 
+	parent := p
+	key := x
+end note
+@enduml

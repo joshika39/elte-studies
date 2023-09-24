@@ -1,0 +1,20 @@
+@import url('./defaults.css');
+@import url('./base.css');
+
+body{
+	width: 100vw;
+}
+
+.buttons{
+	display: flex;
+	flex-direction: row;
+}
+
+button{
+	color: var(--primary-1);
+}
+
+.test{
+	margin: calc(var(--small-padding) / 2);
+	border: var(--primary) dashed 1px;
+}

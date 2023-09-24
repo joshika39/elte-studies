@@ -1,0 +1,123 @@
+@startuml Books (id=BOOKS)
+
+!startsub Rec
+interface IeBook{
+	+ Size: double
+	+ Format: string
+}
+
+interface IPhysicalBook{
+	+ Preservation: float
+}
+
+ILibraryBook <.. IeBook
+ILibraryBook <.. IPhysicalBook
+
+abstract AeBook {
+
+}
+
+abstract APhysicalBook {
+
+}
+
+IeBook <|.. AeBook
+IPhysicalBook <|.. APhysicalBook 
+interface ILibraryBook{
+	+ LibraryId: Guid
+	+ BorrowedBy: Guid
+	+ BorrowedAt: DateTime
+	+ ReturnAt: DateTime
+	+ ValidateReturn(returnDate: DateTime)
+}
+
+interface IBook{
+	+ ISBN: string
+	+ Title: string
+	+ PageCount: int
+	+ PublishedAt: Date
+	+ MainAuthor: IAuthor
+	+ Authors: IList<IAuthor>
+}
+
+IBook <|-- ILibraryBook
+abstract class ABook <<abstract>> {
+	# <<constructor>> ABook(book: IBook, libraryId: Guid)
+	+ ISBN: string
+	+ Title: string
+	+ PageCount: int
+	+ PublishedAt: Date
+	+ MainAuthor: IAuthor
+	+ Authors: IList<IAuthor>
+	+ LibraryId: Guid
+	+ BorrowedBy: Guid
+	+ BorrowedAt: DateTime
+	+ ReturnAt: DateTime
+	+ ValidateReturn(returnDate: DateTime)
+}
+
+ILibraryBook <|-- ABook
+class "EScienceBook" as S1{}
+class "EYouthBook" as Y1{}
+class "ELiteratureBook" as L1{}
+
+class "ScienceBook" as S2{}
+class "YouthBook" as Y2{}
+class "LiteratureBook" as L2{}
+
+
+
+ABook <|.. AeBook
+ABook <|.. APhysicalBook
+
+AeBook <-- S1
+AeBook <-- Y1
+AeBook <-- L1
+
+
+APhysicalBook <-- S2
+APhysicalBook <-- Y2
+APhysicalBook <-- L2
+!endsub
+
+
+
+class PublishedBook implements IBook{
+	+ ISBN: string
+	+ Title: string
+	+ PageCount: int
+	+ PublishedAt: Date
+	+ MainAuthor: IAuthor
+	+ Authors: IList<IAuthor>
+}
+
+interface IDraft {
+	+ DraftTitle: string
+	+ DraftPageCount: int
+	+ Contributors: IList<IAuthor>
+}
+
+class Draft{
+	+ DraftTitle: string
+	+ DraftPageCount: int
+	+ Contributors: IList<IAuthor>
+}
+
+IDraft <|.. Draft
+note right of IBook::MainAuthor
+	"This should give back the first elment of the Authors"
+end note
+
+interface IBookFactory {
+	+ CreateOnlineBook(book: IBook, libraryId: Guid, size: double, format: string, category: string): IeBook
+	+ CreateBook(book: IBook, libraryId: Guid, preservation: float, category: string): IPhysicalBook
+	+ CreateGeneralBook(book: IBook, libraryId: Guid, category: string): ILibraryBook
+}
+
+class BookFactory implements IBookFactory{
+	+ CreateOnlineBook(book: IBook, libraryId: Guid, size: double, format: string, category: string): IeBook
+	+ CreateBook(book: IBook, libraryId: Guid, preservation: float, category: string): IPhysicalBook
+	+ CreateGeneralBook(book: IBook, libraryId: Guid, category: string): ILibraryBook
+}
+
+@enduml

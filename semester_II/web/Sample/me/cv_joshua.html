@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hegedűs Joshua</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="http://webfejlesztes.inf.elte.hu/feladat/bemutatkozas.css"
+    />
+    <!-- <link rel="stylesheet" type="text/css" href="css/base.css" /> -->
+    <style>
+      :root{
+	--primary-1: #c1fdd1;
+	--primary-2: #8befa6;
+	--primary-3: #6ee78e;
+	--primary-4: #52de77;
+	--primary: #38d662;
+	--primary-6: #24ba4c;
+	--primary-7: #159e39;
+	--primary-8: #088229;
+	--primary-9: #00661b;
+
+	--accent-1: #b138d6;
+	--accent-1-2: #742d8a;
+	--accent-2: #d6385d;
+	--accent-2-2: #8a2d43;
+}
+
+.list-item li, .list-item p, .list-item p::first-letter{
+	all: unset;
+}
+
+body{
+	all: unset;
+	background: var(--primary-1);
+}
+
+.container{
+	background: var(--primary-2);
+	color: black;
+    width: 70%;
+    min-width: 500px;
+    margin: 20px auto;
+    padding: 0px 30px;
+    border-radius: 10px;
+    border: 4px double var(--primary-9);
+    font-family: sans-serif;
+	/* box-shadow: var(--accent-1) 0 0 130px; */
+}
+
+h1:before{
+	border-right: 40px solid var(--accent-2);
+}
+
+p::first-letter{
+	color: var(--primary-9);
+}
+
+h2{
+	color:var(--primary-9);
+}
+
+
+b{
+	color: var(--accent-2);
+}
+
+.list-item p:nth-child(2){
+	font-size: .9em;
+	color: var(--primary-9);
+}
+
+.list-item{
+	display: flex;
+	flex-direction: column;
+	margin-bottom: .3rem;
+}
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1 id="top">Önéletrajz</h1>
+      <h2>Bio</h2>
+      <p>
+        Hegedűs Joshua vagyok, szerbiában születtem és ott jártam ki a
+        <b>középiskolát</b>, most egyetemen tanulok. Szabadídőm informatikai
+        tevékenységekkel töltöm.
+      </p>
+      <p>
+        A családomban 4en vagyunk fiú testvérek. A szüleimnek van egy gyerek
+        klubbja, ami
+        <a target="_blank" href="https://kreastol-klub.org">itt</a>
+        megtekinthető.
+      </p>
+      <h2>Tanulmányok</h2>
+      <ul>
+        <li>
+          <div class="list-item">
+            <p>ELTE IK</p>
+            <p>Alapképzés ~ 2022-jelen - Budapest</p>
+          </div>
+        </li>
+        <li>
+          <div class="list-item">
+            <p>Bolyai Tehettséggondozó Gimnázium és Kollégium</p>
+            <p>Szakgimnázium ~ 2018-2022 - Zenta</p>
+          </div>
+        </li>
+        <li>
+          <div class="list-item">
+            <p>Cseh Károly Általános Iskola</p>
+            <p>Általános iskola ~ 2010-2018 - Ada</p>
+          </div>
+        </li>
+      </ul>
+
+      <h2>Tapasztalatok</h2>
+      <ul>
+        <li>
+          <div class="list-item">
+            <p>XperiCad Kft.</p>
+            <p>Programozó/Product Owner: 2021. március - Jelen</p>
+          </div>
+        </li>
+        <li>
+          <div class="list-item">
+            <p>Logiscool Újbuda</p>
+            <p>Oktató: 2022. szeptember - Jelen</p>
+          </div>
+        </li>
+        <li>
+          <div class="list-item">
+            <p>Logiscool Zenta <i>(Szerbia)</i></p>
+            <p>Oktató: 2020. szeptember - 2023.06</p>
+          </div>
+        </li>
+      </ul>
+      <h2>Hobbik</h2>
+      <ol>
+        <li>
+          Saját project készítés
+          <a target="_blank" href="https://github.com/joshika39"></a>
+        </li>
+        <li>Zene készítés</li>
+        <li>Koncert kihangosítás</li>
+        <li>Web design</li>
+        <li>Nyelv tanulás</li>
+        <li>Open-source projektekhez hozzájárulás</li>
+        <li>Rutmus játékok játszása</li>
+      </ol>
+      <p>
+        Több fajta python eszközt készítgettem illetve egy saját
+        <code>C#</code> könyvtárat, amely a
+        <a target="_blank" href="https://www.nuget.org/profiles/joshika39"
+          >Nuget.org</a
+        >
+        weboldalon megtalálható. Ez mellett ruby on rails freamwork-öt tanulok,
+        hogy még naprakészebb weboldalakat tudjak majd készíteni.
+      </p>
+      <a href="#top">Vissza a tetejére</a>
+      <footer><time datetime="2023-04-06">2023. Április 6.</time></footer>
+    </div>
+  </body>
+</html>

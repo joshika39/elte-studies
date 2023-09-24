@@ -1,0 +1,91 @@
+@import url('./icons.css');
+
+:root {
+  --primary-1: #b1cef1;
+  --primary-2: #98bae3;
+  --primary-3: #81a7d6;
+  --primary-4: #6b95c8;
+  --primary: #5784ba;
+  --primary-6: #3a6ba5;
+  --primary-7: #225490;
+  --primary-8: #0e407b;
+  --primary-9: #002e66;
+  --accent-1: #ba57a7;
+  --accent-1-2: #3b2035;
+  --accent-2: #95ba57;
+  --accent-2-2: #313b20;
+  --success: rgba(0, 232, 151, 0.9);
+  --light-bg: #ebf0e9;
+  --on-light-bg: #0f0f0f;
+  --on-primary: var(--primary-1);
+
+  --body-bg: linear-gradient(
+    90deg,
+    var(--primary-1) 20%,
+    var(--primary-2) 100%
+  );
+
+  --small-padding: 0.4rem;
+  --medium-padding: 0.8rem;
+  --large-padding: 1.2rem;
+
+  --font-value: 1rem;
+  --small-font: 0.8em;
+  --normal-font: calc(var(--font-value) + .2vw);
+  --large-font: 1.1em;
+  --larger-font: 1.2em;
+  --x-large-font: 1.4em;
+  --xx-large-font: 1.6em;
+
+  font-size: var(--normal-font);
+}
+
+html,
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: var(--on-light-bg);
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--primary-1);
+  background-repeat: no-repeat;
+  color: var(--on-light-bg);
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+  /* height: 100%; */
+  display: flex;
+  flex-flow: column;
+  /* min-height: 100%;
+  flex: 1 1 auto; */
+  flex: 1;
+}
+
+.container.row{
+  flex-flow: row;
+}
+ 
+@media only screen and (max-height: 700px) {
+  .container{
+    flex-flow: column;
+  }
+
+  .container > *{
+    flex: 0 1 auto;
+  }
+  
+}
+
+@media only screen and (max-width: 800px) {
+  .container.row{
+    flex-flow: column;
+  }
+}
+
+

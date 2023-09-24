@@ -1,0 +1,81 @@
+@startuml Objects
+
+
+map ScienceBook1{
+    ISBN => "978-963-4930-99-0"
+    Title => "Differenciaegyenletek"
+    PageCount => 456
+    PublishedAt => "2020-02-12"
+    LibraryId => "18321e90-9b73-48e4-88db-93aed7e370b7"
+    BorrowedBy => 
+    BorrowedAt => ""
+    ReturnAt => ""
+    Authors  => "Kovacs Sandor"
+}
+
+map ScienceBook2{
+    ISBN => "978-0132350884"
+    Title => "Clean Code"
+    PageCount => 321
+    PublishedAt => "2008-08-01"
+    LibraryId => "6e3d779a-8194-4531-beab-705e09f3ca5a"
+    BorrowedBy => Peter
+    BorrowedAt => "2023-05-23"
+    ReturnAt => "2023-06-23"
+    Authors  => "Robert C. Martin"
+}
+
+map LiteratureBook1{
+    ISBN => "978-0132350884"
+    Title => "Narnia 1"
+    PageCount => 321
+    PublishedAt => "2005-08-01"
+    LibraryId => "7a3ae137-7edb-45c6-901d-e447ed6d357d"
+    BorrowedBy => John
+    BorrowedAt => "2023-05-23"
+    ReturnAt => "2023-06-23"
+    Authors  => "C. S. Lewis"
+}
+
+map LiteratureBook2{
+    ISBN => "978-0132350884"
+    Title => "Narnia 2"
+    PageCount => 321
+    PublishedAt => "2006-08-01"
+    LibraryId => "e9219a48-b21c-4c95-ba43-f2d5b20c3cb1"
+    BorrowedBy => John
+    BorrowedAt => "2023-05-23"
+    ReturnAt => "2023-06-23"
+    Authors  => "C. S. Lewis"
+}
+
+map LiteratureBook3{
+    ISBN => "978-0132350884"
+    Title => "Narnia 3"
+    PageCount => 321
+    PublishedAt => "2007-08-01"
+    LibraryId => "7d6965c0-bacd-42ff-87a7-da8ebf307501"
+    BorrowedBy => 
+    BorrowedAt => ""
+    ReturnAt => ""
+    Authors  => "C. S. Lewis"
+}
+
+
+map Peter{
+    Name => "Kovacs Peter"
+    UserName => "peti123"
+    BornAt => "2003-03-23"
+}
+map John{
+    Name => "Kovacs Jani"
+    UserName => "janika"
+    BornAt => "2003-04-23"
+}
+
+
+Peter *-- ScienceBook2
+John *-- LiteratureBook1
+John *-- LiteratureBook2
+
+@enduml

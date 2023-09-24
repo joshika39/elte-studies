@@ -1,0 +1,48 @@
+.print {
+	display: none !important;
+}
+
+@media print {
+	@page {
+		margin: 2cm;
+		size: A4;
+	}
+
+	ul {
+		margin-left: 2rem !important;
+	}
+
+	.print {
+		display: unset !important;
+	}
+
+	.notprint {
+		display: none !important;
+	}
+
+	aside {
+		margin: 0 !important;
+		padding: var(--small-padding) !important;
+		float: unset !important;
+		width: 100% !important;
+		background-color: transparent !important;
+		font-style: italic !important;
+	}
+
+	aside::before {
+		content: "Note:";
+	}
+
+
+	#navbar {
+		--navbar-height: 64px;
+		position: relative;
+		height: var(--navbar-height);
+		background-color: var(--navbar-bg-color);
+		left: 0;
+		right: 0;
+		box-shadow: none !important;
+		border: var(--primary) 1px solid !important;
+	}
+
+}

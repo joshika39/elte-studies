@@ -1,0 +1,20 @@
+@startuml UseCase
+
+"Borrow the book" as (BorrowSF)
+"Logs into Library" as (LoginToLib)
+"Library Checks if the book is available" as (BookCheck)
+"Member brings back the book" as (WantToReturn)
+"Library validates the return date" as (ValidateBook)
+"Member got fined" as (Fine)
+
+:Member1: ..> (LoginToLib) : <precedes>
+(LoginToLib) ..> (BorrowSF) : <precedes>
+(BorrowSF) ..> :Library1: : <precedes>
+:Library1: ..> (BookCheck): <precedes>
+(BookCheck) ..> :Member1: : Books got lend
+
+:Member2: ..> (WantToReturn) : <precedes>
+(WantToReturn) ..> :Library2: : <precedes>
+:Library2: ..> (ValidateBook): <extends>
+(ValidateBook) ..> (Fine): <extends>
+@enduml

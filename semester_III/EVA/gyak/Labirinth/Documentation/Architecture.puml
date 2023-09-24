@@ -1,0 +1,56 @@
+@startuml class-architecture
+
+skinparam groupInheritance 4
+
+enum 2DMove {
+    Up
+    Down
+    Left
+    Right
+}
+
+interface IConfigurationService {
+    + <<get>> Dimension: int;
+}
+
+interface IPosition {
+
+}
+
+interface IPosition2D extends IPosition {
+    + <<get>> x: int
+    + <<get>> y: int
+}
+
+interface IPlayer {
+    + <<get>> Id: Guid
+    + <<get>> Name: string
+    + <<get>> Email: string
+}
+
+interface IPlayer2D extends IPlayer {
+    + MoveUp(direction: 2DMove): void
+}
+
+interface IMap2D {
+    + <<get>> SizeX: int
+    + <<get>> SizeY: int 
+    + <<get>> Players: List<IPlayer2D>
+    + <<get>> MapObjects: List<IMapElement2D>
+}
+
+interface IMapElement2D {
+    + <<get>> Position: IPosition2D 
+}
+
+
+abstract AMapElement2D implements IMapElement2D {
+    + <<get>> Position: IPosition2D 
+}
+
+
+IMapElement2D *-- IPosition2D
+IPlayer2D --|> IMapElement2D
+IMap2D "1" *-- "0..many" IPlayer2D
+
+@enduml

@@ -1,0 +1,79 @@
+@startuml
+namespace yqmhwo{
+class Program{
+  {static} -Main(string[] args)
+}
+}
+
+namespace Backend{
+enum MessageSeverity{
+Success
+Info
+Warning
+Error
+}
+interface ICity{
+  +MaxDifference: int
+  +Num: int 
+}
+
+class City implements ICity{
+  +MaxDifference: int
+  +Num: int
+  -GetMaxNum(IReadOnlyList<int> list): int
+}
+
+
+interface ICities{
+  +CityList: List<ICity>
+  +HighestDifference: int 
+  +HighestCityCount: int 
+  +Result: string 
+}
+
+class Cities implements ICities{
+  +CityList: List<ICity>
+  +HighestDifference: int
+  +HighestCityCount: int
+  +Result: string
+  
+  -GetHighestDifference(): int
+  -CountTheHighestCities(): int
+  -GetResult(): string
+}
+
+
+interface IDataReader{
+  +Details(IIOManager iioManager)
+  +GetSingleInput(int lowest, int highest, string prompt, IIOManager iioManager): int
+  +GetFromInput(string line): List<int>
+  +GetFromInput(int limit, int lowest, int highest, string inputPrompt, string counterPrompt, IIOManager iioManager): List<int>
+}
+
+class GeneralDataReader implements IDataReader{
+  +Details(IIOManager iioManager)
+  +GetSingleInput(int lowest, int highest, string prompt, IIOManager iioManager): int
+  +GetFromInput(string line): List<int>
+  +GetFromInput(int limit, int lowest, int highest, string inputPrompt, string counterPrompt, IIOManager iioManager): List<int>
+}
+
+interface IIOManager{
+  +Write(MessageSeverity severity, string msg)
+  +WriteLine(MessageSeverity severity, string msg)
+  +ReadLine(): string
+  +ReadLine(string prompt): string
+}
+class StandardIOManager implements IIOManager{
+  +Write(MessageSeverity severity, string msg)
+  +WriteLine(MessageSeverity severity, string msg)
+  +ReadLine(): string
+  +ReadLine(string prompt): string
+  -ConstructMsg(MessageSeverity severity)
+}
+}
+
+yqmhwo.Program --* Backend.IDataReader: > uses
+yqmhwo.Program --* Backend.IIOManager: > uses
+yqmhwo.Program --* Backend.ICity: > uses
+yqmhwo.Program --* Backend.ICities: > uses
+@enduml
