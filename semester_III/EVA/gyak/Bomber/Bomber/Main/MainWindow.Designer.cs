@@ -30,13 +30,45 @@ namespace Bomber.Main
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.label1 = new System.Windows.Forms.Label();
+            this.bomberMap = new System.Windows.Forms.Panel();
+            this.SuspendLayout();
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(161, 41);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Bomber v1";
+            // 
+            // bomberMap
+            // 
+            this.bomberMap.Location = new System.Drawing.Point(12, 70);
+            this.bomberMap.Name = "bomberMap";
+            this.bomberMap.Size = new System.Drawing.Size(350, 350);
+            this.bomberMap.TabIndex = 1;
+            // 
+            // MainWindow
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.bomberMap);
+            this.Controls.Add(this.label1);
+            this.Name = "MainWindow";
             this.Text = "MainWindow";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private Label label1;
+        private Panel bomberMap;
     }
 }
 
