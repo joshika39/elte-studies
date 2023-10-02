@@ -8,8 +8,19 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+
     <ItemGroup>
+      <PackageReference Include="joshika39.Core" Version="1.0.0-preview0001" />
       <PackageReference Include="joshika39.GameFramework" Version="1.0.0-pre0003" />
+    </ItemGroup>
+
+
+
+
+    <ItemGroup>
+      <Compile Update="Main\MainWindow.cs">
+        <SubType>Form</SubType>
+      </Compile>
     </ItemGroup>
 
 </Project>
