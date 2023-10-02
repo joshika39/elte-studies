@@ -1,3 +1,7 @@
+using Bomber.Core;
+using Bomber.Main;
+using Microsoft.Extensions.DependencyInjection;
+
 namespace Bomber;
 
 static class Program
@@ -8,9 +12,21 @@ static class Program
     [STAThread]
     static void Main()
     {
-        // To customize application configuration such as set high DPI settings or default font,
-        // see https://aka.ms/applicationconfiguration.
         ApplicationConfiguration.Initialize();
-        Application.Run(new Form1());
+        var modules = LoadModules();
+        var mainWindow = modules.GetService<IMainWindowPresenter>();
+        if (mainWindow?.Window is MainWindow window)
+        {
+            Application.Run(window);
+        }
+    }
+
+    private static IServiceProvider LoadModules()
+    {
+        var serviceProvider = new ServiceCollection();
+        var modules = new BomberModule();
+        modules.LoadModules(serviceProvider);
+
+        return serviceProvider.BuildServiceProvider();
     }
 }

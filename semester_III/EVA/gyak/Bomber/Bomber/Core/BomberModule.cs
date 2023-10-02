@@ -1,4 +1,5 @@
-﻿using Infrastructure.Module;
+﻿using Bomber.Main;
+using Infrastructure.Module;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Bomber.Core
@@ -8,7 +9,8 @@ namespace Bomber.Core
 
         public void LoadModules(IServiceCollection collection)
         {
-            throw new NotImplementedException();
+            collection.AddTransient<IMainWindow, MainWindow>();
+            collection.AddTransient<IMainWindowPresenter, MainWindowPresenter>();
         }
     }
 }
