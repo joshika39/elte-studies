@@ -7,10 +7,5 @@ namespace Bomber.Main
     {
         public MainWindowPresenter(IMainWindow window) : base(window)
         { }
-        
-        public override void Show()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
