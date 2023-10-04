@@ -1,8 +1,8 @@
-﻿using UiFramework.Shared;
+﻿using UiFramework.Forms;
 
 namespace Bomber.MapGenerator
 {
-    public interface IMapGeneratorWindow : IWindow
+    public interface IMapGeneratorWindow : IWindow<IMapGeneratorWindowPresenter>
     {
         
     }

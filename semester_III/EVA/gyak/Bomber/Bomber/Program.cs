@@ -16,8 +16,9 @@ static class Program
     {
         ApplicationConfiguration.Initialize();
         var modules = LoadModules();
-        var mainWindow = modules.GetService<IMainWindowPresenter>();
-        if (mainWindow?.Window is MainWindow window)
+        var mainWindow = modules.GetRequiredService<IMainWindow>();
+        
+        if (mainWindow is MainWindow window)
         {
             Application.Run(window);
         }

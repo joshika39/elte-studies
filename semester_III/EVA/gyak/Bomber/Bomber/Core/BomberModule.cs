@@ -10,11 +10,11 @@ namespace Bomber.Core
 
         public void LoadModules(IServiceCollection collection)
         {
-            collection.AddTransient<IMainWindow, MainWindow>();
-            collection.AddTransient<IMainWindowPresenter, MainWindowPresenter>();
-            
-            collection.AddTransient<IMapGeneratorWindow, MapGeneratorWindow>();
-            collection.AddTransient<IMapGeneratorWindowPresenter, MapGeneratorWindowPresenter>();
+            collection.AddSingleton<IMainWindow, MainWindow>();
+            collection.AddSingleton<IMapGeneratorWindow, MapGeneratorWindow>();
+
+            collection.AddSingleton<IMainWindowPresenter, MainWindowPresenter>();
+            collection.AddSingleton<IMapGeneratorWindowPresenter, MapGeneratorWindowPresenter>();
         }
     }
 }

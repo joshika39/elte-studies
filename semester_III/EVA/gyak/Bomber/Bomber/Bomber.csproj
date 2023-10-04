@@ -10,9 +10,9 @@
 
 
     <ItemGroup>
-      <PackageReference Include="joshika39.Core" Version="1.0.0-preview0001" />
+      <PackageReference Include="joshika39.Core" Version="1.0.1-preview0002" />
       <PackageReference Include="joshika39.GameFramework" Version="1.0.0-pre0004" />
-      <PackageReference Include="joshika39.UiFramework.Forms" Version="1.0.0-pre0003" />
+      <PackageReference Include="joshika39.UiFramework.Forms" Version="1.0.1-pre0001" />
     </ItemGroup>
 
 

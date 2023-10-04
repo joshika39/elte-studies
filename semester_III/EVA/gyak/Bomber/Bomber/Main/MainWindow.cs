@@ -4,21 +4,23 @@ using GameFramework.Core.Factories;
 using GameFramework.Map.MapObject;
 using Infrastructure.IO;
 using Microsoft.Extensions.DependencyInjection;
-using UiFramework.Shared;
 using DialogResult = UiFramework.Shared.DialogResult;
 
 namespace Bomber.Main
 {
     public partial class MainWindow : Form, IMainWindow
     {
+        public IMainWindowPresenter Presenter { get; }
+
         private readonly IConfigurationService _service;
         private readonly IPositionFactory _factory;
         private readonly IServiceProvider _provider;
-        public MainWindow(IConfigurationService service, IPositionFactory factory, IServiceProvider provider)
+        public MainWindow(IConfigurationService service, IPositionFactory factory, IServiceProvider provider, IMainWindowPresenter presenter)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
             _provider = provider;
+            Presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
             InitializeComponent();
             InitializeMap();
         }
@@ -45,7 +47,7 @@ namespace Bomber.Main
                         };
                         bomberMap.Controls.Add((Control)tile);
                     }
-                }   
+                }
             }
         }
 
@@ -70,6 +72,11 @@ namespace Bomber.Main
                 default:
                     throw new InvalidOperationException("Unsupported dialog result!");
             }
+        }
+
+        private void openMapGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Presenter.OpenMapGenerator();
         }
     }
 }

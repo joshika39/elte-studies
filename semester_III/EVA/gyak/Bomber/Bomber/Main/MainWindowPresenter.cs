@@ -1,21 +1,21 @@
-﻿using UiFramework.Forms.Impl;
+﻿using Bomber.MapGenerator;
+using UiFramework.Forms.Impl;
 using UiFramework.Shared;
 
 namespace Bomber.Main
 {
-    public class MainWindowPresenter : AWindowPresenter, IMainWindowPresenter
+    public class MainWindowPresenter : IMainWindowPresenter
     {
-        private MainWindow _mainWindow;
-        public MainWindowPresenter(IMainWindow window) : base(window)
+        private readonly IMapGeneratorWindow _mapGeneratorWindow;
+        
+        public MainWindowPresenter(IMapGeneratorWindow mapGeneratorWindow)
         {
-            if (Window is MainWindow mainWindow)
-            {
-                _mainWindow = mainWindow;
-            }
-            else
-            {
-                throw new ArgumentException($"{nameof(_mainWindow)} is a wrong window type");
-            }
+            _mapGeneratorWindow = mapGeneratorWindow ?? throw new ArgumentNullException(nameof(mapGeneratorWindow));
+        }
+        
+        public void OpenMapGenerator()
+        {
+            _mapGeneratorWindow.Show();
         }
     }
 }
