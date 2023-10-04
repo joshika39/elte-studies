@@ -22,9 +22,8 @@
       <Compile Update="Main\MainWindow.cs">
         <SubType>Form</SubType>
       </Compile>
-      <Compile Update="Objects\MapWallTile.cs" />
-      <Compile Update="MapGenerator\MapGeneratorWindow.cs">
-        <SubType>Form</SubType>
+      <Compile Update="Objects\WallTile.cs">
+        <SubType>UserControl</SubType>
       </Compile>
     </ItemGroup>
 
@@ -32,9 +31,7 @@
 
 
     <ItemGroup>
-      <None Update="MapLayouts\layout-1.txt">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
+      <Folder Include="Map\" />
     </ItemGroup>
 
 

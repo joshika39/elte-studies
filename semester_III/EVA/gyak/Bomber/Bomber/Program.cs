@@ -1,6 +1,7 @@
 using Bomber.Core;
 using Bomber.Main;
 using GameFramework.Impl.Core;
+using Implementation.Module;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Bomber;
@@ -27,6 +28,8 @@ static class Program
         var serviceProvider = new ServiceCollection();
         var modules = new BomberModule();
         var gameModule = new GameModule();
+        var coreModule = new CoreModule();
+        coreModule.LoadModules(serviceProvider);
         modules.LoadModules(serviceProvider);
         gameModule.LoadModules(serviceProvider);
         return serviceProvider.BuildServiceProvider();

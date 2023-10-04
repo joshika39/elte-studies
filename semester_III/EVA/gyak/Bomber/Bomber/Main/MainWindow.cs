@@ -1,13 +1,52 @@
-﻿using UiFramework.Shared;
+﻿using Bomber.Objects;
+using GameFramework.Configuration;
+using GameFramework.Core.Factories;
+using GameFramework.Map.MapObject;
+using Infrastructure.IO;
+using Microsoft.Extensions.DependencyInjection;
+using UiFramework.Shared;
 using DialogResult = UiFramework.Shared.DialogResult;
 
 namespace Bomber.Main
 {
     public partial class MainWindow : Form, IMainWindow
     {
-        public MainWindow()
+        private readonly IConfigurationService _service;
+        private readonly IPositionFactory _factory;
+        private readonly IServiceProvider _provider;
+        public MainWindow(IConfigurationService service, IPositionFactory factory, IServiceProvider provider)
         {
+            _service = service ?? throw new ArgumentNullException(nameof(service));
+            _factory = factory ?? throw new ArgumentNullException(nameof(factory));
+            _provider = provider;
             InitializeComponent();
+            InitializeMap();
+        }
+
+        private void InitializeMap()
+        {
+            using (var scope = _provider.CreateScope())
+            {
+                var reader = scope.ServiceProvider.GetRequiredService<IReader>();
+                using var stream = new StreamReader(@"MapLayouts\layout-1.txt");
+                var mapLayout = reader.ReadAllLines<int>(stream, int.TryParse, ' ').ToList();
+                for (var i = 0; i < mapLayout.Count; i++)
+                {
+                    var row = mapLayout[i].ToList();
+                    for (var j = 0; j < row.Count; j++)
+                    {
+                        var value = row[j];
+                        var position = _factory.CreatePosition(i * _service.Dimension, j * _service.Dimension);
+                        IMapObject2D tile = value switch
+                        {
+                            0 => new GroundTile(position, _service),
+                            1 => new WallTile(position, _service),
+                            _ => throw new ArgumentException($"Unknown tile type: {value}")
+                        };
+                        bomberMap.Controls.Add((Control)tile);
+                    }
+                }   
+            }
         }
 
         public DialogResult ShowOnTop()
