@@ -1,4 +1,5 @@
-﻿using UiFramework.Forms;
+﻿using Bomber.UI.Forms.MapGenerator;
+using UiFramework.Forms;
 
 namespace Bomber.MapGenerator
 {

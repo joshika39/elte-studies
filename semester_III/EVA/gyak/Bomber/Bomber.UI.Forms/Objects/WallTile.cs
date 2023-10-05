@@ -12,8 +12,8 @@ namespace Bomber.Objects
         {
             Position = position ?? throw new ArgumentNullException(nameof(position));
             InitializeComponent();
-            Top = position.X;
-            Left = position.Y;
+            Top = position.X * configurationService.Dimension;
+            Left = position.Y * configurationService.Dimension;
             Width = configurationService.Dimension - 2;
             Height = configurationService.Dimension - 2;
         }

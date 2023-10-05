@@ -1,4 +1,5 @@
-﻿using Bomber.Objects;
+﻿using Bomber.Map;
+using Bomber.Objects;
 using GameFramework.Configuration;
 using GameFramework.Core.Factories;
 using GameFramework.Map.MapObject;
@@ -38,13 +39,16 @@ namespace Bomber.Main
                     for (var j = 0; j < row.Count; j++)
                     {
                         var value = row[j];
-                        var position = _factory.CreatePosition(i * _service.Dimension, j * _service.Dimension);
-                        IMapObject2D tile = value switch
+                        var position = _factory.CreatePosition(i, j);
+                        if (!Enum.TryParse(value.ToString(), out TileType type)) continue;
+                        
+                        IMapObject2D tile = type switch
                         {
-                            0 => new GroundTile(position, _service),
-                            1 => new WallTile(position, _service),
+                            TileType.Ground => new GroundTile(position, _service),
+                            TileType.Wall => new WallTile(position, _service),
+                            TileType.Hole => throw new NotImplementedException(),
                             _ => throw new ArgumentException($"Unknown tile type: {value}")
-                        };
+                        }; 
                         bomberMap.Controls.Add((Control)tile);
                     }
                 }

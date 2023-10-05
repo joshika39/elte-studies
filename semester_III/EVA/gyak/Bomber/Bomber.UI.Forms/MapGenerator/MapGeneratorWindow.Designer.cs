@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Bomber.MapGenerator
+namespace Bomber.UI.Forms.MapGenerator
 {
     partial class MapGeneratorWindow
     {
@@ -34,6 +34,8 @@ namespace Bomber.MapGenerator
             label1 = new Label();
             layoutPanel = new Panel();
             panel2 = new Panel();
+            heightValue = new NumericUpDown();
+            widthValue = new NumericUpDown();
             draftButton = new Button();
             cancelButton = new Button();
             label5 = new Label();
@@ -42,11 +44,9 @@ namespace Bomber.MapGenerator
             descBox = new RichTextBox();
             label2 = new Label();
             backgroundWorker1 = new BackgroundWorker();
-            widthValue = new NumericUpDown();
-            heightValue = new NumericUpDown();
             panel2.SuspendLayout();
-            ((ISupportInitialize)widthValue).BeginInit();
             ((ISupportInitialize)heightValue).BeginInit();
+            ((ISupportInitialize)widthValue).BeginInit();
             SuspendLayout();
             // 
             // generateButton
@@ -71,9 +71,12 @@ namespace Bomber.MapGenerator
             // 
             // layoutPanel
             // 
-            layoutPanel.Location = new Point(12, 63);
+            layoutPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            layoutPanel.AutoSize = true;
+            layoutPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            layoutPanel.Location = new Point(12, 57);
             layoutPanel.Name = "layoutPanel";
-            layoutPanel.Size = new Size(401, 375);
+            layoutPanel.Size = new Size(0, 0);
             layoutPanel.TabIndex = 2;
             // 
             // panel2
@@ -94,6 +97,22 @@ namespace Bomber.MapGenerator
             panel2.Name = "panel2";
             panel2.Size = new Size(312, 450);
             panel2.TabIndex = 3;
+            // 
+            // heightValue
+            // 
+            heightValue.Location = new Point(54, 67);
+            heightValue.Name = "heightValue";
+            heightValue.Size = new Size(239, 23);
+            heightValue.TabIndex = 10;
+            heightValue.ValueChanged += OnHeightChanged;
+            // 
+            // widthValue
+            // 
+            widthValue.Location = new Point(54, 38);
+            widthValue.Name = "widthValue";
+            widthValue.Size = new Size(239, 23);
+            widthValue.TabIndex = 9;
+            widthValue.ValueChanged += OnWidthChanged;
             // 
             // draftButton
             // 
@@ -166,20 +185,6 @@ namespace Bomber.MapGenerator
             label2.Text = "Properties";
             label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // widthValue
-            // 
-            widthValue.Location = new Point(54, 38);
-            widthValue.Name = "widthValue";
-            widthValue.Size = new Size(239, 23);
-            widthValue.TabIndex = 9;
-            // 
-            // heightValue
-            // 
-            heightValue.Location = new Point(54, 67);
-            heightValue.Name = "heightValue";
-            heightValue.Size = new Size(239, 23);
-            heightValue.TabIndex = 10;
-            // 
             // MapGeneratorWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -192,8 +197,8 @@ namespace Bomber.MapGenerator
             Text = "MapGeneratorWindow";
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
-            ((ISupportInitialize)widthValue).EndInit();
             ((ISupportInitialize)heightValue).EndInit();
+            ((ISupportInitialize)widthValue).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }

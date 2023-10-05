@@ -1,9 +1,9 @@
 ﻿namespace Bomber.Map
 {
-    public enum TileType
+    public enum TileType : int
     {
         Ground,
         Wall,
-        Whole
+        Hole
     }
 }

@@ -50,7 +50,7 @@ namespace Bomber.Main
             label1.Name = "label1";
             label1.Size = new Size(161, 41);
             label1.TabIndex = 0;
-            label1.Text = "Bomber v1";
+            label1.Text = "Bomber.UI v1";
             // 
             // bomberMap
             // 

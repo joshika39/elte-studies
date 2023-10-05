@@ -1,5 +1,6 @@
 ﻿using Bomber.Main;
 using Bomber.MapGenerator;
+using Bomber.UI.Forms.MapGenerator;
 using Infrastructure.Module;
 using Microsoft.Extensions.DependencyInjection;
 
