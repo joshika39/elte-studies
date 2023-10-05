@@ -3,7 +3,7 @@ using Infrastructure.Repositories;
 
 namespace Bomber.BL.Repositories
 {
-    public interface IMapLayoutRepository : IRepository<IMapLayout>
+    public interface IMapLayoutRepository : IJsonRepository<IMapLayout>
     {
         
     }
