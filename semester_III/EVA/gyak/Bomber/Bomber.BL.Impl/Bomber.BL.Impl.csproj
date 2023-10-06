@@ -10,7 +10,16 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Bomber.BL\Bomber.BL.csproj" />
+
+
+
     </ItemGroup>
+
+
+
+
+
+
 
 
 

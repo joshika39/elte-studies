@@ -28,7 +28,7 @@ namespace Bomber.UI.Forms.MapGenerator
 
             _selectedLayoutWidth = (int)numericUpDown.Value;
             numericUpDown.Value = (int)numericUpDown.Value;
-            Presenter.SelectedDraft.ColumnCount = _selectedLayoutWidth;
+            Presenter.SelectedDraft.SetCol(_selectedLayoutWidth);
             PopulatePanel(Presenter.ReloadDraftLayout());
         }
 
@@ -38,7 +38,7 @@ namespace Bomber.UI.Forms.MapGenerator
 
             _selectedLayoutHeight = (int)numericUpDown.Value;
             numericUpDown.Value = (int)numericUpDown.Value;
-            Presenter.SelectedDraft.RowCount = _selectedLayoutHeight;
+            Presenter.SelectedDraft.SetRow(_selectedLayoutHeight);
             PopulatePanel(Presenter.ReloadDraftLayout());
         }
 

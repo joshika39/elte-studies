@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Bomber.Core
 {
-    public class BomberModule : IModule
+    public class BomberModule
     {
 
         public void LoadModules(IServiceCollection collection)

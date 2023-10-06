@@ -29,8 +29,7 @@ static class Program
         var serviceProvider = new ServiceCollection();
         var modules = new BomberModule();
         var gameModule = new GameModule();
-        var coreModule = new CoreModule();
-        coreModule.LoadModules(serviceProvider);
+        CoreModule.LoadModules(serviceProvider, "Bomber");
         modules.LoadModules(serviceProvider);
         gameModule.LoadModules(serviceProvider);
         return serviceProvider.BuildServiceProvider();
