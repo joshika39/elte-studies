@@ -1,3 +1,4 @@
+using Bomber.BL.Impl.Map;
 using Bomber.BL.Map;
 using Bomber.BL.Repositories;
 using Infrastructure.Repositories;
@@ -12,8 +13,8 @@ namespace Bomber.BL.Impl.Repositories
 
         public Router(IRepositoryFactory repositoryFactory)
         {
-            DraftLayouts = repositoryFactory.CreateJsonRepository<IMapLayoutDraft>("drafts");
-            MapLayouts = repositoryFactory.CreateJsonRepository<IMapLayout>("layouts");
+            DraftLayouts = repositoryFactory.CreateJsonRepository<IMapLayoutDraft, MapLayoutDraft>("drafts");
+            MapLayouts = repositoryFactory.CreateJsonRepository<IMapLayout, MapLayout>("layouts");
         }
     }
 }

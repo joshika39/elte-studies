@@ -1,37 +1,40 @@
+using Bomber.BL.Impl;
 using Bomber.Core;
 using Bomber.Main;
 using GameFramework.Impl.Core;
 using Implementation.Module;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Bomber;
-
-static class Program
+namespace Bomber.UI.Forms
 {
-    /// <summary>
-    ///  The main entry point for the application.
-    /// </summary>
-    [STAThread]
-    static void Main()
+    static class Program
     {
-        ApplicationConfiguration.Initialize();
-        var modules = LoadModules();
-        var mainWindow = modules.GetRequiredService<IMainWindow>();
-        
-        if (mainWindow is MainWindow window)
+        /// <summary>
+        ///  The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
         {
-            Application.Run(window);
-        }
-    }
+            ApplicationConfiguration.Initialize();
+            var modules = LoadModules();
+            var mainWindow = modules.GetRequiredService<IMainWindow>();
 
-    private static IServiceProvider LoadModules()
-    {
-        var serviceProvider = new ServiceCollection();
-        var modules = new BomberModule();
-        var gameModule = new GameModule();
-        CoreModule.LoadModules(serviceProvider, "Bomber");
-        modules.LoadModules(serviceProvider);
-        gameModule.LoadModules(serviceProvider);
-        return serviceProvider.BuildServiceProvider();
+            if (mainWindow is MainWindow window)
+            {
+                Application.Run(window);
+            }
+        }
+
+        private static IServiceProvider LoadModules()
+        {
+            var serviceProvider = new ServiceCollection();
+            
+            new CoreModule().LoadModules(serviceProvider, "Bomber");
+            new GameModule().LoadModules(serviceProvider);
+            new BusinessLogicModule().LoadModules(serviceProvider);
+            new BomberModule().LoadModules(serviceProvider);
+
+            return serviceProvider.BuildServiceProvider();
+        }
     }
 }

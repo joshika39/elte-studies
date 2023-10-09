@@ -1,4 +1,5 @@
-﻿using Bomber.BL.Impl.Map;
+﻿using System.Collections.ObjectModel;
+using Bomber.BL.Impl.Map;
 using Bomber.BL.Map;
 using Bomber.BL.Repositories;
 using Bomber.BL.Settings;
@@ -18,14 +19,16 @@ namespace Bomber.UI.Forms.MapGenerator
         private readonly IRouter _repositoryRouter;
         private readonly IMapGeneratorSettings _mapGeneratorSettings;
         
-        public IMapLayoutDraft SelectedDraft => _mapGeneratorSettings.SelectedDraft.Result;
+        public IMapLayoutDraft SelectedDraft { get; }
+        public IList<IMapLayoutDraft> Drafts => _repositoryRouter.DraftLayouts.GetAllEntities().ToList();
 
         public MapGeneratorWindowPresenter(IConfigurationService service, IPositionFactory factory, IRouter repositoryRouter, IMapGeneratorSettings mapGeneratorSettings)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
             _repositoryRouter = repositoryRouter ?? throw new ArgumentNullException(nameof(repositoryRouter));
-            _mapGeneratorSettings = mapGeneratorSettings;
+            _mapGeneratorSettings = mapGeneratorSettings ?? throw new ArgumentNullException(nameof(mapGeneratorSettings));
+            SelectedDraft = _mapGeneratorSettings.SelectedDraft;
         }
         
         public IEnumerable<IMapObject2D> ReloadDraftLayout()
@@ -39,7 +42,6 @@ namespace Bomber.UI.Forms.MapGenerator
                     array[i * SelectedDraft.ColumnCount + j] = new GroundTile(pos, _service);
                 }
             }
-            
             return array;
         }
     }

@@ -2,10 +2,10 @@ using Infrastructure.Repositories;
 
 namespace Bomber.BL.Map
 {
-    public interface IMapLayoutDraft : IMapLayout
+    public interface IMapLayoutDraft : IEntity
     {
-        void SetRow(int rowCount);
-        void SetCol(int colCount);
-        void SetDesc(string description);
+        string Description { get; set; }
+        int ColumnCount { get; set; }
+        int RowCount { get; set; }
     }
 }

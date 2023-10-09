@@ -1,5 +1,5 @@
-﻿using Bomber.MapGenerator;
-using Bomber.UI.Forms.MapGenerator;
+﻿using Bomber.BL.Map;
+using Bomber.MapGenerator;
 using GameFramework.Map.MapObject;
 using DialogResult = UiFramework.Shared.DialogResult;
 
@@ -11,10 +11,37 @@ namespace Bomber.UI.Forms.MapGenerator
         private int _selectedLayoutHeight;
         public IMapGeneratorWindowPresenter Presenter { get; }
 
+        class DraftListItem
+        {
+            public IMapLayoutDraft Draft { get; }
+            
+            public DraftListItem(IMapLayoutDraft draft)
+            {
+                Draft = draft;
+            }
+
+            public override string ToString()
+            {
+                return Draft.Id.ToString();
+            }
+        }
+
+        private IList<DraftListItem> _listItems;
+        
         public MapGeneratorWindow(IMapGeneratorWindowPresenter presenter)
         {
             Presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
             InitializeComponent();
+            _listItems = new List<DraftListItem>();
+            foreach (var draft in Presenter.Drafts)
+            {
+                var draftItem = new DraftListItem(draft);
+                _listItems.Add(draftItem);
+                draftComboBox.Items.Add(draftItem);
+            }
+            var selected = Presenter.SelectedDraft;
+            var item = _listItems.First(d => d.Draft.Id.Equals(selected.Id));
+            var index = draftComboBox.Items.IndexOf(item);
         }
 
         public DialogResult ShowOnTop()
@@ -28,7 +55,7 @@ namespace Bomber.UI.Forms.MapGenerator
 
             _selectedLayoutWidth = (int)numericUpDown.Value;
             numericUpDown.Value = (int)numericUpDown.Value;
-            Presenter.SelectedDraft.SetCol(_selectedLayoutWidth);
+            Presenter.SelectedDraft.ColumnCount = _selectedLayoutWidth;
             PopulatePanel(Presenter.ReloadDraftLayout());
         }
 
@@ -38,7 +65,7 @@ namespace Bomber.UI.Forms.MapGenerator
 
             _selectedLayoutHeight = (int)numericUpDown.Value;
             numericUpDown.Value = (int)numericUpDown.Value;
-            Presenter.SelectedDraft.SetRow(_selectedLayoutHeight);
+            Presenter.SelectedDraft.RowCount = _selectedLayoutHeight;
             PopulatePanel(Presenter.ReloadDraftLayout());
         }
 

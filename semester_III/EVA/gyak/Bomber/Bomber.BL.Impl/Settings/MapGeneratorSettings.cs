@@ -13,27 +13,47 @@ namespace Bomber.BL.Impl.Settings
     {
         private readonly IConfigurationQuery _query;
         private readonly IRepository<IMapLayoutDraft> _draftsRepository;
-        public Task<IMapLayoutDraft> SelectedDraft => GetSelectedDraftAsync();
+        public IMapLayoutDraft SelectedDraft => GetSelectedDraftAsync();
 
         public MapGeneratorSettings(IApplicationSettings settings, IConfigurationQueryFactory configurationQueryFactory, IRouter router)
         {
             var path = Path.Join(settings.ConfigurationFolder, "generator-config.json");
             _query = configurationQueryFactory.CreateConfigurationQuery(path);
             _draftsRepository = router.DraftLayouts;
-            
+
         }
 
-        private async Task<IMapLayoutDraft> GetSelectedDraftAsync()
+        private IMapLayoutDraft GetSelectedDraftAsync()
         {
-            var selectedId = await _query.GetStringAttributeAsync("selected-draft");
+            var allEntities = _draftsRepository.GetAllEntities();
+
+            var selectedId = _query.GetStringAttribute("selected-draft");
             if (selectedId == null)
             {
-                var layout = new MapLayoutDraft();
-                await _draftsRepository.Create(layout).SaveChanges();
+                return CreateNewSelectedDraft();
+            }
+            
+            var parsed = Guid.Parse(selectedId);
+            var selected = allEntities.FirstOrDefault(d => d.Id.Equals(parsed));
+            return selected ?? CreateNewSelectedDraft();
+        }
+
+        private IMapLayoutDraft CreateNewSelectedDraft()
+        {
+            if (_draftsRepository.GetAllEntities().Any())
+            {
+                var layouts = _draftsRepository.GetAllEntities();
+                var layout = layouts.First();
+                _query.SetAttribute("selected-draft", layout.Id.ToString());
                 return layout;
             }
-            var parsed = Guid.Parse(selectedId);
-            return _draftsRepository.GetAllEntities().Result.First(d => d.Id.Equals(parsed));
+            else
+            {
+                var layout = new MapLayoutDraft("");
+                _ = _draftsRepository.Create(layout).SaveChanges();
+                _query.SetAttribute("selected-draft", layout.Id.ToString());
+                return layout; 
+            }
         }
     }
 }
