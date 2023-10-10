@@ -1,9 +1,9 @@
-﻿using Bomber.BL.Map;
+using Bomber.BL.Map.DomainModels;
 using Implementation.Repositories;
 
-namespace Bomber.BL.Impl.Map
+namespace Bomber.BL.Impl.DomainModels
 {
-    public class MapLayout : AEntity, IMapLayout
+    public class DraftLayoutModel : AEntity, IDraftLayoutModel
     {
         public string Name { get; set; }
         public string Description { get; set; }

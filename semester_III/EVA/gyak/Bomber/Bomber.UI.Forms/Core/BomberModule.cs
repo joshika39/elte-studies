@@ -1,10 +1,11 @@
-﻿using Bomber.Main;
+﻿using Bomber.BL.Tiles.Factories;
+using Bomber.Main;
 using Bomber.MapGenerator;
 using Bomber.UI.Forms.MapGenerator;
-using Infrastructure.Module;
+using Bomber.UI.Forms.Objects.Factories;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Bomber.Core
+namespace Bomber.UI.Forms.Core
 {
     public class BomberModule
     {
@@ -13,9 +14,11 @@ namespace Bomber.Core
         {
             collection.AddSingleton<IMainWindow, MainWindow>();
             collection.AddSingleton<IMapGeneratorWindow, MapGeneratorWindow>();
-
+            
             collection.AddSingleton<IMainWindowPresenter, MainWindowPresenter>();
             collection.AddSingleton<IMapGeneratorWindowPresenter, MapGeneratorWindowPresenter>();
+            
+            collection.AddSingleton<ITileFactory, FormsTileFactory>();
         }
     }
 }

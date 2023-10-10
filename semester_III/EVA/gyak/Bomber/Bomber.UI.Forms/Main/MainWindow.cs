@@ -1,4 +1,4 @@
-﻿using Bomber.Map;
+﻿using Bomber.BL.Map;
 using Bomber.Objects;
 using GameFramework.Configuration;
 using GameFramework.Core.Factories;

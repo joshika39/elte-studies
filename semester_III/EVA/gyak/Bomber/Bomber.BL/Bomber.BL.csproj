@@ -6,6 +6,7 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="joshika39.Core" Version="1.1.7" />
+        <PackageReference Include="joshika39.Core" Version="1.1.8" />
+        <PackageReference Include="joshika39.GameFramework" Version="1.0.0-pre0004" />
     </ItemGroup>
 </Project>

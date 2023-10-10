@@ -18,7 +18,10 @@
 
 
     <ItemGroup>
-      <PackageReference Include="joshika39.Core" Version="1.1.7" />
+      <PackageReference Include="joshika39.Core" Version="1.1.8" />
+
+
+
     </ItemGroup>
 
 

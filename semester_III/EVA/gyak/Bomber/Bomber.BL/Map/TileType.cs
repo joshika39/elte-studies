@@ -1,4 +1,4 @@
-﻿namespace Bomber.Map
+﻿namespace Bomber.BL.Map
 {
     public enum TileType : int
     {

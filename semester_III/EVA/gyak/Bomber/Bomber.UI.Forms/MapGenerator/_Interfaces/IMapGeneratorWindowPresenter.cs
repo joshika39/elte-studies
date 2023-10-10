@@ -1,6 +1,4 @@
-﻿using Bomber.BL.Impl.Map;
-using Bomber.BL.Map;
-using GameFramework.Map.MapObject;
+﻿using Bomber.BL.Map;
 using UiFramework.Forms;
 
 namespace Bomber.UI.Forms.MapGenerator
@@ -8,7 +6,7 @@ namespace Bomber.UI.Forms.MapGenerator
     public interface IMapGeneratorWindowPresenter : IWindowPresenter
     {
         IMapLayoutDraft SelectedDraft { get; }
-        IList<IMapLayoutDraft> Drafts { get; }
-        IEnumerable<IMapObject2D> ReloadDraftLayout();
+        IEnumerable<IMapLayoutDraft> Drafts { get; }
+        void UpdateDraft(IMapLayoutDraft draft);
     }
 }
