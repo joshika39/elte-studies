@@ -1,5 +1,4 @@
-import shapes.Circle;
-import shapes.Shape;
+import shapes.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -10,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         ArrayList<Shape> shapes = new ArrayList<>();
 
-        try (BufferedReader br = new BufferedReader(new FileReader("sikidomok.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("./sikidomok.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(" ");
@@ -18,25 +17,39 @@ public class Main {
                 double x = Double.parseDouble(parts[1]);
                 double y = Double.parseDouble(parts[2]);
                 double length = Double.parseDouble(parts[3]);
-                shapes.add(new Circle(x, y, length));
+
+                switch (type){
+                    case "c":
+                        shapes.add(new Circle(x, y, length));
+                        break;
+                    case "r":
+                        shapes.add(new Rectangle(x, y, length));
+                        break;
+                    case "h":
+                        shapes.add(new Hexagon(x, y, length));
+                        break;
+                    case "t":
+                        shapes.add(new Triangle(x, y, length));
+                        break;
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         double maxArea = 0;
-        Shape largestRectangle = null;
+        Shape idiom = null;
 
         for (Shape shape : shapes) {
             double area = shape.calculateArea();
             if (area > maxArea) {
                 maxArea = area;
-                largestRectangle = shape;
+                idiom = shape;
             }
         }
 
-        if (largestRectangle != null) {
-            System.out.println("A legnagyobb területű síkidom: " + largestRectangle.type);
+        if (idiom != null) {
+            System.out.println("A legnagyobb területű síkidom: " + idiom);
             System.out.println("Terület: " + maxArea);
         } else {
             System.out.println("Nincs megfelelő síkidom az elemzéshez.");

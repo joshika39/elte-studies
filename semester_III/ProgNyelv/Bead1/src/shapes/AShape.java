@@ -13,5 +13,8 @@ public abstract class AShape implements Shape {
         return y;
     }
 
-
+    public AShape(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
 }

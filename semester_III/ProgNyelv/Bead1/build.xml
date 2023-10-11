@@ -1,5 +1,6 @@
 <project name="SampleProject" default="dist" basedir=".">
     <property name="src" location="src"/>
+    <property name="res" location="res"/>
     <property name="build" location="build"/>
     <property name="dist" location="dist"/>
 
@@ -17,7 +18,10 @@
         <jar jarfile="${dist}/lib/SampleProject-${DSTAMP}.jar" basedir="${build}"/>
     </target>
 
-
+    <copy todir="dist">
+        <fileset dir="src"
+                 includes="**/*.xml,**/*.properties,**/*.txt,**/*.ico" />
+    </copy>
 
     <target name="clean" description="clean up">
         <delete dir="${build}"/>
