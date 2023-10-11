@@ -12,6 +12,9 @@
       <Compile Remove="Map\**" />
       <EmbeddedResource Remove="Map\**" />
       <None Remove="Map\**" />
+      <Compile Update="Objects\Hole.cs">
+        <SubType>UserControl</SubType>
+      </Compile>
     </ItemGroup>
 
 

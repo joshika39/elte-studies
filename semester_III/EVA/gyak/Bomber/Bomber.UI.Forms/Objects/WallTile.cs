@@ -14,8 +14,9 @@ namespace Bomber.Objects
             InitializeComponent();
             Top = position.X * configurationService.Dimension;
             Left = position.Y * configurationService.Dimension;
-            Width = configurationService.Dimension - 2;
-            Height = configurationService.Dimension - 2;
+            Width = configurationService.Dimension;
+            Height = configurationService.Dimension;
+            BackColor = Color.Gray;
         }
     }
 }

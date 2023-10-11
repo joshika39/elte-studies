@@ -46,7 +46,7 @@ namespace Bomber.Main
                         {
                             TileType.Ground => new GroundTile(position, _service),
                             TileType.Wall => new WallTile(position, _service),
-                            TileType.Hole => throw new NotImplementedException(),
+                            TileType.Hole => new Hole(position, _service),
                             _ => throw new ArgumentException($"Unknown tile type: {value}")
                         }; 
                         bomberMap.Controls.Add((Control)tile);

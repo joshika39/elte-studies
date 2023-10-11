@@ -1,5 +1,6 @@
 ﻿using Bomber.BL.Impl.DomainModels;
 using Bomber.BL.Map;
+using Bomber.BL.Map.DomainModels;
 using Bomber.BL.Settings;
 namespace Bomber.UI.Forms.MapGenerator
 {
@@ -25,6 +26,11 @@ namespace Bomber.UI.Forms.MapGenerator
         {
             _mapGeneratorSettings.UpdateDraft(draft);
             draft.SaveLayout(draft.MapObjects);
+        }
+
+        public IDraftLayoutModel CreateDraft()
+        {
+            return _mapGeneratorSettings.CreateDraft();
         }
     }
 }

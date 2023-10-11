@@ -57,7 +57,8 @@ namespace Bomber.Main
             // 
             // bomberMap
             // 
-            this.bomberMap.Location = new System.Drawing.Point(13, 121);
+            this.bomberMap.AutoSize = true;
+            this.bomberMap.Location = new System.Drawing.Point(14, 120);
             this.bomberMap.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.bomberMap.Name = "bomberMap";
             this.bomberMap.Size = new System.Drawing.Size(400, 467);

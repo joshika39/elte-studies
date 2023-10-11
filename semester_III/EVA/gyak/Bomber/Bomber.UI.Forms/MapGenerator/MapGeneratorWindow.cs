@@ -128,6 +128,11 @@ namespace Bomber.UI.Forms.MapGenerator
             dialog.InitialDirectory = folder;
             var file = dialog.ShowDialog();
         }
+
+        private void OnNewClicked(object sender, EventArgs e)
+        {
+            Presenter.CreateDraft();
+        }
     }
 }
 

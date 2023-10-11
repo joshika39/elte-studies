@@ -1,4 +1,5 @@
 using Bomber.BL.Map;
+using Bomber.BL.Map.DomainModels;
 
 namespace Bomber.BL.Settings
 {
@@ -7,5 +8,6 @@ namespace Bomber.BL.Settings
         IMapLayoutDraft SelectedDraft { get; set; }
         IEnumerable<IMapLayoutDraft> Drafts { get; }
         void UpdateDraft(IMapLayoutDraft draft);
+        IDraftLayoutModel CreateDraft();
     }
 }

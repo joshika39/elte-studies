@@ -81,10 +81,10 @@ namespace Bomber.BL.Impl.Map
                 stringBuilder.Append("\r\n");
             }
             File.WriteAllText(_layoutPath, stringBuilder.ToString());
-            
+
             MapObjects = mapObjects;
         }
-        
+
         public void UpdateLayout()
         {
             if (MapObjects == null)
@@ -98,7 +98,7 @@ namespace Bomber.BL.Impl.Map
                 for (var j = 0; j < ColumnCount; j++)
                 {
                     var pos = _positionFactory.CreatePosition(i, j);
-                    if (oldValues is not null && i <= oldValues.Length / RowCount  && j <= oldValues.Length / ColumnCount && i * ColumnCount + j < oldValues.Length)
+                    if (oldValues is not null && i <= oldValues.Length / RowCount && j <= oldValues.Length / ColumnCount && i * ColumnCount + j < oldValues.Length)
                     {
                         array[i * ColumnCount + j] = _tileFactory.CreatePlaceHolder(pos, _configurationService, oldValues[i * ColumnCount + j].Type);
                     }
@@ -115,13 +115,27 @@ namespace Bomber.BL.Impl.Map
         {
             return string.IsNullOrWhiteSpace(Name) ? Id.ToString() : Name;
         }
-        
+
         private IEnumerable<IPlaceHolder> FirstLoad()
         {
+            var array = new IPlaceHolder[RowCount * ColumnCount];
+            if (!File.Exists(_layoutPath))
+            {
+                for (var i = 0; i < RowCount; i++)
+                {
+                    for (var j = 0; j < ColumnCount; j++)
+                    {
+                        var pos = _positionFactory.CreatePosition(i, j);
+
+                        array[i * ColumnCount + j] = _tileFactory.CreatePlaceHolder(pos, _configurationService);
+                    }
+                }
+                return array;
+
+            }
             using var streamReader = new StreamReader(_layoutPath);
             Constants.CreateFileAndDirectory(_layoutPath);
             var content = _reader.ReadAllLines<int>(streamReader, int.TryParse, ' ').ToArray();
-            var array = new IPlaceHolder[RowCount * ColumnCount];
             for (var i = 0; i < RowCount; i++)
             {
                 var row = content[i].ToArray();
@@ -131,7 +145,7 @@ namespace Bomber.BL.Impl.Map
                     var success = false;
                     if (i < content.Length)
                     {
-            
+
                         if (j < row.Length)
                         {
                             var type = Constants.IntToTileType(row[j]);

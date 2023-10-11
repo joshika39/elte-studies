@@ -54,6 +54,19 @@ namespace Bomber.BL.Impl.Settings
             _draftsRepository.Update(model).SaveChanges();
         }
 
+        public IDraftLayoutModel CreateDraft()
+        {
+            var model = new DraftLayoutModel()
+            {
+                Name = "",
+                Description = "",
+                ColumnCount = 3,
+                RowCount = 3
+            };
+            _draftsRepository.Create(model).SaveChanges();
+            return model;
+        }
+
         private IMapLayoutDraft GetSelectedDraftAsync()
         {
             var allEntities = _draftsRepository.GetAllEntities();
