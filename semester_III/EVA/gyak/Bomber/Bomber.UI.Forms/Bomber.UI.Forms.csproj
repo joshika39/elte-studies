@@ -8,6 +8,12 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Compile Remove="Map\**" />
+      <EmbeddedResource Remove="Map\**" />
+      <None Remove="Map\**" />
+    </ItemGroup>
+
 
     <ItemGroup>
       <PackageReference Include="joshika39.Core" Version="1.1.8" />
@@ -56,25 +62,6 @@
     <ItemGroup>
       <ProjectReference Include="..\Bomber.BL.Impl\Bomber.BL.Impl.csproj" />
       <ProjectReference Include="..\Bomber.BL\Bomber.BL.csproj" />
-    </ItemGroup>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <ItemGroup>
-      <Folder Include="Map\" />
     </ItemGroup>
 
 
