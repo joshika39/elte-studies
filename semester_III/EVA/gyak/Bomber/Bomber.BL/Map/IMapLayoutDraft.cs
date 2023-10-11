@@ -11,9 +11,11 @@ namespace Bomber.BL.Map
         string Description { get; set; }
         int ColumnCount { get; set; }
         int RowCount { get; set; }
+        string RawData { get; }
         
         [JsonIgnore]
         IEnumerable<IPlaceHolder> MapObjects { get; }
         void SaveLayout(IEnumerable<IPlaceHolder> newMapObjects);
+        void Delete();
     }
 }

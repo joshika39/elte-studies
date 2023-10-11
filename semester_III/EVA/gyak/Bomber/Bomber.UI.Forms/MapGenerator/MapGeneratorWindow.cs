@@ -33,6 +33,7 @@ namespace Bomber.UI.Forms.MapGenerator
             descBox.Text = selected.Description;
             _selectedLayoutWidth = selected.ColumnCount;
             _selectedLayoutHeight = selected.RowCount;
+            PopulatePanel(Presenter.SelectedDraft.MapObjects);
         }
 
         public DialogResult ShowOnTop()
@@ -126,12 +127,55 @@ namespace Bomber.UI.Forms.MapGenerator
             var folder = Path.Join(document, "joshika39", "Bomber", "maps");
             Constants.CreateDirectory(@$"{folder}\");
             dialog.InitialDirectory = folder;
-            var file = dialog.ShowDialog();
+            var result = dialog.ShowDialog();
+            if (result != System.Windows.Forms.DialogResult.OK)
+            {
+                return;
+            }
+            foreach (var mapItem in draftComboBox.Items)
+            {
+                if (mapItem is IMapLayoutDraft mapLayoutDraft)
+                {
+                    if (!mapLayoutDraft.Id.Equals(Presenter.SelectedDraft.Id)) continue;
+                    
+                    draftComboBox.Items.Remove(mapItem);
+                    if (draftComboBox.Items.Count > 0 && draftComboBox.Items[0] is IMapLayoutDraft selected)
+                    {
+                        Presenter.SelectedDraft = selected;
+                        draftName.Text = selected.Name;
+                        descBox.Text = selected.Description;
+                        _selectedLayoutWidth = selected.ColumnCount;
+                        _selectedLayoutHeight = selected.RowCount;
+                        PopulatePanel(Presenter.SelectedDraft.MapObjects);
+                    }
+                    else
+                    {
+                        draftName.Text = "";
+                        descBox.Text = "";
+                        _selectedLayoutWidth = 0;
+                        _selectedLayoutHeight = 0;
+                        PopulatePanel(new List<IMapObject2D>());
+                    }
+                }
+            }
+            
+            Presenter.GenerateMapFromDraft(Presenter.SelectedDraft, dialog.FileName);
         }
 
         private void OnNewClicked(object sender, EventArgs e)
         {
-            Presenter.CreateDraft();
+            Presenter.SelectedDraft = Presenter.CreateDraft();
+            
+            draftComboBox.Items.Add(Presenter.SelectedDraft);
+            
+            var selected = Presenter.SelectedDraft;
+            var item = Presenter.Drafts.First(d => d.Id.Equals(selected.Id));
+            draftComboBox.SelectedIndex = draftComboBox.Items.IndexOf(item);
+            draftName.Text = selected.Name;
+            descBox.Text = selected.Description;
+            _selectedLayoutWidth = selected.ColumnCount;
+            _selectedLayoutHeight = selected.RowCount;
+            PopulatePanel(Presenter.SelectedDraft.MapObjects);
         }
     }
 }

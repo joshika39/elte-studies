@@ -1,43 +1,112 @@
 ﻿using System.Text;
 using Bomber.BL.Map;
 using Bomber.BL.Tiles.Factories;
+using GameFramework.Configuration;
+using GameFramework.Core.Factories;
 using GameFramework.Map.MapObject;
-using Implementation.Repositories;
 using Infrastructure.Configuration;
+using Infrastructure.Configuration.Factories;
 using Infrastructure.IO;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Bomber.BL.Impl.Map
 {
     public class MapLayout : IMapLayout
     {
         private readonly IConfigurationQuery _query;
+        private readonly IConfigurationService _configurationService;
         private readonly ITileFactory _tileFactory;
         private readonly IReader _reader;
-        private string _mapDataBase64;
+        private readonly string _mapDataBase64;
+        private readonly IPositionFactory _positionFactory;
         public string Name { get; set; }
         public string Description { get; set; }
         public int ColumnCount { get; set; }
         public int RowCount { get; set; }
-        
+        public Guid Id { get; }
         public IEnumerable<IMapObject2D> MapObjects { get; }
 
-        public MapLayout(IConfigurationQuery query, ITileFactory tileFactory, IReader reader)
+        public MapLayout(
+            string filePath,
+            IServiceProvider provider)
         {
-            _query = query ?? throw new ArgumentNullException(nameof(query));
-            _tileFactory = tileFactory ?? throw new ArgumentNullException(nameof(tileFactory));
-            _reader = reader ?? throw new ArgumentNullException(nameof(reader));
-            Name = _query.GetStringAttribute("name") ?? throw new ArgumentNullException(nameof(query));
-            Description = _query.GetStringAttribute("description") ?? throw new ArgumentNullException(nameof(query));
-            ColumnCount = _query.GetIntAttribute("row") ?? throw new ArgumentNullException(nameof(query));
-            RowCount = _query.GetIntAttribute("col") ?? throw new ArgumentNullException(nameof(query));
-            _mapDataBase64 = _query.GetStringAttribute("data") ?? throw new ArgumentNullException(nameof(query));
+            Id = Guid.NewGuid();
+            var queryFactory = provider.GetRequiredService<IConfigurationQueryFactory>();
+            var filePath1 = filePath ?? throw new ArgumentNullException(nameof(filePath));
+            _configurationService = provider.GetRequiredService<IConfigurationService>();
+            _query = queryFactory.CreateConfigurationQuery(filePath1);
+            _tileFactory = provider.GetRequiredService<ITileFactory>();
+            _positionFactory = provider.GetRequiredService<IPositionFactory>();
+            _reader = provider.GetRequiredService<IReader>();
+            
+            Name = _query.GetStringAttribute("name") ?? throw new ArgumentNullException();
+            Description = _query.GetStringAttribute("description") ?? throw new ArgumentNullException();
+            ColumnCount = _query.GetIntAttribute("row") ?? throw new ArgumentNullException();
+            RowCount = _query.GetIntAttribute("col") ?? throw new ArgumentNullException();
+            _mapDataBase64 = _query.GetStringAttribute("data") ?? throw new ArgumentNullException();
+            MapObjects = ConvertDataToObjects();
+        }
+        
+        public MapLayout(
+            string filePath,
+            IMapLayoutDraft source,
+            IServiceProvider provider)
+        {
+            Id = Guid.NewGuid();
+            var queryFactory = provider.GetRequiredService<IConfigurationQueryFactory>();
+            var filePath1 = filePath ?? throw new ArgumentNullException(nameof(filePath));
+            _configurationService = provider.GetRequiredService<IConfigurationService>();
+            _query = queryFactory.CreateConfigurationQuery(filePath1);
+            _tileFactory = provider.GetRequiredService<ITileFactory>();
+            _positionFactory = provider.GetRequiredService<IPositionFactory>();
+            _reader = provider.GetRequiredService<IReader>();
+            Name = source.Name;
+            Description = source.Description;
+            ColumnCount = source.ColumnCount;
+            RowCount = source.RowCount;
+            _mapDataBase64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(source.RawData));
+            MapObjects = ConvertDataToObjects();
+            SaveData();
         }
 
         private IEnumerable<IMapObject2D> ConvertDataToObjects()
         {
-            var rawData = Encoding.UTF8.GetString(Convert.FromBase64String(_mapDataBase64));
-            var test = _reader.ReadAllLines("asdasd");
-            return new List<IMapObject2D>();
+            var id = Guid.NewGuid();
+            var tempPath = Path.Join(Path.GetTempPath(), $"{id}.txt");
+            File.Create(tempPath).Close();
+            File.WriteAllText(tempPath, Encoding.UTF8.GetString(Convert.FromBase64String(_mapDataBase64)));
+            using var stream = new StreamReader(tempPath);
+            var mapLayout = _reader.ReadAllLines<int>(stream, int.TryParse, ' ').ToList();
+            var list = new List<IMapObject2D>();
+            for (var i = 0; i < mapLayout.Count; i++)
+            {
+                var row = mapLayout[i].ToList();
+                for (var j = 0; j < row.Count; j++)
+                {
+                    var value = row[j];
+                    var position = _positionFactory.CreatePosition(i, j);
+                    if (!Enum.TryParse(value.ToString(), out TileType type)) continue;
+
+                    var tile = type switch
+                    {
+                        TileType.Ground => _tileFactory.CreateGround(position, _configurationService),
+                        TileType.Wall => _tileFactory.CreateWall(position, _configurationService),
+                        TileType.Hole => _tileFactory.CreateHole(position, _configurationService),
+                        _ => throw new ArgumentException($"Unknown tile type: {value}")
+                    };
+                    list.Add(tile);
+                }
+            }
+            return list;
+        }
+
+        private void SaveData()
+        {
+            _query.SetAttribute("name", Name);
+            _query.SetAttribute("description", Description);
+            _query.SetAttribute("row", RowCount);
+            _query.SetAttribute("col", ColumnCount);
+            _query.SetAttribute("data", _mapDataBase64);
         }
     }
 }

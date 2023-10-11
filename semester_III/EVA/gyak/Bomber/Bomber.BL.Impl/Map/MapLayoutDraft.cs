@@ -24,6 +24,7 @@ namespace Bomber.BL.Impl.Map
         private int _rowCount;
         public string Name { get; set; }
         public Guid Id { get; }
+        public string RawData => GetRawData(MapObjects);
 
         public MapLayoutDraft(IServiceProvider serviceProvider, IDraftLayoutModel model)
         {
@@ -68,24 +69,19 @@ namespace Bomber.BL.Impl.Map
 
         public void SaveLayout(IEnumerable<IPlaceHolder> newMapObjects)
         {
-            var mapObjects = newMapObjects.ToArray();
-            var stringBuilder = new StringBuilder();
-            for (var i = 0; i < RowCount; i++)
+            File.WriteAllText(_layoutPath, RawData);
+            MapObjects = newMapObjects;
+        }
+        
+        public void Delete()
+        {
+            if (File.Exists(_layoutPath))
             {
-                for (var j = 0; j < ColumnCount; j++)
-                {
-                    var tile = mapObjects[i * ColumnCount + j];
-                    stringBuilder.Append($"{Constants.TileTypeToInt(tile.Type)} ");
-                }
-                stringBuilder.Remove(stringBuilder.Length - 1, 1);
-                stringBuilder.Append("\r\n");
+                File.Delete(_layoutPath);
             }
-            File.WriteAllText(_layoutPath, stringBuilder.ToString());
-
-            MapObjects = mapObjects;
         }
 
-        public void UpdateLayout()
+        private void UpdateLayout()
         {
             if (MapObjects == null)
             {
@@ -119,33 +115,18 @@ namespace Bomber.BL.Impl.Map
         private IEnumerable<IPlaceHolder> FirstLoad()
         {
             var array = new IPlaceHolder[RowCount * ColumnCount];
-            if (!File.Exists(_layoutPath))
-            {
-                for (var i = 0; i < RowCount; i++)
-                {
-                    for (var j = 0; j < ColumnCount; j++)
-                    {
-                        var pos = _positionFactory.CreatePosition(i, j);
-
-                        array[i * ColumnCount + j] = _tileFactory.CreatePlaceHolder(pos, _configurationService);
-                    }
-                }
-                return array;
-
-            }
             using var streamReader = new StreamReader(_layoutPath);
             Constants.CreateFileAndDirectory(_layoutPath);
             var content = _reader.ReadAllLines<int>(streamReader, int.TryParse, ' ').ToArray();
             for (var i = 0; i < RowCount; i++)
             {
-                var row = content[i].ToArray();
                 for (var j = 0; j < ColumnCount; j++)
                 {
                     var pos = _positionFactory.CreatePosition(i, j);
                     var success = false;
                     if (i < content.Length)
                     {
-
+                        var row = content[i].ToArray();
                         if (j < row.Length)
                         {
                             var type = Constants.IntToTileType(row[j]);
@@ -162,6 +143,23 @@ namespace Bomber.BL.Impl.Map
             }
             streamReader.Close();
             return array;
+        }
+
+        private string GetRawData(IEnumerable<IPlaceHolder> newMapObjects)
+        {
+            var mapObjects = newMapObjects.ToArray();
+            var stringBuilder = new StringBuilder();
+            for (var i = 0; i < RowCount; i++)
+            {
+                for (var j = 0; j < ColumnCount; j++)
+                {
+                    var tile = mapObjects[i * ColumnCount + j];
+                    stringBuilder.Append($"{Constants.TileTypeToInt(tile.Type)} ");
+                }
+                stringBuilder.Remove(stringBuilder.Length - 1, 1);
+                stringBuilder.Append("\r\n");
+            }
+            return stringBuilder.ToString();
         }
     }
 }

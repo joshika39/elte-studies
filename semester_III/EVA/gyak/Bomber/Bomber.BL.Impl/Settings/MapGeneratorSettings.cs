@@ -52,9 +52,10 @@ namespace Bomber.BL.Impl.Settings
                 RowCount = draft.RowCount
             };
             _draftsRepository.Update(model).SaveChanges();
+            draft.SaveLayout(draft.MapObjects);
         }
 
-        public IDraftLayoutModel CreateDraft()
+        public IMapLayoutDraft CreateDraft()
         {
             var model = new DraftLayoutModel()
             {
@@ -64,7 +65,14 @@ namespace Bomber.BL.Impl.Settings
                 RowCount = 3
             };
             _draftsRepository.Create(model).SaveChanges();
-            return model;
+            return new MapLayoutDraft(_provider.GetRequiredService<IServiceProvider>(), model);
+        }
+        
+        public void GenerateMapFromDraft(IMapLayoutDraft draft, string name)
+        {
+            _ = new MapLayout(name, draft, _provider);
+            draft.Delete();
+            _draftsRepository.Delete(draft.Id).SaveChanges();
         }
 
         private IMapLayoutDraft GetSelectedDraftAsync()

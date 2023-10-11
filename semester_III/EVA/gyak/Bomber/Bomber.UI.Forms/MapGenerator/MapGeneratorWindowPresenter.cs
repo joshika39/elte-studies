@@ -25,12 +25,15 @@ namespace Bomber.UI.Forms.MapGenerator
         public void UpdateDraft(IMapLayoutDraft draft)
         {
             _mapGeneratorSettings.UpdateDraft(draft);
-            draft.SaveLayout(draft.MapObjects);
         }
 
-        public IDraftLayoutModel CreateDraft()
+        public IMapLayoutDraft CreateDraft()
         {
             return _mapGeneratorSettings.CreateDraft();
+        }
+        public void GenerateMapFromDraft(IMapLayoutDraft draft, string name)
+        {
+            _mapGeneratorSettings.GenerateMapFromDraft(draft, name);
         }
     }
 }

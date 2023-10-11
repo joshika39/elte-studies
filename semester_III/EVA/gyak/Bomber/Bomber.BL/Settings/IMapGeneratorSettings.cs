@@ -8,6 +8,7 @@ namespace Bomber.BL.Settings
         IMapLayoutDraft SelectedDraft { get; set; }
         IEnumerable<IMapLayoutDraft> Drafts { get; }
         void UpdateDraft(IMapLayoutDraft draft);
-        IDraftLayoutModel CreateDraft();
+        IMapLayoutDraft CreateDraft();
+        void GenerateMapFromDraft(IMapLayoutDraft draft, string name);
     }
 }

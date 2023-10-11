@@ -1,5 +1,4 @@
 ﻿using Bomber.BL.Map;
-using Bomber.BL.Map.DomainModels;
 using UiFramework.Forms;
 
 namespace Bomber.UI.Forms.MapGenerator
@@ -9,6 +8,7 @@ namespace Bomber.UI.Forms.MapGenerator
         IMapLayoutDraft SelectedDraft { get; set; }
         IEnumerable<IMapLayoutDraft> Drafts { get; }
         void UpdateDraft(IMapLayoutDraft draft);
-        IDraftLayoutModel CreateDraft();
+        IMapLayoutDraft CreateDraft();
+        void GenerateMapFromDraft(IMapLayoutDraft draft, string name);
     }
 }

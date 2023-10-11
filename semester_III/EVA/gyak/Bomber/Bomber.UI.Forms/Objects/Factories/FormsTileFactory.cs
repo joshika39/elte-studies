@@ -27,7 +27,7 @@ namespace Bomber.UI.Forms.Objects.Factories
         
         public IMapObject2D CreateHole(IPosition2D position, IConfigurationService configurationService)
         {
-            throw new NotImplementedException();
+            return new Hole(position, configurationService);
         }
     }
 }

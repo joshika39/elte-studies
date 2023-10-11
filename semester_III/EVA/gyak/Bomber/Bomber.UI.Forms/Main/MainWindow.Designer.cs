@@ -30,137 +30,146 @@ namespace Bomber.Main
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.bomberMap = new System.Windows.Forms.Panel();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.recentMapsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openMapGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.websiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1.SuspendLayout();
-            this.SuspendLayout();
+            label1 = new Label();
+            bomberMap = new Panel();
+            menuStrip1 = new MenuStrip();
+            fileToolStripMenuItem = new ToolStripMenuItem();
+            openToolStripMenuItem = new ToolStripMenuItem();
+            saveToolStripMenuItem = new ToolStripMenuItem();
+            quitToolStripMenuItem = new ToolStripMenuItem();
+            recentMapsToolStripMenuItem = new ToolStripMenuItem();
+            settingsToolStripMenuItem = new ToolStripMenuItem();
+            openMapGeneratorToolStripMenuItem = new ToolStripMenuItem();
+            infoToolStripMenuItem = new ToolStripMenuItem();
+            websiteToolStripMenuItem = new ToolStripMenuItem();
+            mapName = new Label();
+            description = new Label();
+            menuStrip1.SuspendLayout();
+            SuspendLayout();
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(14, 56);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(242, 50);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Bomber.UI v1";
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 22F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(591, 37);
+            label1.Name = "label1";
+            label1.Size = new Size(197, 41);
+            label1.TabIndex = 0;
+            label1.Text = "Bomber.UI v1";
             // 
             // bomberMap
             // 
-            this.bomberMap.AutoSize = true;
-            this.bomberMap.Location = new System.Drawing.Point(14, 120);
-            this.bomberMap.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.bomberMap.Name = "bomberMap";
-            this.bomberMap.Size = new System.Drawing.Size(400, 467);
-            this.bomberMap.TabIndex = 1;
+            bomberMap.AutoSize = true;
+            bomberMap.Location = new Point(11, 89);
+            bomberMap.Name = "bomberMap";
+            bomberMap.Size = new Size(350, 350);
+            bomberMap.TabIndex = 1;
             // 
             // menuStrip1
             // 
-            this.menuStrip1.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.settingsToolStripMenuItem,
-            this.infoToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
-            this.menuStrip1.Size = new System.Drawing.Size(914, 30);
-            this.menuStrip1.TabIndex = 2;
-            this.menuStrip1.Text = "menuStrip1";
+            menuStrip1.BackColor = SystemColors.ScrollBar;
+            menuStrip1.ImageScalingSize = new Size(20, 20);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, settingsToolStripMenuItem, infoToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(800, 24);
+            menuStrip1.TabIndex = 2;
+            menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openToolStripMenuItem,
-            this.saveToolStripMenuItem,
-            this.quitToolStripMenuItem,
-            this.recentMapsToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
-            this.fileToolStripMenuItem.Text = "File";
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { openToolStripMenuItem, saveToolStripMenuItem, quitToolStripMenuItem, recentMapsToolStripMenuItem });
+            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            fileToolStripMenuItem.Size = new Size(37, 20);
+            fileToolStripMenuItem.Text = "File";
             // 
             // openToolStripMenuItem
             // 
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
-            this.openToolStripMenuItem.Text = "Open...";
+            openToolStripMenuItem.Name = "openToolStripMenuItem";
+            openToolStripMenuItem.Size = new Size(180, 22);
+            openToolStripMenuItem.Text = "Open...";
+            openToolStripMenuItem.Click += OnOpenMap;
             // 
             // saveToolStripMenuItem
             // 
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
-            this.saveToolStripMenuItem.Text = "Save";
+            saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            saveToolStripMenuItem.Size = new Size(180, 22);
+            saveToolStripMenuItem.Text = "Save";
             // 
             // quitToolStripMenuItem
             // 
-            this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
-            this.quitToolStripMenuItem.Text = "Quit";
+            quitToolStripMenuItem.Name = "quitToolStripMenuItem";
+            quitToolStripMenuItem.Size = new Size(180, 22);
+            quitToolStripMenuItem.Text = "Quit";
             // 
             // recentMapsToolStripMenuItem
             // 
-            this.recentMapsToolStripMenuItem.Name = "recentMapsToolStripMenuItem";
-            this.recentMapsToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
-            this.recentMapsToolStripMenuItem.Text = "Recent Maps";
+            recentMapsToolStripMenuItem.Name = "recentMapsToolStripMenuItem";
+            recentMapsToolStripMenuItem.Size = new Size(180, 22);
+            recentMapsToolStripMenuItem.Text = "Recent Maps";
             // 
             // settingsToolStripMenuItem
             // 
-            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openMapGeneratorToolStripMenuItem});
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(76, 24);
-            this.settingsToolStripMenuItem.Text = "Settings";
+            settingsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { openMapGeneratorToolStripMenuItem });
+            settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            settingsToolStripMenuItem.Size = new Size(61, 20);
+            settingsToolStripMenuItem.Text = "Settings";
             // 
             // openMapGeneratorToolStripMenuItem
             // 
-            this.openMapGeneratorToolStripMenuItem.Name = "openMapGeneratorToolStripMenuItem";
-            this.openMapGeneratorToolStripMenuItem.Size = new System.Drawing.Size(228, 26);
-            this.openMapGeneratorToolStripMenuItem.Text = "Open MapGenerator";
-            this.openMapGeneratorToolStripMenuItem.Click += new System.EventHandler(this.openMapGeneratorToolStripMenuItem_Click);
+            openMapGeneratorToolStripMenuItem.Name = "openMapGeneratorToolStripMenuItem";
+            openMapGeneratorToolStripMenuItem.Size = new Size(182, 22);
+            openMapGeneratorToolStripMenuItem.Text = "Open MapGenerator";
+            openMapGeneratorToolStripMenuItem.Click += openMapGeneratorToolStripMenuItem_Click;
             // 
             // infoToolStripMenuItem
             // 
-            this.infoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.websiteToolStripMenuItem});
-            this.infoToolStripMenuItem.Name = "infoToolStripMenuItem";
-            this.infoToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
-            this.infoToolStripMenuItem.Text = "Info";
+            infoToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { websiteToolStripMenuItem });
+            infoToolStripMenuItem.Name = "infoToolStripMenuItem";
+            infoToolStripMenuItem.Size = new Size(40, 20);
+            infoToolStripMenuItem.Text = "Info";
             // 
             // websiteToolStripMenuItem
             // 
-            this.websiteToolStripMenuItem.Name = "websiteToolStripMenuItem";
-            this.websiteToolStripMenuItem.Size = new System.Drawing.Size(145, 26);
-            this.websiteToolStripMenuItem.Text = "Website";
+            websiteToolStripMenuItem.Name = "websiteToolStripMenuItem";
+            websiteToolStripMenuItem.Size = new Size(116, 22);
+            websiteToolStripMenuItem.Text = "Website";
+            // 
+            // mapName
+            // 
+            mapName.AutoSize = true;
+            mapName.Location = new Point(12, 37);
+            mapName.Name = "mapName";
+            mapName.Size = new Size(74, 15);
+            mapName.TabIndex = 3;
+            mapName.Text = "Select a Map";
+            // 
+            // description
+            // 
+            description.AutoSize = true;
+            description.Location = new Point(93, 37);
+            description.Name = "description";
+            description.Size = new Size(0, 15);
+            description.TabIndex = 4;
             // 
             // MainWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(914, 600);
-            this.Controls.Add(this.bomberMap);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "MainWindow";
-            this.Text = "MainWindow";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.Window;
+            ClientSize = new Size(800, 450);
+            Controls.Add(description);
+            Controls.Add(mapName);
+            Controls.Add(bomberMap);
+            Controls.Add(label1);
+            Controls.Add(menuStrip1);
+            MainMenuStrip = menuStrip1;
+            Name = "MainWindow";
+            Text = "MainWindow";
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -177,6 +186,8 @@ namespace Bomber.Main
         private ToolStripMenuItem openToolStripMenuItem;
         private ToolStripMenuItem saveToolStripMenuItem;
         private ToolStripMenuItem recentMapsToolStripMenuItem;
+        private Label mapName;
+        private Label description;
     }
 }
 
