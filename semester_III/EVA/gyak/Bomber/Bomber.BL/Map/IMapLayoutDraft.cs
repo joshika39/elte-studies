@@ -14,6 +14,6 @@ namespace Bomber.BL.Map
         
         [JsonIgnore]
         IEnumerable<IPlaceHolder> MapObjects { get; }
-        void SaveLayout();
+        void SaveLayout(IEnumerable<IPlaceHolder> newMapObjects);
     }
 }

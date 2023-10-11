@@ -15,7 +15,7 @@ namespace Bomber.Main
         
         public void OpenMapGenerator()
         {
-            _mapGeneratorWindow.Show();
+            _mapGeneratorWindow.ShowOnTop();
         }
     }
 }

@@ -41,5 +41,10 @@ namespace Bomber.Objects
                 _ => BackColor
             };
         }
+
+        public override string ToString()
+        {
+            return Type.ToString();
+        }
     }
 }

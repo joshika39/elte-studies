@@ -33,7 +33,25 @@ namespace Bomber.UI.Forms.MapGenerator
 
         public DialogResult ShowOnTop()
         {
-            throw new NotImplementedException();
+            var result = ShowDialog();
+
+            switch (result)
+            {
+                case System.Windows.Forms.DialogResult.Cancel:
+                case System.Windows.Forms.DialogResult.Abort:
+                    return UiFramework.Shared.DialogResult.Cancelled;
+                case System.Windows.Forms.DialogResult.Yes:
+                case System.Windows.Forms.DialogResult.OK:
+                    return UiFramework.Shared.DialogResult.Resolved;
+                case System.Windows.Forms.DialogResult.None:
+                case System.Windows.Forms.DialogResult.Retry:
+                case System.Windows.Forms.DialogResult.Ignore:
+                case System.Windows.Forms.DialogResult.No:
+                case System.Windows.Forms.DialogResult.TryAgain:
+                case System.Windows.Forms.DialogResult.Continue:
+                default:
+                    throw new InvalidOperationException("Unsupported dialog result!");
+            }
         }
 
         private void OnWidthChanged(object sender, EventArgs e)
@@ -43,6 +61,7 @@ namespace Bomber.UI.Forms.MapGenerator
             _selectedLayoutWidth = (int)numericUpDown.Value;
             numericUpDown.Value = (int)numericUpDown.Value;
             Presenter.SelectedDraft.ColumnCount = _selectedLayoutWidth;
+            
             PopulatePanel(Presenter.SelectedDraft.MapObjects);
         }
 
@@ -87,7 +106,7 @@ namespace Bomber.UI.Forms.MapGenerator
             draft.RowCount = _selectedLayoutHeight;
             draft.Name = draftName.Text;
             draft.Description = descBox.Text;
-            Presenter.UpdateDraft(draft);
+            Presenter.UpdateDraft(Presenter.SelectedDraft);
         }
     }
 }
