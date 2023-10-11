@@ -1,19 +1,23 @@
-﻿using Bomber.BL.Map;
+﻿using Bomber.BL.Impl;
+using Bomber.BL.Map;
 using Bomber.MapGenerator;
 using GameFramework.Map.MapObject;
+using Infrastructure.Application;
 using DialogResult = UiFramework.Shared.DialogResult;
 
 namespace Bomber.UI.Forms.MapGenerator
 {
     public partial class MapGeneratorWindow : Form, IMapGeneratorWindow
     {
+        private readonly IApplicationSettings _applicationSettings;
         private int _selectedLayoutWidth;
         private int _selectedLayoutHeight;
         public IMapGeneratorWindowPresenter Presenter { get; }
 
 
-        public MapGeneratorWindow(IMapGeneratorWindowPresenter presenter)
+        public MapGeneratorWindow(IMapGeneratorWindowPresenter presenter, IApplicationSettings applicationSettings)
         {
+            _applicationSettings = applicationSettings ?? throw new ArgumentNullException(nameof(applicationSettings));
             Presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
             InitializeComponent();
 
@@ -97,16 +101,32 @@ namespace Bomber.UI.Forms.MapGenerator
 
             widthValue.Value = draft.ColumnCount;
             heightValue.Value = draft.RowCount;
+            draftName.Text = draft.Name;
+            descBox.Text = draft.Description;
+            Presenter.SelectedDraft = draft;
+            PopulatePanel(Presenter.SelectedDraft.MapObjects);
         }
 
         private void OnSaveAsDraftClicked(object sender, EventArgs e)
         {
-            if (draftComboBox.SelectedItem is not IMapLayoutDraft draft) return;
-            draft.ColumnCount = _selectedLayoutWidth;
-            draft.RowCount = _selectedLayoutHeight;
-            draft.Name = draftName.Text;
-            draft.Description = descBox.Text;
+            Presenter.SelectedDraft.ColumnCount = _selectedLayoutWidth;
+            Presenter.SelectedDraft.RowCount = _selectedLayoutHeight;
+            Presenter.SelectedDraft.Name = draftName.Text;
+            Presenter.SelectedDraft.Description = descBox.Text;
             Presenter.UpdateDraft(Presenter.SelectedDraft);
+        }
+
+        private void OnGenerateClick(object sender, EventArgs e)
+        {
+            var dialog = new SaveFileDialog();
+            dialog.Filter = "BoB files (*.bob)|*.bob";
+            dialog.OverwritePrompt = true;
+            dialog.Title = "Select a file";
+            var document = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            var folder = Path.Join(document, "joshika39", "Bomber", "maps");
+            Constants.CreateDirectory(@$"{folder}\");
+            dialog.InitialDirectory = folder;
+            var file = dialog.ShowDialog();
         }
     }
 }

@@ -2,12 +2,12 @@ using Bomber.BL.Impl.DomainModels;
 using Bomber.BL.Impl.Map;
 using Bomber.BL.Map;
 using Bomber.BL.Map.DomainModels;
-using Bomber.BL.Repositories;
 using Bomber.BL.Settings;
 using Infrastructure.Application;
 using Infrastructure.Configuration;
 using Infrastructure.Configuration.Factories;
 using Infrastructure.Repositories;
+using Infrastructure.Repositories.Factories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Bomber.BL.Impl.Settings
@@ -17,16 +17,28 @@ namespace Bomber.BL.Impl.Settings
         private readonly IServiceProvider _provider;
         private readonly IConfigurationQuery _query;
         private readonly IRepository<IDraftLayoutModel> _draftsRepository;
-        public IMapLayoutDraft SelectedDraft => GetSelectedDraftAsync();
+        private IMapLayoutDraft _selectedDraft;
+
+        public IMapLayoutDraft SelectedDraft
+        {
+            get => _selectedDraft;
+            set
+            {
+                _selectedDraft = value;
+                SetSelectedDraft(value);
+            }
+        }
+       
         public IEnumerable<IMapLayoutDraft> Drafts => GetDrafts();
 
-        public MapGeneratorSettings(IServiceProvider provider, IConfigurationQueryFactory configurationQueryFactory, IRouter router)
+        public MapGeneratorSettings(IServiceProvider provider, IConfigurationQueryFactory configurationQueryFactory, IRepositoryFactory repositoryFactory)
         {
+            repositoryFactory = repositoryFactory ?? throw new ArgumentNullException(nameof(repositoryFactory));
             _provider = provider ?? throw new ArgumentNullException(nameof(provider));
             var path = Path.Join(_provider.GetRequiredService<IApplicationSettings>().ConfigurationFolder, "generator-config.json");
             _query = configurationQueryFactory.CreateConfigurationQuery(path);
-            _draftsRepository = router.DraftLayouts;
-
+            _draftsRepository = repositoryFactory.CreateJsonRepository<IDraftLayoutModel, DraftLayoutModel>("drafts");
+            _selectedDraft = GetSelectedDraftAsync();
         }
         
         public void UpdateDraft(IMapLayoutDraft draft)
@@ -55,6 +67,11 @@ namespace Bomber.BL.Impl.Settings
             var parsed = Guid.Parse(selectedId);
             var selected = allEntities.FirstOrDefault(d => d.Id.Equals(parsed));
             return selected is null ? CreateNewSelectedDraft() : new MapLayoutDraft(_provider.GetRequiredService<IServiceProvider>(), selected);
+        }
+        
+        private void SetSelectedDraft(IMapLayoutDraft value)
+        {
+            _query.SetAttribute("selected-draft", value.Id.ToString());
         }
 
         private IMapLayoutDraft CreateNewSelectedDraft()

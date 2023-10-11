@@ -7,6 +7,9 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="joshika39.Core" Version="1.1.8" />
-        <PackageReference Include="joshika39.GameFramework" Version="1.0.0-pre0004" />
+        <PackageReference Include="joshika39.GameFramework" Version="1.0.2" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Repositories\" />
     </ItemGroup>
 </Project>

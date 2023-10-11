@@ -27,14 +27,14 @@ namespace Bomber.UI.Forms
 
         private static IServiceProvider LoadModules()
         {
-            var serviceProvider = new ServiceCollection();
+            var collection = new ServiceCollection();
             
-            new CoreModule().LoadModules(serviceProvider, "Bomber");
-            new GameModule().LoadModules(serviceProvider);
-            new BusinessLogicModule().LoadModules(serviceProvider);
-            new BomberModule().LoadModules(serviceProvider);
+            new CoreModule().LoadModules(collection, "Bomber");
+            new GameModule().LoadModules(collection);
+            new BusinessLogicModule().LoadModules(collection);
+            new BomberModule().LoadModules(collection);
 
-            return serviceProvider.BuildServiceProvider();
+            return collection.BuildServiceProvider();
         }
     }
 }

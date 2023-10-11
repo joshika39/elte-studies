@@ -39,7 +39,7 @@ namespace Bomber.BL.Impl.Map
             ColumnCount = model.ColumnCount;
             RowCount = model.RowCount;
             _layoutPath = Path.Join(settings.ConfigurationFolder, "layouts", "draftLayouts", Id + ".txt");
-            CreateFileAndDirectory();
+            Constants.CreateFileAndDirectory(_layoutPath);
             MapObjects = FirstLoad();
         }
 
@@ -119,7 +119,7 @@ namespace Bomber.BL.Impl.Map
         private IEnumerable<IPlaceHolder> FirstLoad()
         {
             using var streamReader = new StreamReader(_layoutPath);
-            CreateFileAndDirectory();
+            Constants.CreateFileAndDirectory(_layoutPath);
             var content = _reader.ReadAllLines<int>(streamReader, int.TryParse, ' ').ToArray();
             var array = new IPlaceHolder[RowCount * ColumnCount];
             for (var i = 0; i < RowCount; i++)
@@ -148,19 +148,6 @@ namespace Bomber.BL.Impl.Map
             }
             streamReader.Close();
             return array;
-        }
-        
-        private void CreateFileAndDirectory()
-        {
-            var directory = Path.GetDirectoryName(_layoutPath) ?? "";
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-
-            if (File.Exists(_layoutPath)) return;
-            
-            File.Create(_layoutPath).Close();
         }
     }
 }

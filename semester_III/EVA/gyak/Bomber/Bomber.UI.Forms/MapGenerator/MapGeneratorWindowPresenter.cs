@@ -6,8 +6,13 @@ namespace Bomber.UI.Forms.MapGenerator
     public class MapGeneratorWindowPresenter : IMapGeneratorWindowPresenter
     {
         private readonly IMapGeneratorSettings _mapGeneratorSettings;
+
+        public IMapLayoutDraft SelectedDraft
+        {
+            get => _mapGeneratorSettings.SelectedDraft;
+            set => _mapGeneratorSettings.SelectedDraft = value;
+        }
         
-        public IMapLayoutDraft SelectedDraft { get; }
         public IEnumerable<IMapLayoutDraft> Drafts => _mapGeneratorSettings.Drafts;
 
         public MapGeneratorWindowPresenter(IMapGeneratorSettings mapGeneratorSettings)

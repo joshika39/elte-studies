@@ -30,223 +30,237 @@ namespace Bomber.UI.Forms.MapGenerator
         /// </summary>
         private void InitializeComponent()
         {
-            generateButton = new Button();
-            label1 = new Label();
-            layoutPanel = new Panel();
-            panel2 = new Panel();
-            label6 = new Label();
-            draftComboBox = new ComboBox();
-            heightValue = new NumericUpDown();
-            widthValue = new NumericUpDown();
-            draftButton = new Button();
-            cancelButton = new Button();
-            label5 = new Label();
-            label4 = new Label();
-            label3 = new Label();
-            descBox = new RichTextBox();
-            label2 = new Label();
-            backgroundWorker1 = new BackgroundWorker();
-            draftName = new TextBox();
-            label7 = new Label();
-            panel2.SuspendLayout();
-            ((ISupportInitialize)heightValue).BeginInit();
-            ((ISupportInitialize)widthValue).BeginInit();
-            SuspendLayout();
+            this.generateButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.layoutPanel = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.draftName = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.draftComboBox = new System.Windows.Forms.ComboBox();
+            this.heightValue = new System.Windows.Forms.NumericUpDown();
+            this.widthValue = new System.Windows.Forms.NumericUpDown();
+            this.draftButton = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.descBox = new System.Windows.Forms.RichTextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.heightValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.widthValue)).BeginInit();
+            this.SuspendLayout();
             // 
             // generateButton
             // 
-            generateButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            generateButton.Location = new Point(226, 414);
-            generateButton.Name = "generateButton";
-            generateButton.Size = new Size(75, 23);
-            generateButton.TabIndex = 0;
-            generateButton.Text = "Generate";
-            generateButton.UseVisualStyleBackColor = true;
+            this.generateButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.generateButton.Location = new System.Drawing.Point(258, 552);
+            this.generateButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.generateButton.Name = "generateButton";
+            this.generateButton.Size = new System.Drawing.Size(86, 31);
+            this.generateButton.TabIndex = 0;
+            this.generateButton.Text = "Generate";
+            this.generateButton.UseVisualStyleBackColor = true;
+            this.generateButton.Click += new System.EventHandler(this.OnGenerateClick);
             // 
             // label1
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(12, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(235, 45);
-            label1.TabIndex = 1;
-            label1.Text = "Map Generator";
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(14, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(291, 54);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Map Generator";
             // 
             // layoutPanel
             // 
-            layoutPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            layoutPanel.AutoSize = true;
-            layoutPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            layoutPanel.Location = new Point(12, 57);
-            layoutPanel.Name = "layoutPanel";
-            layoutPanel.Size = new Size(0, 0);
-            layoutPanel.TabIndex = 2;
+            this.layoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.layoutPanel.AutoSize = true;
+            this.layoutPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.layoutPanel.Location = new System.Drawing.Point(14, 76);
+            this.layoutPanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.layoutPanel.Name = "layoutPanel";
+            this.layoutPanel.Size = new System.Drawing.Size(0, 0);
+            this.layoutPanel.TabIndex = 2;
             // 
             // panel2
             // 
-            panel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            panel2.BorderStyle = BorderStyle.FixedSingle;
-            panel2.Controls.Add(label7);
-            panel2.Controls.Add(draftName);
-            panel2.Controls.Add(label6);
-            panel2.Controls.Add(draftComboBox);
-            panel2.Controls.Add(heightValue);
-            panel2.Controls.Add(widthValue);
-            panel2.Controls.Add(draftButton);
-            panel2.Controls.Add(cancelButton);
-            panel2.Controls.Add(label5);
-            panel2.Controls.Add(label4);
-            panel2.Controls.Add(label3);
-            panel2.Controls.Add(generateButton);
-            panel2.Controls.Add(descBox);
-            panel2.Controls.Add(label2);
-            panel2.Location = new Point(488, 0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(312, 450);
-            panel2.TabIndex = 3;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label6.Location = new Point(39, 20);
-            label6.Name = "label6";
-            label6.Size = new Size(88, 15);
-            label6.TabIndex = 12;
-            label6.Text = "Pending drafts";
-            // 
-            // draftComboBox
-            // 
-            draftComboBox.FormattingEnabled = true;
-            draftComboBox.Location = new Point(146, 16);
-            draftComboBox.Margin = new Padding(3, 2, 3, 2);
-            draftComboBox.Name = "draftComboBox";
-            draftComboBox.Size = new Size(133, 23);
-            draftComboBox.TabIndex = 11;
-            draftComboBox.SelectedIndexChanged += OnSelectionChanged;
-            // 
-            // heightValue
-            // 
-            heightValue.Location = new Point(54, 164);
-            heightValue.Name = "heightValue";
-            heightValue.Size = new Size(239, 23);
-            heightValue.TabIndex = 10;
-            heightValue.ValueChanged += OnHeightChanged;
-            // 
-            // widthValue
-            // 
-            widthValue.Location = new Point(54, 136);
-            widthValue.Name = "widthValue";
-            widthValue.Size = new Size(239, 23);
-            widthValue.TabIndex = 9;
-            widthValue.ValueChanged += OnWidthChanged;
-            // 
-            // draftButton
-            // 
-            draftButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            draftButton.Location = new Point(8, 414);
-            draftButton.Name = "draftButton";
-            draftButton.Size = new Size(95, 23);
-            draftButton.TabIndex = 8;
-            draftButton.Text = "Save as Draft";
-            draftButton.UseVisualStyleBackColor = true;
-            draftButton.Click += OnSaveAsDraftClicked;
-            // 
-            // cancelButton
-            // 
-            cancelButton.Anchor = AnchorStyles.Bottom;
-            cancelButton.Location = new Point(146, 414);
-            cancelButton.Name = "cancelButton";
-            cancelButton.Size = new Size(75, 23);
-            cancelButton.TabIndex = 7;
-            cancelButton.Text = "Cancel";
-            cancelButton.UseVisualStyleBackColor = true;
-            // 
-            // label5
-            // 
-            label5.Anchor = AnchorStyles.Right;
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label5.Location = new Point(9, 209);
-            label5.Name = "label5";
-            label5.Size = new Size(96, 15);
-            label5.TabIndex = 6;
-            label5.Text = "Map description";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label4.Location = new Point(4, 167);
-            label4.Name = "label4";
-            label4.Size = new Size(45, 15);
-            label4.TabIndex = 5;
-            label4.Text = "Height";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label3.Location = new Point(7, 140);
-            label3.Name = "label3";
-            label3.Size = new Size(41, 15);
-            label3.TabIndex = 4;
-            label3.Text = "Width";
-            // 
-            // descBox
-            // 
-            descBox.Anchor = AnchorStyles.Right;
-            descBox.Location = new Point(8, 232);
-            descBox.Name = "descBox";
-            descBox.Size = new Size(286, 159);
-            descBox.TabIndex = 3;
-            descBox.Text = "";
-            // 
-            // label2
-            // 
-            label2.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
-            label2.Location = new Point(7, 56);
-            label2.Name = "label2";
-            label2.Padding = new Padding(5);
-            label2.Size = new Size(294, 35);
-            label2.TabIndex = 0;
-            label2.Text = "Properties";
-            label2.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // draftName
-            // 
-            draftName.Location = new Point(54, 107);
-            draftName.Name = "draftName";
-            draftName.Size = new Size(239, 23);
-            draftName.TabIndex = 13;
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.label7);
+            this.panel2.Controls.Add(this.draftName);
+            this.panel2.Controls.Add(this.label6);
+            this.panel2.Controls.Add(this.draftComboBox);
+            this.panel2.Controls.Add(this.heightValue);
+            this.panel2.Controls.Add(this.widthValue);
+            this.panel2.Controls.Add(this.draftButton);
+            this.panel2.Controls.Add(this.cancelButton);
+            this.panel2.Controls.Add(this.label5);
+            this.panel2.Controls.Add(this.label4);
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.generateButton);
+            this.panel2.Controls.Add(this.descBox);
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Location = new System.Drawing.Point(558, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(356, 599);
+            this.panel2.TabIndex = 3;
             // 
             // label7
             // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            label7.Location = new Point(6, 112);
-            label7.Name = "label7";
-            label7.Size = new Size(40, 15);
-            label7.TabIndex = 14;
-            label7.Text = "Name";
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label7.Location = new System.Drawing.Point(7, 149);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(51, 20);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Name";
+            // 
+            // draftName
+            // 
+            this.draftName.Location = new System.Drawing.Point(62, 143);
+            this.draftName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.draftName.Name = "draftName";
+            this.draftName.Size = new System.Drawing.Size(273, 27);
+            this.draftName.TabIndex = 13;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label6.Location = new System.Drawing.Point(45, 27);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(112, 20);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Pending drafts";
+            // 
+            // draftComboBox
+            // 
+            this.draftComboBox.FormattingEnabled = true;
+            this.draftComboBox.Location = new System.Drawing.Point(167, 21);
+            this.draftComboBox.Name = "draftComboBox";
+            this.draftComboBox.Size = new System.Drawing.Size(151, 28);
+            this.draftComboBox.TabIndex = 11;
+            this.draftComboBox.SelectedValueChanged += new System.EventHandler(this.OnSelectionChanged);
+            // 
+            // heightValue
+            // 
+            this.heightValue.Location = new System.Drawing.Point(62, 219);
+            this.heightValue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.heightValue.Name = "heightValue";
+            this.heightValue.Size = new System.Drawing.Size(273, 27);
+            this.heightValue.TabIndex = 10;
+            this.heightValue.ValueChanged += new System.EventHandler(this.OnHeightChanged);
+            // 
+            // widthValue
+            // 
+            this.widthValue.Location = new System.Drawing.Point(62, 181);
+            this.widthValue.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.widthValue.Name = "widthValue";
+            this.widthValue.Size = new System.Drawing.Size(273, 27);
+            this.widthValue.TabIndex = 9;
+            this.widthValue.ValueChanged += new System.EventHandler(this.OnWidthChanged);
+            // 
+            // draftButton
+            // 
+            this.draftButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.draftButton.Location = new System.Drawing.Point(9, 552);
+            this.draftButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.draftButton.Name = "draftButton";
+            this.draftButton.Size = new System.Drawing.Size(109, 31);
+            this.draftButton.TabIndex = 8;
+            this.draftButton.Text = "Save as Draft";
+            this.draftButton.UseVisualStyleBackColor = true;
+            this.draftButton.Click += new System.EventHandler(this.OnSaveAsDraftClicked);
+            // 
+            // cancelButton
+            // 
+            this.cancelButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.cancelButton.Location = new System.Drawing.Point(167, 552);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(86, 31);
+            this.cancelButton.TabIndex = 7;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label5.Location = new System.Drawing.Point(10, 279);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(122, 20);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "Map description";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label4.Location = new System.Drawing.Point(5, 223);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(56, 20);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Height";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label3.Location = new System.Drawing.Point(8, 187);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(52, 20);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Width";
+            // 
+            // descBox
+            // 
+            this.descBox.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.descBox.Location = new System.Drawing.Point(9, 309);
+            this.descBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.descBox.Name = "descBox";
+            this.descBox.Size = new System.Drawing.Size(326, 211);
+            this.descBox.TabIndex = 3;
+            this.descBox.Text = "";
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel);
+            this.label2.Location = new System.Drawing.Point(8, 75);
+            this.label2.Name = "label2";
+            this.label2.Padding = new System.Windows.Forms.Padding(6, 7, 6, 7);
+            this.label2.Size = new System.Drawing.Size(336, 47);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Properties";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // MapGeneratorWindow
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(panel2);
-            Controls.Add(layoutPanel);
-            Controls.Add(label1);
-            Name = "MapGeneratorWindow";
-            Text = "MapGeneratorWindow";
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
-            ((ISupportInitialize)heightValue).EndInit();
-            ((ISupportInitialize)widthValue).EndInit();
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(914, 600);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.layoutPanel);
+            this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.Name = "MapGeneratorWindow";
+            this.Text = "MapGeneratorWindow";
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.heightValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.widthValue)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion

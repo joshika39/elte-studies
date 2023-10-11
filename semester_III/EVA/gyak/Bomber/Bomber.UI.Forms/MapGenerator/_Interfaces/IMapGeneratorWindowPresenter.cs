@@ -5,7 +5,7 @@ namespace Bomber.UI.Forms.MapGenerator
 {
     public interface IMapGeneratorWindowPresenter : IWindowPresenter
     {
-        IMapLayoutDraft SelectedDraft { get; }
+        IMapLayoutDraft SelectedDraft { get; set; }
         IEnumerable<IMapLayoutDraft> Drafts { get; }
         void UpdateDraft(IMapLayoutDraft draft);
     }

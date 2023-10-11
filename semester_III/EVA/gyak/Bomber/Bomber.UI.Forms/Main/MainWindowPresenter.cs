@@ -1,8 +1,7 @@
-﻿using Bomber.MapGenerator;
-using UiFramework.Forms.Impl;
-using UiFramework.Shared;
+﻿using Bomber.Main;
+using Bomber.MapGenerator;
 
-namespace Bomber.Main
+namespace Bomber.UI.Forms.Main
 {
     public class MainWindowPresenter : IMainWindowPresenter
     {
