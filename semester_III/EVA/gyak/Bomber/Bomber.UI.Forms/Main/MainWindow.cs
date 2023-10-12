@@ -1,6 +1,8 @@
 ﻿using Bomber.BL.Impl.Map;
+using Bomber.BL.Impl.Player;
 using Bomber.BL.Map;
 using Bomber.Objects;
+using Bomber.UI.Forms.Objects.Player;
 using GameFramework.Configuration;
 using GameFramework.Core.Factories;
 using GameFramework.Map.MapObject;
@@ -59,18 +61,23 @@ namespace Bomber.Main
             var openDialog = new OpenFileDialog();
             openDialog.Filter = "BoB files (*.bob)|*.bob";
             openDialog.InitialDirectory = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "joshik39", "Bomber", "maps");
-            if (openDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (openDialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
             {
-                var path = openDialog.FileName;
-                var map = new MapLayout(path, _provider);
-                foreach (var mapMapObject in map.MapObjects)
+                return;
+            }
+            
+            var path = openDialog.FileName;
+            var mapLayout = new MapLayout(path, _provider);
+            foreach (var mapMapObject in mapLayout.MapObjects)
+            {
+                if (mapMapObject is Control control)
                 {
-                    if (mapMapObject is Control control)
-                    {
-                        bomberMap.Controls.Add(control);
-                    }
+                    bomberMap.Controls.Add(control);
                 }
             }
+
+            var map = new Map(mapLayout);
+            var player = new Player(new PlayerModel())
         }
     }
 }

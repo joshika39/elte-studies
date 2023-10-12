@@ -1,4 +1,5 @@
 ﻿using Bomber.BL.Map;
+using Bomber.BL.Player;
 using GameFramework.Core;
 using GameFramework.Map.MapObject;
 

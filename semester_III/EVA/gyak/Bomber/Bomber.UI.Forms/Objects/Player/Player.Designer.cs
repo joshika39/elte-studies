@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Bomber.Objects
+namespace Bomber.UI.Forms.Objects.Player
 {
     partial class Player
     {
@@ -30,8 +30,16 @@ namespace Bomber.Objects
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // Player
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Name = "Player";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyPressed);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
