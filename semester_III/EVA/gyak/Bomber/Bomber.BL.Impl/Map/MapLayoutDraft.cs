@@ -18,7 +18,7 @@ namespace Bomber.BL.Impl.Map
         private readonly IReader _reader;
         private readonly ITileFactory _tileFactory;
         private readonly IPositionFactory _positionFactory;
-        private readonly IConfigurationService _configurationService;
+        private readonly IConfigurationService2D _configurationService;
         private readonly string _layoutPath;
         private int _columnCount;
         private int _rowCount;
@@ -32,7 +32,7 @@ namespace Bomber.BL.Impl.Map
             var settings = serviceProvider.GetRequiredService<IApplicationSettings>();
             _tileFactory = serviceProvider.GetRequiredService<ITileFactory>();
             _positionFactory = serviceProvider.GetRequiredService<IPositionFactory>();
-            _configurationService = serviceProvider.GetRequiredService<IConfigurationService>();
+            _configurationService = serviceProvider.GetRequiredService<IConfigurationService2D>();
             model = model ?? throw new ArgumentNullException(nameof(model));
             Description = model.Description;
             Name = model.Name;

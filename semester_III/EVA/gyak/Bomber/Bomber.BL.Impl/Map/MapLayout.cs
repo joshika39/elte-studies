@@ -14,7 +14,7 @@ namespace Bomber.BL.Impl.Map
     public class MapLayout : IMapLayout
     {
         private readonly IConfigurationQuery _query;
-        private readonly IConfigurationService _configurationService;
+        private readonly IConfigurationService2D _configurationService;
         private readonly ITileFactory _tileFactory;
         private readonly IReader _reader;
         private readonly string _mapDataBase64;
@@ -33,7 +33,7 @@ namespace Bomber.BL.Impl.Map
             Id = Guid.NewGuid();
             var queryFactory = provider.GetRequiredService<IConfigurationQueryFactory>();
             var filePath1 = filePath ?? throw new ArgumentNullException(nameof(filePath));
-            _configurationService = provider.GetRequiredService<IConfigurationService>();
+            _configurationService = provider.GetRequiredService<IConfigurationService2D>();
             _query = queryFactory.CreateConfigurationQuery(filePath1);
             _tileFactory = provider.GetRequiredService<ITileFactory>();
             _positionFactory = provider.GetRequiredService<IPositionFactory>();
@@ -55,7 +55,7 @@ namespace Bomber.BL.Impl.Map
             Id = Guid.NewGuid();
             var queryFactory = provider.GetRequiredService<IConfigurationQueryFactory>();
             var filePath1 = filePath ?? throw new ArgumentNullException(nameof(filePath));
-            _configurationService = provider.GetRequiredService<IConfigurationService>();
+            _configurationService = provider.GetRequiredService<IConfigurationService2D>();
             _query = queryFactory.CreateConfigurationQuery(filePath1);
             _tileFactory = provider.GetRequiredService<ITileFactory>();
             _positionFactory = provider.GetRequiredService<IPositionFactory>();

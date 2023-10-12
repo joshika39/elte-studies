@@ -1,27 +1,31 @@
-﻿using Bomber.BL.Map;
-using Bomber.BL.Player;
-using GameFramework.Core;
+﻿using GameFramework.Core;
+using GameFramework.Entities;
 using GameFramework.Map.MapObject;
 
-namespace Bomber.Objects
+namespace Bomber.UI.Forms.Objects
 {
-    public partial class Enemy : UserControl, IMapObject2D
+    public partial class Enemy : UserControl, IUnit2D
     {
-        private readonly IBomber _player2D;
+        private readonly IPlayer2D _player2D;
         
-        public Enemy(IBomber player2D)
+        public Enemy(IPlayer2D player2D, IPosition2D position)
         {
             _player2D = player2D ?? throw new ArgumentNullException(nameof(player2D));
+            Position = position ?? throw new ArgumentNullException(nameof(position));
             InitializeComponent();
-
-            _player2D.Moved += OnPlayerMoved;
         }
-        private void OnPlayerMoved(object? sender, IPosition2D e)
+
+
+        public void SteppedOn(IUnit2D unit2D)
+        {
+            
+        }
+        public IPosition2D Position { get; }
+        public bool IsObstacle => false;
+        public void Step(IMapObject2D mapObject)
         {
             throw new NotImplementedException();
         }
-        
-        public IPosition2D Position { get; }
     }
 }
 

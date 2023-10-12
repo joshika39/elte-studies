@@ -2,7 +2,7 @@
 
 namespace Bomber.UI.Forms.Objects.Player._Interfaces
 {
-    public interface IPlayerView : IView
+    public interface IPlayerView
     {
         
     }

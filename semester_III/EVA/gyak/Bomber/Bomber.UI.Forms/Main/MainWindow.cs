@@ -1,10 +1,12 @@
 ﻿using Bomber.BL.Impl.Map;
 using Bomber.BL.Impl.Player;
 using Bomber.BL.Map;
-using Bomber.Objects;
+using Bomber.UI.Forms.Objects;
 using Bomber.UI.Forms.Objects.Player;
 using GameFramework.Configuration;
+using GameFramework.Core;
 using GameFramework.Core.Factories;
+using GameFramework.Entities;
 using GameFramework.Map.MapObject;
 using Infrastructure.IO;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,10 +18,10 @@ namespace Bomber.Main
     {
         public IMainWindowPresenter Presenter { get; }
 
-        private readonly IConfigurationService _service;
+        private readonly IConfigurationService2D _service;
         private readonly IPositionFactory _factory;
         private readonly IServiceProvider _provider;
-        public MainWindow(IConfigurationService service, IPositionFactory factory, IServiceProvider provider, IMainWindowPresenter presenter)
+        public MainWindow(IConfigurationService2D service, IPositionFactory factory, IServiceProvider provider, IMainWindowPresenter presenter)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
@@ -58,6 +60,7 @@ namespace Bomber.Main
 
         private void OnOpenMap(object sender, EventArgs e)
         {
+            bomberMap.Controls.Clear();
             var openDialog = new OpenFileDialog();
             openDialog.Filter = "BoB files (*.bob)|*.bob";
             openDialog.InitialDirectory = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "joshik39", "Bomber", "maps");
@@ -65,19 +68,32 @@ namespace Bomber.Main
             {
                 return;
             }
-            
+
             var path = openDialog.FileName;
             var mapLayout = new MapLayout(path, _provider);
+            var map = new Map(
+                mapLayout.ColumnCount,
+                mapLayout.RowCount,
+                new List<IUnit2D>(),
+                mapLayout.MapObjects);
+            
+            _service.SetActiveMap(map);
+            _service.GameIsRunning = true;
+
+            var model = new PlayerModel(_factory.CreatePosition(3, 1), _factory, _service, "TestPlayer", "test@email.com");
+            var player = new Player(model, _provider.GetRequiredService<IConfigurationService2D>());
+            bomberMap.Controls.Add(player);
+
             foreach (var mapMapObject in mapLayout.MapObjects)
             {
                 if (mapMapObject is Control control)
                 {
+                    var label = new Label();
+                    label.Text = $"{mapMapObject.Position.X}, {mapMapObject.Position.Y}";
+                    control.Controls.Add(label);
                     bomberMap.Controls.Add(control);
                 }
             }
-
-            // var map = new Map(mapLayout);
-            // var player = new Player(new PlayerModel())
         }
     }
 }

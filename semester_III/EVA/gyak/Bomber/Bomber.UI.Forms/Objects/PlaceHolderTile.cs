@@ -3,16 +3,15 @@ using Bomber.BL.Map;
 using Bomber.BL.Tiles;
 using GameFramework.Configuration;
 using GameFramework.Core;
-using GameFramework.Map.MapObject;
 
-namespace Bomber.Objects
+namespace Bomber.UI.Forms.Objects
 {
     public partial class PlaceHolderTile : UserControl, IPlaceHolder
     {
         public IPosition2D Position { get; }
         public TileType Type { get; private set; }
 
-        public PlaceHolderTile(IPosition2D position, IConfigurationService configurationService, TileType tileType)
+        public PlaceHolderTile(IPosition2D position, IConfigurationService2D configurationService, TileType tileType)
         {
             Position = position ?? throw new ArgumentNullException(nameof(position));
             InitializeComponent();
@@ -22,6 +21,7 @@ namespace Bomber.Objects
             Width = configurationService.Dimension - 2;
             Height = configurationService.Dimension - 2;
             ChangeColor();
+            SendToBack();
         }
 
 

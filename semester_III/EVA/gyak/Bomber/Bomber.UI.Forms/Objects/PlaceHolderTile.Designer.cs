@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace Bomber.Objects
+namespace Bomber.UI.Forms.Objects
 {
     partial class PlaceHolderTile
     {

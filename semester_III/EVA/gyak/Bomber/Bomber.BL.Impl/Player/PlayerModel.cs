@@ -1,59 +1,45 @@
-﻿using Bomber.BL.Map;
-using Bomber.BL.Player;
+﻿using GameFramework.Configuration;
 using GameFramework.Core;
 using GameFramework.Core.Factories;
-using GameFramework.Map;
+using GameFramework.Entities;
+using GameFramework.Map.MapObject;
 
 namespace Bomber.BL.Impl.Player
 {
-    public class PlayerModel : IBomber
+    public class PlayerModel : IPlayer2D
     {
         private readonly IPositionFactory _positionFactory;
+        private readonly IConfigurationService2D _configurationService2D;
+        private bool _isAlive = true;
         public IPosition2D Position { get; private set; }
+        public bool IsObstacle => false;
         public Guid Id { get; }
         public string Name { get; }
         public string Email { get; }
-        
-        public event EventHandler<IPosition2D> Moved;
 
-        public void Move(MoveDirection moveDirection, IMap2D map)
+        public void SteppedOn(IUnit2D unit2D)
         {
-            switch (moveDirection)
-            {
-                case MoveDirection.Up:
-                    if (Position.Y + 1 < map.SizeY)
-                    {
-                        Position = _positionFactory.CreatePosition(Position.X, Position.Y + 1);
-                        Moved.Invoke(this, Position);
-                    }
-                    break;
-                case MoveDirection.Down:
-                    if (Position.Y - 1 >= 0)
-                    {
-                        Position = _positionFactory.CreatePosition(Position.X, Position.Y - 1);
-                        Moved.Invoke(this, Position);
-                    }
-                    break;
-                case MoveDirection.Left:
-                    if (Position.X - 1 >= 0)
-                    {
-                        Position = _positionFactory.CreatePosition(Position.X - 1, Position.Y);
-                        Moved.Invoke(this, Position);
-                    }
-                    break;
-                case MoveDirection.Right:
-                    if (Position.X + 1 < map.SizeX)
-                    {
-                        Position = _positionFactory.CreatePosition(Position.X + 1, Position.Y);
-                        Moved.Invoke(this, Position);
-                    }
-                    break;
-            }
+            throw new NotImplementedException();
         }
 
-        public PlayerModel(IPosition2D position, IPositionFactory positionFactory, string name, string email)
+        public void Step(IMapObject2D mapObject)
+        {
+            if (!_configurationService2D.GameIsRunning)
+            {
+                if (!_isAlive)
+                {
+                    return;
+                }
+
+                _isAlive = false;
+            }
+            Position = _positionFactory.CreatePosition(mapObject.Position.Y, mapObject.Position.X);
+        }
+
+        public PlayerModel(IPosition2D position, IPositionFactory positionFactory, IConfigurationService2D configurationService2D, string name, string email)
         {
             _positionFactory = positionFactory ?? throw new ArgumentNullException(nameof(positionFactory));
+            _configurationService2D = configurationService2D ?? throw new ArgumentNullException(nameof(configurationService2D));
             Position = position;
             Name = name;
             Email = email;

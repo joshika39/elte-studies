@@ -1,23 +1,20 @@
 ﻿using Bomber.BL.Impl;
 using Bomber.BL.Map;
+using Bomber.BL.Tiles;
 using Bomber.MapGenerator;
-using GameFramework.Map.MapObject;
-using Infrastructure.Application;
 using DialogResult = UiFramework.Shared.DialogResult;
 
 namespace Bomber.UI.Forms.MapGenerator
 {
     public partial class MapGeneratorWindow : Form, IMapGeneratorWindow
     {
-        private readonly IApplicationSettings _applicationSettings;
         private int _selectedLayoutWidth;
         private int _selectedLayoutHeight;
         public IMapGeneratorWindowPresenter Presenter { get; }
 
 
-        public MapGeneratorWindow(IMapGeneratorWindowPresenter presenter, IApplicationSettings applicationSettings)
+        public MapGeneratorWindow(IMapGeneratorWindowPresenter presenter)
         {
-            _applicationSettings = applicationSettings ?? throw new ArgumentNullException(nameof(applicationSettings));
             Presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
             InitializeComponent();
 
@@ -80,7 +77,7 @@ namespace Bomber.UI.Forms.MapGenerator
             PopulatePanel(Presenter.SelectedDraft.MapObjects);
         }
 
-        private void PopulatePanel(IEnumerable<IMapObject2D> mapObjects)
+        private void PopulatePanel(IEnumerable<IPlaceHolder> mapObjects)
         {
             widthValue.Value = Presenter.SelectedDraft.ColumnCount;
             heightValue.Value = Presenter.SelectedDraft.RowCount;
@@ -154,7 +151,7 @@ namespace Bomber.UI.Forms.MapGenerator
                         descBox.Text = "";
                         _selectedLayoutWidth = 0;
                         _selectedLayoutHeight = 0;
-                        PopulatePanel(new List<IMapObject2D>());
+                        PopulatePanel(new List<IPlaceHolder>());
                     }
                 }
             }

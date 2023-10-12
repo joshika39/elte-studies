@@ -44,6 +44,7 @@ namespace Bomber.Main
             websiteToolStripMenuItem = new ToolStripMenuItem();
             mapName = new Label();
             description = new Label();
+            elementList = new Panel();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -86,26 +87,26 @@ namespace Bomber.Main
             // openToolStripMenuItem
             // 
             openToolStripMenuItem.Name = "openToolStripMenuItem";
-            openToolStripMenuItem.Size = new Size(180, 22);
+            openToolStripMenuItem.Size = new Size(142, 22);
             openToolStripMenuItem.Text = "Open...";
             openToolStripMenuItem.Click += OnOpenMap;
             // 
             // saveToolStripMenuItem
             // 
             saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            saveToolStripMenuItem.Size = new Size(180, 22);
+            saveToolStripMenuItem.Size = new Size(142, 22);
             saveToolStripMenuItem.Text = "Save";
             // 
             // quitToolStripMenuItem
             // 
             quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            quitToolStripMenuItem.Size = new Size(180, 22);
+            quitToolStripMenuItem.Size = new Size(142, 22);
             quitToolStripMenuItem.Text = "Quit";
             // 
             // recentMapsToolStripMenuItem
             // 
             recentMapsToolStripMenuItem.Name = "recentMapsToolStripMenuItem";
-            recentMapsToolStripMenuItem.Size = new Size(180, 22);
+            recentMapsToolStripMenuItem.Size = new Size(142, 22);
             recentMapsToolStripMenuItem.Text = "Recent Maps";
             // 
             // settingsToolStripMenuItem
@@ -152,12 +153,20 @@ namespace Bomber.Main
             description.Size = new Size(0, 15);
             description.TabIndex = 4;
             // 
+            // elementList
+            // 
+            elementList.Location = new Point(367, 89);
+            elementList.Name = "elementList";
+            elementList.Size = new Size(236, 349);
+            elementList.TabIndex = 5;
+            // 
             // MainWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Window;
             ClientSize = new Size(800, 450);
+            Controls.Add(elementList);
             Controls.Add(description);
             Controls.Add(mapName);
             Controls.Add(bomberMap);
@@ -188,6 +197,7 @@ namespace Bomber.Main
         private ToolStripMenuItem recentMapsToolStripMenuItem;
         private Label mapName;
         private Label description;
+        private Panel elementList;
     }
 }
 

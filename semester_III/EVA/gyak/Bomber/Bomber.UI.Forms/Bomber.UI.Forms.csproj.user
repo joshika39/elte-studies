@@ -5,6 +5,9 @@
     <Compile Update="Objects\GroundTile.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Objects\Player\Player.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Objects\WallTile.cs">
       <SubType>UserControl</SubType>
     </Compile>
