@@ -36,6 +36,7 @@ namespace Bomber.UI.Forms.Objects.Player
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.HotPink;
             this.Name = "Player";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyPressed);
             this.ResumeLayout(false);

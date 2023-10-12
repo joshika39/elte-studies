@@ -338,3 +338,10 @@ fabric.properties
 run
 *.out
 *.run
+/semester_III/ProgNyelv/Bead1v2/JavaApplication1/nbproject/private/
+/semester_III/ProgNyelv/Bead1v2/PlainIdioms/nbproject/private/
+/semester_III/ProgNyelv/Bead1v2/PlainIdioms.Tests/nbproject/private/
+/semester_III/ProgNyelv/Bead1v2/PlainIdioms/dist/
+
+.idea/
+nbproject/

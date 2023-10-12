@@ -1,60 +1,48 @@
 ﻿using Bomber.BL.Map;
-using Bomber.BL.Player;
-using Bomber.UI.Forms.Objects.Player._Interfaces;
-using GameFramework.Configuration;
 using GameFramework.Core;
-using GameFramework.Map;
-using UiFramework.Forms;
 
 namespace Bomber.UI.Forms.Objects.Player
 {
-    public partial class Player : UserControl, IPlayerView
+    public partial class Player : UserControl, IBomber 
     {
-        private readonly IMap2D? _map;
-        private readonly IConfigurationService _configurationService;
+        private EventHandler<IPosition2D> _moved;
+        public IPosition2D Position { get; }
+        public event EventHandler<IPosition2D> Moved;
         
-        public IPlayerViewPresenter Presenter { get; }
-        
-        public Player(IPlayerViewPresenter presenter, IConfigurationService configurationService)
+        public Player()
         {
-            Presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
-            _configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
             InitializeComponent();
-            Top = _configurationService.Dimension;
-            Left = _configurationService.Dimension;
-            Width = _configurationService.Dimension - 2;
-            Height = _configurationService.Dimension - 2;
         }
+
+        private void PlayerMove()
+        {
+            Moved.Invoke(this, Position);
+        }
+
+        public Guid Id { get; }
+        public string Email { get; }
 
         private void OnKeyPressed(object sender, KeyEventArgs e)
         {
-            if (_map == null)
+            if(e.KeyCode == Keys.D)
             {
-                return;
+
             }
-            switch (e.KeyCode)
+
+            if (e.KeyCode == Keys.A)
             {
-                case Keys.D:
-                    Presenter.Move(MoveDirection.Right, _map);
-                    break;
-                case Keys.A:
-                    Presenter.Move(MoveDirection.Left, _map);
-                    break;
-                case Keys.W:
-                    Presenter.Move(MoveDirection.Up, _map);
-                    break;
-                case Keys.S:
-                    Presenter.Move(MoveDirection.Down, _map);
-                    break;
+
             }
-        }
-        public IPosition2D Position { get; }
-        public Guid Id { get; }
-        public string Email { get; }
-        public event EventHandler<IPosition2D>? Moved;
-        public void Move(MoveDirection moveDirection, IMap2D map)
-        {
-            throw new NotImplementedException();
+
+            if (e.KeyCode == Keys.W)
+            {
+
+            }
+
+            if (e.KeyCode == Keys.S)
+            {
+
+            }
         }
     }
 }

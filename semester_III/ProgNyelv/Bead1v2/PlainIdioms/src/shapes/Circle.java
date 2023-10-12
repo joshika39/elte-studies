@@ -15,6 +15,15 @@ public class Circle extends AShape{
 
     public Circle(double x, double y, double radius) {
         super(x, y);
+
+        if(radius == 0){
+            throw new IllegalArgumentException("Radius cannot be zero");
+        }
         this.radius = radius;
+    }
+
+    @Override
+    public String toString() {
+        return "Circle";
     }
 }

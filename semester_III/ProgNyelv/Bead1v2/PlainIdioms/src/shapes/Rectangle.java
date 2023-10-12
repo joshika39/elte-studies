@@ -6,6 +6,10 @@ public class Rectangle extends AShape {
 
     public Rectangle(double x, double y, double length) {
         super(x, y);
+
+        if(length == 0){
+            throw new IllegalArgumentException("Length cannot be zero");
+        }
         this.length = length;
     }
 
@@ -17,5 +21,10 @@ public class Rectangle extends AShape {
     @Override
     public double calculateArea() {
         return Math.pow(length,2);
+    }
+
+    @Override
+    public String toString() {
+        return "Rectangle";
     }
 }

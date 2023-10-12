@@ -76,8 +76,8 @@ namespace Bomber.Main
                 }
             }
 
-            var map = new Map(mapLayout);
-            var player = new Player(new PlayerModel())
+            // var map = new Map(mapLayout);
+            // var player = new Player(new PlayerModel())
         }
     }
 }

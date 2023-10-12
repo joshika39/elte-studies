@@ -1,15 +1,24 @@
-import shapes.*;
+package joshika39;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import shapes.*;
 
+/**
+ *
+ * @author JoshH
+ */
 public class Main {
+
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
         ArrayList<Shape> shapes = new ArrayList<>();
 
-        try (BufferedReader br = new BufferedReader(new FileReader("./sikidomok.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("shapes.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(" ");
@@ -49,10 +58,11 @@ public class Main {
         }
 
         if (idiom != null) {
-            System.out.println("A legnagyobb területű síkidom: " + idiom);
-            System.out.println("Terület: " + maxArea);
+            System.out.println("The shape with the biggest overlapping square: " + idiom);
+            System.out.println("Overlapping square: " + maxArea);
         } else {
-            System.out.println("Nincs megfelelő síkidom az elemzéshez.");
+            System.out.println("No correct shape for analysis");
         }
     }
+    
 }
