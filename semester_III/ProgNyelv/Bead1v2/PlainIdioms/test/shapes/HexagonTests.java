@@ -64,9 +64,9 @@ public class HexagonTests {
     public void HT_0003_Given_Hexagon_When_calculateAreaCalled_Then_ReturnsCorrectOverlappingArea() {
         System.out.println("calculateArea");
         Shape instance = new Hexagon(0, 0, 2);
-        double expResult = 16;
+        double expResult = 12;
         double result = instance.calculateArea();
-        assertEquals(expResult, result, 0);
+        assertEquals(expResult, Math.round(result), 0);
     }
 
 }

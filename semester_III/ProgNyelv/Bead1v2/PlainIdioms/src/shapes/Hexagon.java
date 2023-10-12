@@ -19,7 +19,7 @@ public class Hexagon extends AShape implements Shape{
 
     @Override
     public double calculateArea() {
-        return Math.pow(length * 2, 2);
+        return Math.pow((length * Math.sqrt(3) / 2) * 2, 2);
     }
 
     @Override
