@@ -2,7 +2,7 @@
 
 namespace Bomber.UI.Forms.Objects
 {
-    partial class Enemy
+    sealed partial class Enemy
     {
         /// <summary> 
         /// Required designer variable.

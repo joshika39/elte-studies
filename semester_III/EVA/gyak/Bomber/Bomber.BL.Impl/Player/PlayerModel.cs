@@ -1,6 +1,6 @@
-﻿using GameFramework.Configuration;
+﻿using Bomber.UI.Shared.Units;
+using GameFramework.Configuration;
 using GameFramework.Core;
-using GameFramework.Core.Factories;
 using GameFramework.Entities;
 using GameFramework.Map.MapObject;
 
@@ -8,7 +8,7 @@ namespace Bomber.BL.Impl.Player
 {
     public class PlayerModel : IPlayer2D
     {
-        private readonly IPositionFactory _positionFactory;
+        private readonly IPlayerView _view;
         private readonly IConfigurationService2D _configurationService2D;
         private bool _isAlive = true;
         public IPosition2D Position { get; private set; }
@@ -33,17 +33,25 @@ namespace Bomber.BL.Impl.Player
 
                 _isAlive = false;
             }
-            Position = _positionFactory.CreatePosition(mapObject.Position.Y, mapObject.Position.X);
+            
+            Position = mapObject.Position;
+            _view.UpdatePosition(Position);
         }
 
-        public PlayerModel(IPosition2D position, IPositionFactory positionFactory, IConfigurationService2D configurationService2D, string name, string email)
+        public PlayerModel(IPlayerView view, IPosition2D position, IConfigurationService2D configurationService2D, string name, string email)
         {
-            _positionFactory = positionFactory ?? throw new ArgumentNullException(nameof(positionFactory));
+            _view = view ?? throw new ArgumentNullException(nameof(view));
             _configurationService2D = configurationService2D ?? throw new ArgumentNullException(nameof(configurationService2D));
             Position = position;
             Name = name;
             Email = email;
             Id = Guid.NewGuid();
+            _view.Load += OnViewLoad;
+        }
+        
+        private void OnViewLoad(object? sender, EventArgs e)
+        {
+            _view.UpdatePosition(Position);
         }
     }
 }

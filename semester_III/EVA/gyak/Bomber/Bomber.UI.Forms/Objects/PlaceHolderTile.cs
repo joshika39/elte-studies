@@ -16,8 +16,8 @@ namespace Bomber.UI.Forms.Objects
             Position = position ?? throw new ArgumentNullException(nameof(position));
             InitializeComponent();
             Type = tileType;
-            Top = position.X * configurationService.Dimension;
-            Left = position.Y * configurationService.Dimension;
+            Top = position.Y * configurationService.Dimension;
+            Left = position.X * configurationService.Dimension;
             Width = configurationService.Dimension - 2;
             Height = configurationService.Dimension - 2;
             ChangeColor();

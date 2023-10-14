@@ -19,8 +19,8 @@
 
 
     <ItemGroup>
-      <PackageReference Include="joshika39.Core" Version="1.1.8" />
-      <PackageReference Include="joshika39.GameFramework" Version="1.1.0-rc3" />
+      <PackageReference Include="joshika39.Core" Version="1.1.9" />
+      <PackageReference Include="joshika39.GameFramework" Version="1.1.0-rc4" />
       <PackageReference Include="joshika39.UiFramework.Forms" Version="1.0.1-pre0001" />
     </ItemGroup>
 
@@ -65,6 +65,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Bomber.BL.Impl\Bomber.BL.Impl.csproj" />
       <ProjectReference Include="..\Bomber.BL\Bomber.BL.csproj" />
+      <ProjectReference Include="..\Bomber.UI.Shared\Bomber.UI.Shared.csproj" />
     </ItemGroup>
 
 

@@ -1,6 +1,6 @@
 ﻿namespace Bomber.UI.Forms.Objects
 {
-    partial class GroundTile
+    sealed partial class GroundTile
     {
         /// <summary> 
         /// Required designer variable.

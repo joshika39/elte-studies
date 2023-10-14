@@ -2,7 +2,7 @@
 
 namespace Bomber.UI.Forms.Objects
 {
-    partial class Hole
+    sealed partial class Hole
     {
         /// <summary> 
         /// Required designer variable.

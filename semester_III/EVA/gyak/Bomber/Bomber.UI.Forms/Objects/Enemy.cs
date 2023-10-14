@@ -1,30 +1,33 @@
-﻿using GameFramework.Core;
-using GameFramework.Entities;
-using GameFramework.Map.MapObject;
+﻿using Bomber.UI.Shared.Units;
+using GameFramework.Configuration;
+using GameFramework.Core;
 
 namespace Bomber.UI.Forms.Objects
 {
-    public partial class Enemy : UserControl, IUnit2D
+    public sealed partial class Enemy : UserControl, IEnemyView
     {
-        private readonly IPlayer2D _player2D;
+        private readonly IConfigurationService2D _configurationService2D;
         
-        public Enemy(IPlayer2D player2D, IPosition2D position)
+        public Enemy(IConfigurationService2D configurationService2D, int guardCount)
         {
-            _player2D = player2D ?? throw new ArgumentNullException(nameof(player2D));
-            Position = position ?? throw new ArgumentNullException(nameof(position));
+            _configurationService2D = configurationService2D ?? throw new ArgumentNullException(nameof(configurationService2D));
             InitializeComponent();
+            Width = _configurationService2D.Dimension - 4;
+            Height = _configurationService2D.Dimension - 4;
+            BackColor = Color.Red;
+            var label = new Label();
+            label.Text = $@"{guardCount}";
+            Controls.Add(label);
         }
-
-
-        public void SteppedOn(IUnit2D unit2D)
+        
+        public void UpdatePosition(IPosition2D position)
         {
-            
-        }
-        public IPosition2D Position { get; }
-        public bool IsObstacle => false;
-        public void Step(IMapObject2D mapObject)
-        {
-            throw new NotImplementedException();
+            Invoke(() =>
+            {
+                BringToFront();
+                Top = position.Y * _configurationService2D.Dimension + 2;
+                Left = position.X * _configurationService2D.Dimension + 2; 
+            });
         }
     }
 }

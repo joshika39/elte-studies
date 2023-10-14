@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Bomber.Main
+namespace Bomber.UI.Forms.Main
 {
     partial class MainWindow
     {
@@ -45,11 +45,14 @@ namespace Bomber.Main
             mapName = new Label();
             description = new Label();
             elementList = new Panel();
+            button1 = new Button();
+            button2 = new Button();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 22F, FontStyle.Regular, GraphicsUnit.Point);
             label1.Location = new Point(591, 37);
@@ -155,10 +158,33 @@ namespace Bomber.Main
             // 
             // elementList
             // 
-            elementList.Location = new Point(367, 89);
+            elementList.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            elementList.Location = new Point(643, 192);
             elementList.Name = "elementList";
-            elementList.Size = new Size(236, 349);
+            elementList.Size = new Size(145, 247);
             elementList.TabIndex = 5;
+            // 
+            // button1
+            // 
+            button1.Anchor = AnchorStyles.Right;
+            button1.Location = new Point(713, 89);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 6;
+            button1.Text = "Test";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += OnTestClick;
+            // 
+            // button2
+            // 
+            button2.Anchor = AnchorStyles.Right;
+            button2.Location = new Point(713, 118);
+            button2.Name = "button2";
+            button2.Size = new Size(75, 23);
+            button2.TabIndex = 7;
+            button2.Text = "Stop Test";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += OnStopTestClick;
             // 
             // MainWindow
             // 
@@ -166,6 +192,8 @@ namespace Bomber.Main
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Window;
             ClientSize = new Size(800, 450);
+            Controls.Add(button2);
+            Controls.Add(button1);
             Controls.Add(elementList);
             Controls.Add(description);
             Controls.Add(mapName);
@@ -175,6 +203,7 @@ namespace Bomber.Main
             MainMenuStrip = menuStrip1;
             Name = "MainWindow";
             Text = "MainWindow";
+            KeyDown += OnKeyPressed;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);
@@ -198,6 +227,8 @@ namespace Bomber.Main
         private Label mapName;
         private Label description;
         private Panel elementList;
+        private Button button1;
+        private Button button2;
     }
 }
 

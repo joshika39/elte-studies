@@ -30,17 +30,17 @@ namespace Bomber.UI.Forms.Objects.Player
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
+            SuspendLayout();
             // 
             // Player
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.HotPink;
-            this.Name = "Player";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyPressed);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.HotPink;
+            Margin = new Padding(3, 2, 3, 2);
+            Name = "Player";
+            Size = new Size(131, 112);
+            ResumeLayout(false);
         }
 
         #endregion

@@ -1,33 +1,36 @@
-﻿using Bomber.BL.Impl.Map;
+﻿using Bomber.BL;
+using Bomber.BL.Impl.Map;
 using Bomber.BL.Impl.Player;
-using Bomber.BL.Map;
-using Bomber.UI.Forms.Objects;
+using Bomber.Main;
 using Bomber.UI.Forms.Objects.Player;
 using GameFramework.Configuration;
-using GameFramework.Core;
 using GameFramework.Core.Factories;
+using GameFramework.Core.Motion;
 using GameFramework.Entities;
-using GameFramework.Map.MapObject;
-using Infrastructure.IO;
-using Microsoft.Extensions.DependencyInjection;
 using DialogResult = UiFramework.Shared.DialogResult;
 
-namespace Bomber.Main
+namespace Bomber.UI.Forms.Main
 {
     public partial class MainWindow : Form, IMainWindow
     {
         public IMainWindowPresenter Presenter { get; }
 
+        private IPlayer2D? _player;
+
         private readonly IConfigurationService2D _service;
         private readonly IPositionFactory _factory;
         private readonly IServiceProvider _provider;
+        private ICollection<INpc> _enemies;
+
         public MainWindow(IConfigurationService2D service, IPositionFactory factory, IServiceProvider provider, IMainWindowPresenter presenter)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
             _provider = provider ?? throw new ArgumentNullException(nameof(provider));
             Presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
+            KeyPreview = true;
             InitializeComponent();
+            _enemies = new List<INpc>();
         }
 
         public DialogResult ShowOnTop()
@@ -76,13 +79,13 @@ namespace Bomber.Main
                 mapLayout.RowCount,
                 new List<IUnit2D>(),
                 mapLayout.MapObjects);
-            
+
             _service.SetActiveMap(map);
             _service.GameIsRunning = true;
 
-            var model = new PlayerModel(_factory.CreatePosition(3, 1), _factory, _service, "TestPlayer", "test@email.com");
-            var player = new Player(model, _provider.GetRequiredService<IConfigurationService2D>());
-            bomberMap.Controls.Add(player);
+            var view = new Player(_service);
+            _player = new PlayerModel(view, _factory.CreatePosition(3, 1), _service, "TestPlayer", "test@email.com");
+            bomberMap.Controls.Add(view);
 
             foreach (var mapMapObject in mapLayout.MapObjects)
             {
@@ -93,6 +96,53 @@ namespace Bomber.Main
                     control.Controls.Add(label);
                     bomberMap.Controls.Add(control);
                 }
+            }
+        }
+
+        private CancellationTokenSource _token;
+
+        private async void OnTestClick(object sender, EventArgs e)
+        {
+            _token = new CancellationTokenSource();
+            var enemyView = new Objects.Enemy(_service, _enemies.Count + 1);
+            var enemy = new Enemy(enemyView, _service, _factory.CreatePosition(1, 4), _token.Token);
+            bomberMap.Controls.Add(enemyView);
+            _enemies.Add(enemy);
+            await enemy.ExecuteAsync();
+        }
+
+        private void OnStopTestClick(object sender, EventArgs e)
+        {
+            _token.Cancel();
+        }
+
+        private void OnKeyPressed(object sender, KeyEventArgs e)
+        {
+            if (!_service.GameIsRunning || _player is null)
+            {
+                return;
+            }
+
+            var map = _service.ActiveMap;
+
+            if (e.KeyCode == Keys.D)
+            {
+                map?.MoveUnit(_player, Move2D.Right);
+            }
+
+            if (e.KeyCode == Keys.A)
+            {
+                map?.MoveUnit(_player, Move2D.Left);
+            }
+
+            if (e.KeyCode == Keys.W)
+            {
+                map?.MoveUnit(_player, Move2D.Forward);
+            }
+
+            if (e.KeyCode == Keys.S)
+            {
+                map?.MoveUnit(_player, Move2D.Backward);
             }
         }
     }

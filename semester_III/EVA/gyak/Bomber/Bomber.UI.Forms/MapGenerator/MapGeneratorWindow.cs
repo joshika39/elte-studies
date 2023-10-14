@@ -134,7 +134,7 @@ namespace Bomber.UI.Forms.MapGenerator
                 if (mapItem is IMapLayoutDraft mapLayoutDraft)
                 {
                     if (!mapLayoutDraft.Id.Equals(Presenter.SelectedDraft.Id)) continue;
-                    
+                    Presenter.GenerateMapFromDraft(Presenter.SelectedDraft, dialog.FileName);
                     draftComboBox.Items.Remove(mapItem);
                     if (draftComboBox.Items.Count > 0 && draftComboBox.Items[0] is IMapLayoutDraft selected)
                     {
@@ -155,8 +155,6 @@ namespace Bomber.UI.Forms.MapGenerator
                     }
                 }
             }
-            
-            Presenter.GenerateMapFromDraft(Presenter.SelectedDraft, dialog.FileName);
         }
 
         private void OnNewClicked(object sender, EventArgs e)

@@ -84,7 +84,7 @@ namespace Bomber.BL.Impl.Map
                 for (var j = 0; j < row.Count; j++)
                 {
                     var value = row[j];
-                    var position = _positionFactory.CreatePosition(i, j);
+                    var position = _positionFactory.CreatePosition(j, i);
                     if (!Enum.TryParse(value.ToString(), out TileType type)) continue;
 
                     var tile = type switch

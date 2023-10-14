@@ -18,8 +18,8 @@ namespace Bomber.UI.Forms.Objects
         {
             Position = position ?? throw new ArgumentNullException(nameof(position));
             InitializeComponent();
-            Top = position.X * configurationService.Dimension;
-            Left = position.Y * configurationService.Dimension;
+            Top = position.Y * configurationService.Dimension;
+            Left = position.X * configurationService.Dimension;
             Width = configurationService.Dimension;
             Height = configurationService.Dimension;
             BackColor = Color.Gray;

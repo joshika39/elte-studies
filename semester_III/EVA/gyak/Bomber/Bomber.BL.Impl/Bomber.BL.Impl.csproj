@@ -10,6 +10,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Bomber.BL\Bomber.BL.csproj" />
+      <ProjectReference Include="..\Bomber.UI.Shared\Bomber.UI.Shared.csproj" />
 
 
 
@@ -18,7 +19,7 @@
 
 
     <ItemGroup>
-      <PackageReference Include="joshika39.Core" Version="1.1.8" />
+      <PackageReference Include="joshika39.Core" Version="1.1.9" />
 
 
 
