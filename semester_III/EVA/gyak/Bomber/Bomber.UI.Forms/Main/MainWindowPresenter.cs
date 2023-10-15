@@ -1,20 +1,18 @@
 ﻿using Bomber.Main;
-using Bomber.MapGenerator;
+using Bomber.UI.Shared.Views;
+using GameFramework.Configuration;
 
 namespace Bomber.UI.Forms.Main
 {
-    public class MainWindowPresenter : IMainWindowPresenter
+    public class MainWindowPresenter : AMainWindowModel, IMainWindowPresenter
     {
-        private readonly IMapGeneratorWindow _mapGeneratorWindow;
-        
-        public MainWindowPresenter(IMapGeneratorWindow mapGeneratorWindow)
-        {
-            _mapGeneratorWindow = mapGeneratorWindow ?? throw new ArgumentNullException(nameof(mapGeneratorWindow));
-        }
+        public MainWindowPresenter(IServiceProvider provider, IConfigurationService2D configurationService) : base(provider, configurationService)
+        { }
         
         public void OpenMapGenerator()
         {
-            _mapGeneratorWindow.ShowOnTop();
+            throw new System.NotImplementedException();
         }
+        
     }
 }

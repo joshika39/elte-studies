@@ -3,12 +3,15 @@ using Bomber.BL.Impl.Entities;
 using Bomber.BL.Impl.Map;
 using Bomber.BL.Map;
 using Bomber.Main;
+using Bomber.MapGenerator;
 using Bomber.UI.Forms.Main._Interfaces;
+using Bomber.UI.Forms.MapGenerator;
 using Bomber.UI.Forms.Views.Entities;
 using GameFramework.Configuration;
 using GameFramework.Core.Factories;
 using GameFramework.Core.Motion;
 using GameFramework.Entities;
+using Microsoft.Extensions.DependencyInjection;
 using DialogResult = UiFramework.Shared.DialogResult;
 
 namespace Bomber.UI.Forms.Main
@@ -59,7 +62,8 @@ namespace Bomber.UI.Forms.Main
 
         private void openMapGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Presenter.OpenMapGenerator();
+            var generatorWindow = _provider.GetRequiredService<IMapGeneratorWindow>();
+            generatorWindow.ShowOnTop();
         }
 
         private void OnOpenMap(object sender, EventArgs e)
@@ -73,29 +77,21 @@ namespace Bomber.UI.Forms.Main
                 return;
             }
 
-            var path = openDialog.FileName;
-            var mapLayout = new MapLayout(path, _provider);
-            var map = new Map(
-                mapLayout.ColumnCount,
-                mapLayout.RowCount,
-                new List<IUnit2D>(),
-                mapLayout.MapObjects,
-                _factory);
-
-            _service.SetActiveMap(map);
-            _service.GameIsRunning = true;
+            var map = Presenter.OpenMap(openDialog.FileName);
 
             var view = new PlayerView(_service);
             _player = new PlayerModel(view, _factory.CreatePosition(3, 1), _service, "TestPlayer", "test@email.com", _token.Token);
             bomberMap.Controls.Add(view);
 
-            foreach (var mapMapObject in mapLayout.MapObjects)
+            foreach (var mapMapObject in map.MapObjects)
             {
                 if (mapMapObject is Control control)
                 {
+#if DEBUG
                     var label = new Label();
                     label.Text = $"{mapMapObject.Position.X}, {mapMapObject.Position.Y}";
                     control.Controls.Add(label);
+#endif
                     bomberMap.Controls.Add(control);
                 }
             }
@@ -110,7 +106,7 @@ namespace Bomber.UI.Forms.Main
             {
                 return;
             }
-            
+
             var enemyView = new EnemyView(_service, map.NPCs.Count + 1);
             var enemy = new Enemy(enemyView, _service, _factory.CreatePosition(1, 4), _token.Token);
             bomberMap.Controls.Add(enemyView);
@@ -151,7 +147,7 @@ namespace Bomber.UI.Forms.Main
             {
                 map?.MoveUnit(_player, Move2D.Backward);
             }
-            
+
             if (e.KeyCode == Keys.B)
             {
                 var view = new BombView(_service);
