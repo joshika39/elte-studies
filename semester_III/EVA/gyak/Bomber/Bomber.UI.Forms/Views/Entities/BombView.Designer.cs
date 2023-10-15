@@ -1,6 +1,6 @@
 ﻿namespace Bomber.UI.Forms.Views.Entities
 {
-    partial class BombView
+    sealed partial class BombView
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,8 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            SuspendLayout();
+            // 
+            // BombView
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            Name = "BombView";
+            ResumeLayout(false);
         }
 
         #endregion
