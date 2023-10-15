@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 
-namespace Bomber.UI.Forms.Objects
+namespace Bomber.UI.Forms.Views.Entities
 {
-    sealed partial class WallTile
+    sealed partial class EnemyView
     {
         /// <summary> 
         /// Required designer variable.
@@ -30,16 +30,8 @@ namespace Bomber.UI.Forms.Objects
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
-            // WallTile
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.Name = "WallTile";
-            this.ResumeLayout(false);
-
         }
 
         #endregion

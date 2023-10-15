@@ -1,13 +1,11 @@
-﻿using System.ComponentModel;
-
-namespace Bomber.UI.Forms.Objects
+﻿namespace Bomber.UI.Forms.Views.Entities
 {
-    sealed partial class Enemy
+    partial class BombView
     {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
-        private IContainer components = null;
+        private System.ComponentModel.IContainer components = null;
 
         /// <summary> 
         /// Clean up any resources being used.
@@ -37,4 +35,3 @@ namespace Bomber.UI.Forms.Objects
         #endregion
     }
 }
-

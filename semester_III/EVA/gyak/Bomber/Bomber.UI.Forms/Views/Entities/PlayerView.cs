@@ -2,13 +2,13 @@
 using GameFramework.Configuration;
 using GameFramework.Core;
 
-namespace Bomber.UI.Forms.Objects.Player
+namespace Bomber.UI.Forms.Views.Entities
 {
-    public partial class Player : UserControl, IPlayerView
+    public partial class PlayerView : UserControl, IPlayerView
     {
         private readonly IConfigurationService2D _configurationService;
 
-        public Player(IConfigurationService2D configurationService)
+        public PlayerView(IConfigurationService2D configurationService)
         {
             _configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
             InitializeComponent();

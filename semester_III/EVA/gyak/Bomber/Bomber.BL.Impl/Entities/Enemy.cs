@@ -1,21 +1,20 @@
+using Bomber.BL.Map;
 using Bomber.BL.Tiles;
 using Bomber.UI.Shared.Units;
 using GameFramework.Configuration;
 using GameFramework.Core;
-using GameFramework.Core.Factories;
 using GameFramework.Core.Motion;
 using GameFramework.Entities;
-using GameFramework.Map;
 using GameFramework.Map.MapObject;
 
-namespace Bomber.BL.Impl.Player
+namespace Bomber.BL.Impl.Entities
 {
     
     public class Enemy : INpc
     {
         private readonly IEnemyView _view;
         private readonly CancellationToken _stoppingToken;
-        private readonly IMap2D _map;
+        private readonly IBomberMap _map;
         private Move2D _direction;
         
         public IPosition2D Position { get; private set; }
@@ -27,7 +26,7 @@ namespace Bomber.BL.Impl.Player
             _stoppingToken = stoppingToken;
             service = service ?? throw new ArgumentNullException(nameof(service));
             Position = position;
-            _map = service.ActiveMap!;
+            _map = service.GetActiveMap<IBomberMap>()!;
             _direction = GetRandomMove();
             _view.Load += OnViewLoad;
         }
@@ -52,7 +51,7 @@ namespace Bomber.BL.Impl.Player
                 }
                 
                 var mapObject = _map.SimulateMove(Position, _direction);
-                while (mapObject is null || mapObject.IsObstacle || mapObject is IDeadlyTile || mapObject is INpc)
+                while (mapObject is null || mapObject.IsObstacle || mapObject is IDeadlyTile || _map.HasEnemy(mapObject.Position))
                 {
                     _direction = GetRandomMove();
                     mapObject = _map.SimulateMove(Position, _direction);

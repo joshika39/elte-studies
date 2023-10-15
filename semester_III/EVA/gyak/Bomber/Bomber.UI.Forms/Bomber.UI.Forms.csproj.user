@@ -5,10 +5,13 @@
     <Compile Update="Objects\GroundTile.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Objects\Player\Player.cs">
+    <Compile Update="Objects\WallTile.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Objects\WallTile.cs">
+    <Compile Update="Views\Entities\BombView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Entities\PlayerView.cs">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>

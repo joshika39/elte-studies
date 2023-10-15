@@ -1,11 +1,11 @@
-﻿using GameFramework.Configuration;
+﻿using Bomber.UI.Shared.Views;
+using GameFramework.Configuration;
 using GameFramework.Core;
 using GameFramework.Entities;
-using GameFramework.Map.MapObject;
 
 namespace Bomber.UI.Forms.Objects
 {
-    public sealed partial class GroundTile : UserControl, IMapObject2D
+    public sealed partial class GroundTile : UserControl, IBomberMapTileView
     {
         public void SteppedOn(IUnit2D unit2D)
         {
@@ -13,6 +13,18 @@ namespace Bomber.UI.Forms.Objects
         }
         public IPosition2D Position { get; }
         public bool IsObstacle => false;
+        
+        public void IndicateBomb(double waitTime)
+        {
+            SetBack(waitTime);
+        }
+        
+        private async void SetBack(double waitTime)
+        {
+            BackColor = Color.Yellow;
+            await Task.Delay(TimeSpan.FromSeconds(waitTime));
+            BackColor = Color.Green;
+        }
 
         public GroundTile(IPosition2D position, IConfigurationService2D configurationService)
         {

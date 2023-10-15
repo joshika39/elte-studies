@@ -1,15 +1,18 @@
-﻿using Bomber.UI.Shared.Units;
+﻿using Bomber.BL.Entities;
+using Bomber.UI.Shared.Entities;
+using Bomber.UI.Shared.Units;
 using GameFramework.Configuration;
 using GameFramework.Core;
 using GameFramework.Entities;
 using GameFramework.Map.MapObject;
 
-namespace Bomber.BL.Impl.Player
+namespace Bomber.BL.Impl.Entities
 {
-    public class PlayerModel : IPlayer2D
+    public class PlayerModel : IBomber
     {
         private readonly IPlayerView _view;
         private readonly IConfigurationService2D _configurationService2D;
+        private readonly CancellationToken _cancellationToken;
         private bool _isAlive = true;
         public IPosition2D Position { get; private set; }
         public bool IsObstacle => false;
@@ -37,11 +40,17 @@ namespace Bomber.BL.Impl.Player
             Position = mapObject.Position;
             _view.UpdatePosition(Position);
         }
-
-        public PlayerModel(IPlayerView view, IPosition2D position, IConfigurationService2D configurationService2D, string name, string email)
+        public async void PutBomb(IBombView bombView)
+        {
+            var bomb = new Bomb(bombView, Position, 3, _configurationService2D, _cancellationToken);
+            await bomb.Detonate();
+        }
+        
+        public PlayerModel(IPlayerView view, IPosition2D position, IConfigurationService2D configurationService2D, string name, string email, CancellationToken cancellationToken)
         {
             _view = view ?? throw new ArgumentNullException(nameof(view));
             _configurationService2D = configurationService2D ?? throw new ArgumentNullException(nameof(configurationService2D));
+            _cancellationToken = cancellationToken;
             Position = position;
             Name = name;
             Email = email;

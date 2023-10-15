@@ -2,13 +2,13 @@
 using GameFramework.Configuration;
 using GameFramework.Core;
 
-namespace Bomber.UI.Forms.Objects
+namespace Bomber.UI.Forms.Views.Entities
 {
-    public sealed partial class Enemy : UserControl, IEnemyView
+    public sealed partial class EnemyView : UserControl, IEnemyView
     {
         private readonly IConfigurationService2D _configurationService2D;
         
-        public Enemy(IConfigurationService2D configurationService2D, int guardCount)
+        public EnemyView(IConfigurationService2D configurationService2D, int guardCount)
         {
             _configurationService2D = configurationService2D ?? throw new ArgumentNullException(nameof(configurationService2D));
             InitializeComponent();

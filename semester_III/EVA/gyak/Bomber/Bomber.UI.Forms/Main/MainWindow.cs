@@ -1,8 +1,10 @@
-﻿using Bomber.BL;
+﻿using Bomber.BL.Entities;
+using Bomber.BL.Impl.Entities;
 using Bomber.BL.Impl.Map;
-using Bomber.BL.Impl.Player;
+using Bomber.BL.Map;
 using Bomber.Main;
-using Bomber.UI.Forms.Objects.Player;
+using Bomber.UI.Forms.Main._Interfaces;
+using Bomber.UI.Forms.Views.Entities;
 using GameFramework.Configuration;
 using GameFramework.Core.Factories;
 using GameFramework.Core.Motion;
@@ -15,12 +17,11 @@ namespace Bomber.UI.Forms.Main
     {
         public IMainWindowPresenter Presenter { get; }
 
-        private IPlayer2D? _player;
+        private IBomber? _player;
 
         private readonly IConfigurationService2D _service;
         private readonly IPositionFactory _factory;
         private readonly IServiceProvider _provider;
-        private ICollection<INpc> _enemies;
 
         public MainWindow(IConfigurationService2D service, IPositionFactory factory, IServiceProvider provider, IMainWindowPresenter presenter)
         {
@@ -30,7 +31,7 @@ namespace Bomber.UI.Forms.Main
             Presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
             KeyPreview = true;
             InitializeComponent();
-            _enemies = new List<INpc>();
+            _token = new CancellationTokenSource();
         }
 
         public DialogResult ShowOnTop()
@@ -78,13 +79,14 @@ namespace Bomber.UI.Forms.Main
                 mapLayout.ColumnCount,
                 mapLayout.RowCount,
                 new List<IUnit2D>(),
-                mapLayout.MapObjects);
+                mapLayout.MapObjects,
+                _factory);
 
             _service.SetActiveMap(map);
             _service.GameIsRunning = true;
 
-            var view = new Player(_service);
-            _player = new PlayerModel(view, _factory.CreatePosition(3, 1), _service, "TestPlayer", "test@email.com");
+            var view = new PlayerView(_service);
+            _player = new PlayerModel(view, _factory.CreatePosition(3, 1), _service, "TestPlayer", "test@email.com", _token.Token);
             bomberMap.Controls.Add(view);
 
             foreach (var mapMapObject in mapLayout.MapObjects)
@@ -99,15 +101,20 @@ namespace Bomber.UI.Forms.Main
             }
         }
 
-        private CancellationTokenSource _token;
+        private readonly CancellationTokenSource _token;
 
         private async void OnTestClick(object sender, EventArgs e)
         {
-            _token = new CancellationTokenSource();
-            var enemyView = new Objects.Enemy(_service, _enemies.Count + 1);
+            var map = _service.GetActiveMap<IBomberMap>();
+            if (map is null)
+            {
+                return;
+            }
+            
+            var enemyView = new EnemyView(_service, map.NPCs.Count + 1);
             var enemy = new Enemy(enemyView, _service, _factory.CreatePosition(1, 4), _token.Token);
             bomberMap.Controls.Add(enemyView);
-            _enemies.Add(enemy);
+            map.NPCs.Add(enemy);
             await enemy.ExecuteAsync();
         }
 
@@ -123,7 +130,7 @@ namespace Bomber.UI.Forms.Main
                 return;
             }
 
-            var map = _service.ActiveMap;
+            var map = _service.GetActiveMap<IBomberMap>();
 
             if (e.KeyCode == Keys.D)
             {
@@ -143,6 +150,13 @@ namespace Bomber.UI.Forms.Main
             if (e.KeyCode == Keys.S)
             {
                 map?.MoveUnit(_player, Move2D.Backward);
+            }
+            
+            if (e.KeyCode == Keys.B)
+            {
+                var view = new BombView(_service);
+                _player.PutBomb(view);
+                bomberMap.Controls.Add(view);
             }
         }
     }

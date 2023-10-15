@@ -106,7 +106,6 @@ if __name__ == '__main__':
         print("Missing input file")
         exit(1)
     filePath = sys.argv[1]
-    print(filePath)
     if not os.path.exists(filePath):
         print(f"Non-existent file: {filePath}")
         exit(1)

@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 
-namespace Bomber.UI.Forms.Objects.Player
+namespace Bomber.UI.Forms.Views.Entities
 {
-    partial class Player
+    partial class PlayerView
     {
         /// <summary> 
         /// Required designer variable.
@@ -38,7 +38,7 @@ namespace Bomber.UI.Forms.Objects.Player
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.HotPink;
             Margin = new Padding(3, 2, 3, 2);
-            Name = "Player";
+            Name = "PlayerView";
             Size = new Size(131, 112);
             ResumeLayout(false);
         }

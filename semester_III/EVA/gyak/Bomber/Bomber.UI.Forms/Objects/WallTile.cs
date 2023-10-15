@@ -5,7 +5,7 @@ using GameFramework.Map.MapObject;
 
 namespace Bomber.UI.Forms.Objects
 {
-    public partial class WallTile : UserControl, IMapObject2D
+    public sealed partial class WallTile : UserControl, IMapObject2D
     {
         public void SteppedOn(IUnit2D unit2D)
         {

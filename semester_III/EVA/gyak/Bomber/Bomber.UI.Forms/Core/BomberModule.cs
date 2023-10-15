@@ -2,6 +2,7 @@
 using Bomber.Main;
 using Bomber.MapGenerator;
 using Bomber.UI.Forms.Main;
+using Bomber.UI.Forms.Main._Interfaces;
 using Bomber.UI.Forms.MapGenerator;
 using Bomber.UI.Forms.Objects.Factories;
 using Microsoft.Extensions.DependencyInjection;

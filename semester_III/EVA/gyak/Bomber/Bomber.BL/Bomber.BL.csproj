@@ -7,6 +7,9 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="joshika39.Core" Version="1.1.9" />
-        <PackageReference Include="joshika39.GameFramework" Version="1.1.0-rc4" />
+        <PackageReference Include="joshika39.GameFramework" Version="1.1.0" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\Bomber.UI.Shared\Bomber.UI.Shared.csproj" />
     </ItemGroup>
 </Project>
