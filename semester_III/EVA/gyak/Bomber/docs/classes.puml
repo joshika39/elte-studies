@@ -1,0 +1,69 @@
+@startuml Bomber
+
+namespace UI.Shared {
+
+interface IBombView {
+
+}
+
+interface IEnemyView {
+
+}
+
+interface IPlayerView {
+
+}
+
+interface IBomberMapEntityView {
+
+}
+
+interface IBomberMapTileView {
+
+}
+
+}
+
+namespace UI.Forms {
+	
+interface IMainWindow{
+
+}
+
+interface IMainWindowPresenter {
+
+}
+
+class MainWindow implements IMainWindow {
+
+}
+
+class MainWindowPresenter implements IMainWindowPresenter {
+
+}
+
+IMainWindow *-- IMainWindowPresenter
+
+}
+
+namespace UI.WPF {
+
+}
+
+namespace BL {
+
+interface ITileFactory {
+
+}
+
+interface IDeadlyTile {
+
+}
+
+interface IPlaceHolder {
+	+ <<get>> Type: TileType
+	+ <<get>> Position: IPosition2D
+}
+
+}
+@enduml
