@@ -1,4 +1,5 @@
-﻿using Bomber.BL.Map;
+﻿using Bomber.BL.Entities;
+using Bomber.BL.Map;
 using GameFramework.Core;
 using GameFramework.Core.Factories;
 using GameFramework.Entities;

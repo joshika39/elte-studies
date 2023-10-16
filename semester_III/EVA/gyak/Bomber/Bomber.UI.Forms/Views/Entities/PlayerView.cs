@@ -1,4 +1,4 @@
-﻿using Bomber.UI.Shared.Units;
+﻿using Bomber.UI.Shared.Entities;
 using GameFramework.Configuration;
 using GameFramework.Core;
 

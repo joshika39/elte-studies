@@ -4,7 +4,7 @@ using Bomber.BL.Tiles;
 using GameFramework.Configuration;
 using GameFramework.Core;
 
-namespace Bomber.UI.Forms.Objects
+namespace Bomber.UI.Forms.Tiles
 {
     public partial class PlaceHolderTile : UserControl, IPlaceHolder
     {

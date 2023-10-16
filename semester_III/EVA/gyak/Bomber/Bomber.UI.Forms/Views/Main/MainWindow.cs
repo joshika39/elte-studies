@@ -3,7 +3,6 @@ using Bomber.BL.Impl.Entities;
 using Bomber.BL.Impl.Map;
 using Bomber.BL.Map;
 using Bomber.Main;
-using Bomber.MapGenerator;
 using Bomber.UI.Forms.Main._Interfaces;
 using Bomber.UI.Forms.MapGenerator;
 using Bomber.UI.Forms.Views.Entities;
@@ -62,8 +61,7 @@ namespace Bomber.UI.Forms.Main
 
         private void openMapGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var generatorWindow = _provider.GetRequiredService<IMapGeneratorWindow>();
-            generatorWindow.ShowOnTop();
+           Presenter.OpenMapGenerator();
         }
 
         private void OnOpenMap(object sender, EventArgs e)

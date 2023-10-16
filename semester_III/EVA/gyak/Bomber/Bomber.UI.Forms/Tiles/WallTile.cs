@@ -3,7 +3,7 @@ using GameFramework.Core;
 using GameFramework.Entities;
 using GameFramework.Map.MapObject;
 
-namespace Bomber.UI.Forms.Objects
+namespace Bomber.UI.Forms.Tiles
 {
     public sealed partial class WallTile : UserControl, IMapObject2D
     {

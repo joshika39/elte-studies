@@ -1,8 +1,8 @@
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
-namespace Bomber.UI.Forms.Objects
+namespace Bomber.UI.Forms.Tiles
 {
-    partial class PlaceHolderTile
+    sealed partial class Hole
     {
         /// <summary> 
         /// Required designer variable.
@@ -30,17 +30,8 @@ namespace Bomber.UI.Forms.Objects
         /// </summary>
         private void InitializeComponent()
         {
-            SuspendLayout();
-            // 
-            // PlaceHolderTile
-            // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            BorderStyle = BorderStyle.FixedSingle;
-            Name = "PlaceHolderTile";
-            Size = new Size(148, 148);
-            Click += OnTileClicked;
-            ResumeLayout(false);
+            components = new System.ComponentModel.Container();
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         }
 
         #endregion

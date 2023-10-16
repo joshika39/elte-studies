@@ -1,7 +1,6 @@
-﻿using Bomber.BL.Impl.DomainModels;
-using Bomber.BL.Map;
-using Bomber.BL.Map.DomainModels;
-using Bomber.BL.Settings;
+﻿using Bomber.BL.Map;
+using Bomber.BL.MapGenerator;
+
 namespace Bomber.UI.Forms.MapGenerator
 {
     public class MapGeneratorWindowPresenter : IMapGeneratorWindowPresenter

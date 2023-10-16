@@ -1,7 +1,6 @@
 using Bomber.BL.Map;
-using Bomber.BL.Map.DomainModels;
 
-namespace Bomber.BL.Settings
+namespace Bomber.BL.MapGenerator
 {
     public interface IMapGeneratorSettings
     {

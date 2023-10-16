@@ -1,7 +1,8 @@
 ﻿using Bomber.BL.Impl;
 using Bomber.BL.Map;
+using Bomber.BL.MapGenerator;
 using Bomber.BL.Tiles;
-using Bomber.MapGenerator;
+using Bomber.UI.Forms.MapGenerator._Interfaces;
 using DialogResult = UiFramework.Shared.DialogResult;
 
 namespace Bomber.UI.Forms.MapGenerator

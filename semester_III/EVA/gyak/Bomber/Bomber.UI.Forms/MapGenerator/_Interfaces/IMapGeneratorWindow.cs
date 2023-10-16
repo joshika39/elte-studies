@@ -1,10 +1,7 @@
-﻿using Bomber.UI.Forms.MapGenerator;
-using UiFramework.Forms;
+﻿using UiFramework.Forms;
 
-namespace Bomber.MapGenerator
+namespace Bomber.UI.Forms.MapGenerator._Interfaces
 {
     public interface IMapGeneratorWindow : IWindow<IMapGeneratorWindowPresenter>
-    {
-        
-    }
+    { }
 }

@@ -1,7 +1,7 @@
-using Bomber.BL.Map.DomainModels;
+using Bomber.BL.MapGenerator.DomainModels;
 using Implementation.Repositories;
 
-namespace Bomber.BL.Impl.DomainModels
+namespace Bomber.BL.Impl.MapGenerator.DomainModels
 {
     public class DraftLayoutModel : AEntity, IDraftLayoutModel
     {

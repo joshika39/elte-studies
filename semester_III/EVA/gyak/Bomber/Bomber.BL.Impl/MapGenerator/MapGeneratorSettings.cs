@@ -1,8 +1,7 @@
-using Bomber.BL.Impl.DomainModels;
 using Bomber.BL.Impl.Map;
-using Bomber.BL.Map;
-using Bomber.BL.Map.DomainModels;
-using Bomber.BL.Settings;
+using Bomber.BL.Impl.MapGenerator.DomainModels;
+using Bomber.BL.MapGenerator;
+using Bomber.BL.MapGenerator.DomainModels;
 using Infrastructure.Application;
 using Infrastructure.Configuration;
 using Infrastructure.Configuration.Factories;
@@ -10,7 +9,7 @@ using Infrastructure.Repositories;
 using Infrastructure.Repositories.Factories;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Bomber.BL.Impl.Settings
+namespace Bomber.BL.Impl.MapGenerator
 {
     public class MapGeneratorSettings : IMapGeneratorSettings
     {

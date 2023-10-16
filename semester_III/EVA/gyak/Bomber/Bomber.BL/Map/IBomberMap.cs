@@ -1,3 +1,4 @@
+using Bomber.BL.Entities;
 using GameFramework.Core;
 using GameFramework.Map;
 using GameFramework.Map.MapObject;

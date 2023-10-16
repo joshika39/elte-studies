@@ -1,7 +1,6 @@
 using Bomber.BL.Entities;
 using Bomber.BL.Map;
 using Bomber.UI.Shared.Entities;
-using Bomber.UI.Shared.Units;
 using Bomber.UI.Shared.Views;
 using GameFramework.Configuration;
 using GameFramework.Core;
@@ -34,7 +33,6 @@ namespace Bomber.BL.Impl.Entities
             
             var map = configurationService.GetActiveMap<IBomberMap>();
             _affectedObjects = map!.MapPortion(position, radius);
-
             _view.Load += OnViewLoaded;
         }
         

@@ -1,6 +1,6 @@
 using Infrastructure.Repositories;
 
-namespace Bomber.BL.Map.DomainModels
+namespace Bomber.BL.MapGenerator.DomainModels
 {
     public interface IDraftLayoutModel : IEntity
     {

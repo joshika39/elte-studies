@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Bomber.BL.Map;
+using Bomber.BL.MapGenerator;
 using Bomber.BL.Tiles.Factories;
 using GameFramework.Configuration;
 using GameFramework.Core.Factories;
@@ -38,12 +39,12 @@ namespace Bomber.BL.Impl.Map
             _tileFactory = provider.GetRequiredService<ITileFactory>();
             _positionFactory = provider.GetRequiredService<IPositionFactory>();
             _reader = provider.GetRequiredService<IReader>();
-            
-            Name = _query.GetStringAttribute("name") ?? throw new ArgumentNullException();
-            Description = _query.GetStringAttribute("description") ?? throw new ArgumentNullException();
-            ColumnCount = _query.GetIntAttribute("row") ?? throw new ArgumentNullException();
-            RowCount = _query.GetIntAttribute("col") ?? throw new ArgumentNullException();
-            _mapDataBase64 = _query.GetStringAttribute("data") ?? throw new ArgumentNullException();
+
+            Name = _query.GetStringAttribute("name") ?? throw new InvalidOperationException("Draft config is missing a 'name'");
+            Description = _query.GetStringAttribute("description") ??  throw new InvalidOperationException("Draft config is missing a 'description'");
+            ColumnCount = _query.GetIntAttribute("row") ??  throw new InvalidOperationException("Draft config is missing a 'row;");
+            RowCount = _query.GetIntAttribute("col") ??  throw new InvalidOperationException("Draft config is missing a 'col'");
+            _mapDataBase64 = _query.GetStringAttribute("data") ??  throw new InvalidOperationException("Draft config is missing the 'data'");
             MapObjects = ConvertDataToObjects();
         }
         

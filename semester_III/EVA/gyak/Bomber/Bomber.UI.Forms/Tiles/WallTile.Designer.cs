@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Bomber.UI.Forms.Objects
+namespace Bomber.UI.Forms.Tiles
 {
     sealed partial class WallTile
     {

@@ -1,6 +1,5 @@
 ﻿using Bomber.BL.Entities;
 using Bomber.UI.Shared.Entities;
-using Bomber.UI.Shared.Units;
 using GameFramework.Configuration;
 using GameFramework.Core;
 using GameFramework.Entities;

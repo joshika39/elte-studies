@@ -49,11 +49,6 @@
 
 
 
-    <ItemGroup>
-      <None Update="MapLayouts\layout-1.txt">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-    </ItemGroup>
 
 
 

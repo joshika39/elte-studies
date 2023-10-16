@@ -5,7 +5,7 @@ using GameFramework.Configuration;
 using GameFramework.Core;
 using GameFramework.Map.MapObject;
 
-namespace Bomber.UI.Forms.Objects.Factories
+namespace Bomber.UI.Forms.Tiles.Factories
 {
     internal class FormsTileFactory : ITileFactory
     {

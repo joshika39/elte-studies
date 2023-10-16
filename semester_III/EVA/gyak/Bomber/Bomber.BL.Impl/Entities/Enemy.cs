@@ -1,6 +1,7 @@
+using Bomber.BL.Entities;
 using Bomber.BL.Map;
 using Bomber.BL.Tiles;
-using Bomber.UI.Shared.Units;
+using Bomber.UI.Shared.Entities;
 using GameFramework.Configuration;
 using GameFramework.Core;
 using GameFramework.Core.Motion;

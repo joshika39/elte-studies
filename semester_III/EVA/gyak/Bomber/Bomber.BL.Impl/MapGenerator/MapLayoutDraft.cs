@@ -1,6 +1,6 @@
 using System.Text;
-using Bomber.BL.Map;
-using Bomber.BL.Map.DomainModels;
+using Bomber.BL.MapGenerator;
+using Bomber.BL.MapGenerator.DomainModels;
 using Bomber.BL.Tiles;
 using Bomber.BL.Tiles.Factories;
 using GameFramework.Configuration;
@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using ArgumentNullException = System.ArgumentNullException;
 
-namespace Bomber.BL.Impl.Map
+namespace Bomber.BL.Impl.MapGenerator
 {
     public class MapLayoutDraft : IMapLayoutDraft
     {
@@ -65,7 +65,7 @@ namespace Bomber.BL.Impl.Map
         }
 
         [JsonIgnore]
-        public IEnumerable<IPlaceHolder> MapObjects { get; private set; }
+        public IEnumerable<IPlaceHolder>? MapObjects { get; private set; }
 
         public void SaveLayout(IEnumerable<IPlaceHolder> newMapObjects)
         {
@@ -145,8 +145,12 @@ namespace Bomber.BL.Impl.Map
             return array;
         }
 
-        private string GetRawData(IEnumerable<IPlaceHolder> newMapObjects)
+        private string GetRawData(IEnumerable<IPlaceHolder>? newMapObjects)
         {
+            if (newMapObjects is null)
+            {
+                throw new ArgumentNullException(nameof(newMapObjects));
+            }
             var mapObjects = newMapObjects.ToArray();
             var stringBuilder = new StringBuilder();
             for (var i = 0; i < RowCount; i++)
