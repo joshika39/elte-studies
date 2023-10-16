@@ -1,5 +1,7 @@
 ﻿using Bomber.BL.Entities;
 using Bomber.BL.Map;
+using Bomber.UI.Shared.Entities;
+using GameFramework.Configuration;
 using GameFramework.Core;
 using GameFramework.Core.Factories;
 using GameFramework.Entities;
@@ -11,19 +13,57 @@ namespace Bomber.BL.Impl.Map
     public class Map : AMap2D, IBomberMap
     {
         private readonly IPositionFactory _positionFactory;
-        public ICollection<INpc> NPCs { get; }
+        private readonly IConfigurationService2D _configurationService;
 
-        public Map(int sizeX, int sizeY, ICollection<IUnit2D> entities, IEnumerable<IMapObject2D> mapObjects, IPositionFactory positionFactory) : base(sizeX, sizeY, entities, mapObjects)
+        public Map(int sizeX, int sizeY, ICollection<IUnit2D> entities, IEnumerable<IMapObject2D> mapObjects, IPositionFactory positionFactory, IConfigurationService2D configurationService) : base(sizeX, sizeY, entities, mapObjects)
         {
             _positionFactory = positionFactory ?? throw new ArgumentNullException(nameof(positionFactory));
-            NPCs = new List<INpc>();
+            _configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
         }
-        
+
         public bool HasEnemy(IPosition2D position)
         {
-            return NPCs.Any(npc => position.Equals(npc.Position));
+            foreach (var entity in Entities)
+            {
+                if (entity is not INpc npc)
+                {
+                    continue;
+                }
+
+                if (npc.Position == position)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
-        
+
+        public IEnumerable<IBomberEntity> GetEntitiesAtPortion(IEnumerable<IMapObject2D> mapObjects)
+        {
+            var entities = new List<IBomberEntity>();
+            foreach (var mapObject in mapObjects)
+            {
+                foreach (var entity in Entities)
+                {
+                    if (entity is IBomberEntity bomberEntity)
+                    {
+                        if (entity.Position == mapObject.Position)
+                        {
+                            entities.Add(bomberEntity);
+                        }
+                    }
+                }
+            }
+
+            return entities;
+        }
+
+        public IEnumerable<IBomberEntity> GetEntitiesAtPortion(IPosition2D topLeft, IPosition2D bottomRight)
+        {
+            var objects = MapPortion(topLeft, bottomRight);
+            return GetEntitiesAtPortion(objects);
+        }
+
         public IEnumerable<IMapObject2D> MapPortion(IPosition2D topLeft, IPosition2D bottomRight)
         {
             var objects = MapObjects.ToArray();
@@ -35,7 +75,7 @@ namespace Bomber.BL.Impl.Map
                 }
             }
         }
-        
+
         public IEnumerable<IMapObject2D> MapPortion(IPosition2D center, int radius)
         {
             var top = center.Y - radius < 0 ? 0 : center.Y - radius;

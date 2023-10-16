@@ -19,6 +19,7 @@ namespace Bomber.UI.Forms.Main
             var generatorWindow = _provider.GetRequiredService<IMapGeneratorWindow>();
             generatorWindow.ShowOnTop();
         }
-        
+        public IMainWindow View { get; }
+
     }
 }

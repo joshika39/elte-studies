@@ -1,3 +1,4 @@
+using GameFramework.Core;
 using GameFramework.Map.MapObject;
 
 namespace Bomber.BL.Entities
@@ -6,5 +7,6 @@ namespace Bomber.BL.Entities
     {
         int Radius { get; }
         Task Detonate();
+        EventHandler? Exploded { get; set; }
     }
 }

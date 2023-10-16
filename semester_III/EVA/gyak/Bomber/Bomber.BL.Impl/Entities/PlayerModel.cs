@@ -13,6 +13,7 @@ namespace Bomber.BL.Impl.Entities
         private readonly IConfigurationService2D _configurationService2D;
         private readonly CancellationToken _cancellationToken;
         private bool _isAlive = true;
+        private bool _disposed;
         public IPosition2D Position { get; private set; }
         public bool IsObstacle => false;
         public Guid Id { get; }
@@ -39,10 +40,9 @@ namespace Bomber.BL.Impl.Entities
             Position = mapObject.Position;
             _view.UpdatePosition(Position);
         }
-        public async void PutBomb(IBombView bombView)
+        public void PutBomb(IBombView bombView)
         {
-            var bomb = new Bomb(bombView, Position, 3, _configurationService2D, _cancellationToken);
-            await bomb.Detonate();
+            _ = new Bomb(bombView, Position, 3, _configurationService2D, _cancellationToken);
         }
         
         public PlayerModel(IPlayerView view, IPosition2D position, IConfigurationService2D configurationService2D, string name, string email, CancellationToken cancellationToken)
@@ -60,6 +60,27 @@ namespace Bomber.BL.Impl.Entities
         private void OnViewLoad(object? sender, EventArgs e)
         {
             _view.UpdatePosition(Position);
+        }
+        
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                _view.Dispose();
+            }
+
+            _disposed = true;
+        }
+        
+        
+        public void Dispose()
+        {
+            Dispose(true);
         }
     }
 }

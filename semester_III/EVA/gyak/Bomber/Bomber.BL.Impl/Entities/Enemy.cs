@@ -17,7 +17,8 @@ namespace Bomber.BL.Impl.Entities
         private readonly CancellationToken _stoppingToken;
         private readonly IBomberMap _map;
         private Move2D _direction;
-        
+        private bool _disposed;
+
         public IPosition2D Position { get; private set; }
         public bool IsObstacle => false;
 
@@ -87,6 +88,27 @@ namespace Bomber.BL.Impl.Entities
                 3 => Move2D.Backward,
                 _ => throw new InvalidOperationException("Unsupported move!")
             };
+        }
+        
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                _view.Dispose();
+            }
+
+            _disposed = true;
+        }
+        
+        
+        public void Dispose()
+        {
+            Dispose(true);
         }
     }
 }
