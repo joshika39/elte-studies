@@ -1,10 +1,11 @@
-﻿using Bomber.Main;
+﻿using Bomber.BL.Impl.Models;
+using Bomber.UI.Forms.Main;
 using Bomber.UI.Forms.MapGenerator._Interfaces;
-using Bomber.UI.Shared.Views;
+using Bomber.UI.Forms.Views.Main._Interfaces;
 using GameFramework.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Bomber.UI.Forms.Main
+namespace Bomber.UI.Forms.Views.Main
 {
     public class MainWindowPresenter : AMainWindowModel, IMainWindowPresenter
     {
@@ -19,6 +20,7 @@ namespace Bomber.UI.Forms.Main
             var generatorWindow = _provider.GetRequiredService<IMapGeneratorWindow>();
             generatorWindow.ShowOnTop();
         }
-        
+        public IMainWindow? View { get; }
+
     }
 }

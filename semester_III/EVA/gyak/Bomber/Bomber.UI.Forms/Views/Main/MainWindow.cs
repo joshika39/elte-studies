@@ -1,19 +1,15 @@
 ﻿using Bomber.BL.Entities;
 using Bomber.BL.Impl.Entities;
-using Bomber.BL.Impl.Map;
 using Bomber.BL.Map;
-using Bomber.Main;
-using Bomber.UI.Forms.Main._Interfaces;
-using Bomber.UI.Forms.MapGenerator;
+using Bomber.UI.Forms.Main;
 using Bomber.UI.Forms.Views.Entities;
+using Bomber.UI.Forms.Views.Main._Interfaces;
 using GameFramework.Configuration;
 using GameFramework.Core.Factories;
 using GameFramework.Core.Motion;
-using GameFramework.Entities;
-using Microsoft.Extensions.DependencyInjection;
 using DialogResult = UiFramework.Shared.DialogResult;
 
-namespace Bomber.UI.Forms.Main
+namespace Bomber.UI.Forms.Views.Main
 {
     public partial class MainWindow : Form, IMainWindow
     {
@@ -24,12 +20,14 @@ namespace Bomber.UI.Forms.Main
         private readonly IConfigurationService2D _service;
         private readonly IPositionFactory _factory;
         private readonly IServiceProvider _provider;
+        private readonly IEntityFactory _entityFactory;
 
-        public MainWindow(IConfigurationService2D service, IPositionFactory factory, IServiceProvider provider, IMainWindowPresenter presenter)
+        public MainWindow(IConfigurationService2D service, IPositionFactory factory, IServiceProvider provider, IMainWindowPresenter presenter, IEntityFactory entityFactory)
         {
             _service = service ?? throw new ArgumentNullException(nameof(service));
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
             _provider = provider ?? throw new ArgumentNullException(nameof(provider));
+            _entityFactory = entityFactory ?? throw new ArgumentNullException(nameof(entityFactory));
             Presenter = presenter ?? throw new ArgumentNullException(nameof(presenter));
             KeyPreview = true;
             InitializeComponent();
@@ -61,7 +59,7 @@ namespace Bomber.UI.Forms.Main
 
         private void openMapGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           Presenter.OpenMapGenerator();
+            Presenter.OpenMapGenerator();
         }
 
         private void OnOpenMap(object sender, EventArgs e)
@@ -80,7 +78,7 @@ namespace Bomber.UI.Forms.Main
             var view = new PlayerView(_service);
             _player = new PlayerModel(view, _factory.CreatePosition(3, 1), _service, "TestPlayer", "test@email.com", _token.Token);
             bomberMap.Controls.Add(view);
-
+            map.Entities.Add(_player);
             foreach (var mapMapObject in map.MapObjects)
             {
                 if (mapMapObject is Control control)
@@ -105,10 +103,10 @@ namespace Bomber.UI.Forms.Main
                 return;
             }
 
-            var enemyView = new EnemyView(_service, map.NPCs.Count + 1);
-            var enemy = new Enemy(enemyView, _service, _factory.CreatePosition(1, 4), _token.Token);
+            var enemyView = new EnemyView(_service, map.Entities.Count + 1);
+            var enemy = _entityFactory.CreateEnemy(enemyView, _factory.CreatePosition(1, 1), _token.Token);
             bomberMap.Controls.Add(enemyView);
-            map.NPCs.Add(enemy);
+            map.Entities.Add(enemy);
             await enemy.ExecuteAsync();
         }
 
@@ -146,11 +144,42 @@ namespace Bomber.UI.Forms.Main
                 map?.MoveUnit(_player, Move2D.Backward);
             }
 
+            if (e.KeyCode == Keys.T && map is not null)
+            {
+                var testEntities = map.GetEntitiesAtPortion(map.MapPortion(_player.Position, 3));
+                foreach (var testEntity in testEntities)
+                {
+                    if (testEntity is not INpc enemy)
+                    {
+                        continue;
+                    }
+                    map?.Entities.Remove(enemy);
+                }
+            }
+
             if (e.KeyCode == Keys.B)
             {
                 var view = new BombView(_service);
-                _player.PutBomb(view);
+                _player.PutBomb(view, this);
                 bomberMap.Controls.Add(view);
+            }
+        }
+
+        public void BombExploded(IBomb bomb)
+        {
+            var map = _service.GetActiveMap<IBomberMap>();
+            if (map is null)
+            {
+                return;
+            }
+            
+            var affectedObjects = map.MapPortion(bomb.Position, bomb.Radius);
+            
+            var entities = map.GetEntitiesAtPortion(affectedObjects);
+            foreach (var entity in entities)
+            {
+                map.Entities.Remove(entity);
+                entity.Dispose();
             }
         }
     }

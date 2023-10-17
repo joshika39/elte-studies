@@ -3,8 +3,9 @@ using GameFramework.Entities;
 
 namespace Bomber.BL.Entities
 {
-    public interface IBomber : IPlayer2D
+    public interface IBomber : IPlayer2D, IBomberEntity
     {
-        void PutBomb(IBombView bombView);
+        ICollection<IBomb> PlantedBombs { get; }
+        void PutBomb(IBombView bombView, IBombWatcher bombWatcher);
     }
 }

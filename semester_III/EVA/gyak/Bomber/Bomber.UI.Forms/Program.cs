@@ -1,8 +1,7 @@
 using Bomber.BL.Impl;
-using Bomber.Main;
 using Bomber.UI.Forms.Core;
 using Bomber.UI.Forms.Main;
-using Bomber.UI.Forms.Main._Interfaces;
+using Bomber.UI.Forms.Views.Main;
 using GameFramework.Impl.Core;
 using Implementation.Module;
 using Microsoft.Extensions.DependencyInjection;

@@ -22,6 +22,11 @@ namespace Bomber.UI.Forms.Views.Entities
         
         public void UpdatePosition(IPosition2D position)
         {
+            if (IsDisposed)
+            {
+                return;
+            }
+            
             Invoke(() =>
             {
                 BringToFront();

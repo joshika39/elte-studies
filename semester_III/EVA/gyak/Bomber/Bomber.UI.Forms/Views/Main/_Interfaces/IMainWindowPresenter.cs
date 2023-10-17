@@ -1,8 +1,8 @@
-﻿using Bomber.UI.Shared.Views;
+﻿using Bomber.BL.Impl.Models;
 using UiFramework.Forms;
-using UiFramework.Shared;
+using IMainWindow = Bomber.UI.Forms.Main.IMainWindow;
 
-namespace Bomber.Main
+namespace Bomber.UI.Forms.Views.Main._Interfaces
 {
     public interface IMainWindowPresenter : IWindowPresenter, IMainWindowModel
     {

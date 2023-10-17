@@ -1,4 +1,5 @@
-﻿using Bomber.BL.Entities;
+﻿using System.Collections.ObjectModel;
+using Bomber.BL.Entities;
 using Bomber.UI.Shared.Entities;
 using GameFramework.Configuration;
 using GameFramework.Core;
@@ -7,12 +8,13 @@ using GameFramework.Map.MapObject;
 
 namespace Bomber.BL.Impl.Entities
 {
-    public class PlayerModel : IBomber
+    public class PlayerModel : IBomber, IBombWatcher
     {
         private readonly IPlayerView _view;
         private readonly IConfigurationService2D _configurationService2D;
         private readonly CancellationToken _cancellationToken;
         private bool _isAlive = true;
+        private bool _disposed;
         public IPosition2D Position { get; private set; }
         public bool IsObstacle => false;
         public Guid Id { get; }
@@ -39,9 +41,17 @@ namespace Bomber.BL.Impl.Entities
             Position = mapObject.Position;
             _view.UpdatePosition(Position);
         }
-        public async void PutBomb(IBombView bombView)
+        public ICollection<IBomb> PlantedBombs { get; }
+        
+        public async void PutBomb(IBombView bombView, IBombWatcher bombWatcher)
         {
-            var bomb = new Bomb(bombView, Position, 3, _configurationService2D, _cancellationToken);
+            var bombWatchers = new Collection<IBombWatcher>
+            {
+                bombWatcher,
+                this
+            };
+            var bomb = new Bomb(bombView, Position, _configurationService2D, bombWatchers, 3, _cancellationToken);
+            PlantedBombs.Add(bomb);
             await bomb.Detonate();
         }
         
@@ -55,11 +65,42 @@ namespace Bomber.BL.Impl.Entities
             Email = email;
             Id = Guid.NewGuid();
             _view.Load += OnViewLoad;
+            PlantedBombs = new ObservableCollection<IBomb>();
         }
         
         private void OnViewLoad(object? sender, EventArgs e)
         {
             _view.UpdatePosition(Position);
+        }
+        
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                _view.Dispose();
+            }
+
+            _disposed = true;
+        }
+        
+        
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+        public void Kill()
+        {
+            Dispose();
+        }
+
+        public void BombExploded(IBomb bomb)
+        {
+            PlantedBombs.Remove(bomb);
         }
     }
 }
