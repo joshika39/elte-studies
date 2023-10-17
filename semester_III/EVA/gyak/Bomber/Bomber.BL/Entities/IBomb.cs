@@ -7,6 +7,5 @@ namespace Bomber.BL.Entities
     {
         int Radius { get; }
         Task Detonate();
-        EventHandler? Exploded { get; set; }
     }
 }

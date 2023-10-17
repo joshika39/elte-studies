@@ -1,4 +1,5 @@
-﻿using Bomber.BL.Entities;
+﻿using System.Collections.ObjectModel;
+using Bomber.BL.Entities;
 using Bomber.UI.Shared.Entities;
 using GameFramework.Configuration;
 using GameFramework.Core;
@@ -7,7 +8,7 @@ using GameFramework.Map.MapObject;
 
 namespace Bomber.BL.Impl.Entities
 {
-    public class PlayerModel : IBomber
+    public class PlayerModel : IBomber, IBombWatcher
     {
         private readonly IPlayerView _view;
         private readonly IConfigurationService2D _configurationService2D;
@@ -40,9 +41,18 @@ namespace Bomber.BL.Impl.Entities
             Position = mapObject.Position;
             _view.UpdatePosition(Position);
         }
-        public void PutBomb(IBombView bombView)
+        public ICollection<IBomb> PlantedBombs { get; }
+        
+        public async void PutBomb(IBombView bombView, IBombWatcher bombWatcher)
         {
-            _ = new Bomb(bombView, Position, 3, _configurationService2D, _cancellationToken);
+            var bombWatchers = new Collection<IBombWatcher>
+            {
+                bombWatcher,
+                this
+            };
+            var bomb = new Bomb(bombView, Position, _configurationService2D, bombWatchers, 3, _cancellationToken);
+            PlantedBombs.Add(bomb);
+            await bomb.Detonate();
         }
         
         public PlayerModel(IPlayerView view, IPosition2D position, IConfigurationService2D configurationService2D, string name, string email, CancellationToken cancellationToken)
@@ -55,6 +65,7 @@ namespace Bomber.BL.Impl.Entities
             Email = email;
             Id = Guid.NewGuid();
             _view.Load += OnViewLoad;
+            PlantedBombs = new ObservableCollection<IBomb>();
         }
         
         private void OnViewLoad(object? sender, EventArgs e)
@@ -81,6 +92,15 @@ namespace Bomber.BL.Impl.Entities
         public void Dispose()
         {
             Dispose(true);
+        }
+        public void Kill()
+        {
+            Dispose();
+        }
+
+        public void BombExploded(IBomb bomb)
+        {
+            PlantedBombs.Remove(bomb);
         }
     }
 }

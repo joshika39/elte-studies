@@ -1,9 +1,10 @@
 ﻿using Bomber.BL.Tiles.Factories;
-using Bomber.MapGenerator;
 using Bomber.UI.Forms.Main;
 using Bomber.UI.Forms.MapGenerator;
 using Bomber.UI.Forms.MapGenerator._Interfaces;
 using Bomber.UI.Forms.Tiles.Factories;
+using Bomber.UI.Forms.Views.Main;
+using Bomber.UI.Forms.Views.Main._Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Bomber.UI.Forms.Core

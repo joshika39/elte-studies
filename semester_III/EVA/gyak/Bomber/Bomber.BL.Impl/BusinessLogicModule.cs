@@ -1,3 +1,5 @@
+using Bomber.BL.Entities;
+using Bomber.BL.Impl.Entities.Factories;
 using Bomber.BL.Impl.MapGenerator;
 using Bomber.BL.MapGenerator;
 using Infrastructure.Module;
@@ -10,6 +12,7 @@ namespace Bomber.BL.Impl
         public void LoadModules(IServiceCollection collection)
         {
             collection.AddSingleton<IMapGeneratorSettings, MapGeneratorSettings>();
+            collection.AddSingleton<IEntityFactory, EntityFactory>();
         }
     }
 }

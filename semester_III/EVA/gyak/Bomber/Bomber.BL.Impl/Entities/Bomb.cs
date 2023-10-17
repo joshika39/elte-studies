@@ -12,6 +12,7 @@ namespace Bomber.BL.Impl.Entities
     public sealed class Bomb : IBomb
     {
         private readonly IBombView _view;
+        private readonly IEnumerable<IBombWatcher> _bombWatchers;
         private readonly CancellationToken _stoppingToken;
         private PeriodicTimer? _timer;
         private readonly IEnumerable<IMapObject2D> _affectedObjects;
@@ -20,9 +21,10 @@ namespace Bomber.BL.Impl.Entities
         public bool IsObstacle => false;
         public int Radius { get; }
 
-        public Bomb(IBombView view, IPosition2D position, int radius, IConfigurationService2D configurationService, CancellationToken stoppingToken)
+        public Bomb(IBombView view, IPosition2D position, IConfigurationService2D configurationService, IEnumerable<IBombWatcher> bombWatchers, int radius,  CancellationToken stoppingToken)
         {
             _view = view ?? throw new ArgumentNullException(nameof(view));
+            _bombWatchers = bombWatchers ?? throw new ArgumentNullException(nameof(bombWatchers));
             _stoppingToken = stoppingToken;
             Position = position ?? throw new ArgumentNullException(nameof(position));
             Radius = radius;
@@ -76,11 +78,13 @@ namespace Bomber.BL.Impl.Entities
 
             Dispose();
         }
-        public EventHandler? Exploded { get; set; }
 
         private void Explode()
         {
-            Exploded?.Invoke(this, EventArgs.Empty);
+            foreach (var bombWatcher in _bombWatchers)
+            {
+                bombWatcher.BombExploded(this);
+            }
         }
 
         public void SteppedOn(IUnit2D unit2D)

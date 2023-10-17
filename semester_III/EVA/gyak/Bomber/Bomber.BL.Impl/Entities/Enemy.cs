@@ -10,8 +10,7 @@ using GameFramework.Map.MapObject;
 
 namespace Bomber.BL.Impl.Entities
 {
-    
-    public class Enemy : INpc
+    public sealed class Enemy : IEnemy
     {
         private readonly IEnemyView _view;
         private readonly CancellationToken _stoppingToken;
@@ -40,7 +39,7 @@ namespace Bomber.BL.Impl.Entities
 
         public async Task ExecuteAsync()
         {
-            while (!_stoppingToken.IsCancellationRequested)
+            while (!_stoppingToken.IsCancellationRequested && !_disposed)
             {
                 var newPeriodInSeconds = new Random().Next(1, 3);
                 var time = new TimeSpan(0, 0, newPeriodInSeconds);
@@ -89,8 +88,8 @@ namespace Bomber.BL.Impl.Entities
                 _ => throw new InvalidOperationException("Unsupported move!")
             };
         }
-        
-        protected virtual void Dispose(bool disposing)
+
+        private void Dispose(bool disposing)
         {
             if (_disposed)
             {
@@ -105,10 +104,14 @@ namespace Bomber.BL.Impl.Entities
             _disposed = true;
         }
         
-        
         public void Dispose()
         {
             Dispose(true);
+        }
+        
+        public void Kill()
+        {
+            Dispose();
         }
     }
 }

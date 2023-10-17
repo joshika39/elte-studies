@@ -1,12 +1,11 @@
 ﻿using Bomber.BL.Impl.Models;
-using Bomber.UI.Shared.Views;
 using UiFramework.Forms;
+using IMainWindow = Bomber.UI.Forms.Main.IMainWindow;
 
-namespace Bomber.UI.Forms.Main
+namespace Bomber.UI.Forms.Views.Main._Interfaces
 {
     public interface IMainWindowPresenter : IWindowPresenter, IMainWindowModel
     {
         void OpenMapGenerator();
-        IMainWindow View { get; }
     }
 }

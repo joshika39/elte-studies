@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Bomber.UI.Forms.Main
+namespace Bomber.UI.Forms.Views.Main
 {
     partial class MainWindow
     {
