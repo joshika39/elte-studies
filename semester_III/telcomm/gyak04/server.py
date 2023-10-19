@@ -8,7 +8,7 @@ TCP_PORT = int(sys.argv[1])
 BUFFER_SIZE = 1024
 reply = "Hello kliens".encode()  # could be just b"Hello kliens"
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock.bind((TCP_IP, TCP_PORT))
 sock.listen(5)
 
@@ -27,7 +27,7 @@ while True:
                 print(f"Someone has connected: {client_info[0]}:{client_info[1]}")
                 inputs.append(connection)
             else:
-                data = s.recv(BUFFER_SIZE)
+                data, address = sock.recvfrom(4096)
                 if not data:
                     s.close()
                     print("The client has terminated the connection")
@@ -36,8 +36,8 @@ while True:
                 unp_data = unpacker.unpack(data)
                 print("Unpack:", unp_data)
                 x = eval(str(unp_data[0]) + unp_data[2].decode() + str(unp_data[1]))
-                s.sendall(str(x).encode())
-                print("Sent response:", reply)
+                sent = sock.sendto(data, address)
+                print("Sent response:", sent)
 
     except KeyboardInterrupt:
         for s in inputs:
