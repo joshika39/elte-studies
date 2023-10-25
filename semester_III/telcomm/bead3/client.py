@@ -18,9 +18,6 @@ def main():
     guess = 50
     multiplier = 25
     while True:
-        time_to_wait = random.randint(1, 3)
-        print(f"Sleeping for {time_to_wait}, then guessing: {guess} -> ({round(guess)})")
-        time.sleep(time_to_wait)
         if multiplier <= 1:
             client_socket.send(struct.pack('cI', b'=', round(guess)))
         else:
@@ -28,7 +25,7 @@ def main():
         response = client_socket.recv(1024)
         result, _ = struct.unpack('cI', response)
         if result == b'Y':
-            print("Nyertél!")
+            # print("Nyertél!")
             break
         elif result == b'N':
             guess = guess + multiplier
@@ -37,10 +34,10 @@ def main():
             guess = guess - multiplier
             multiplier = multiplier / 2
         elif result == b'V':
-            print("A játék már véget ért.")
+            # print("A játék már véget ért.")
             break
         elif result == b'K':
-            print("Kiestél")
+            # print("Kiestél")
             break
     client_socket.close()
 
