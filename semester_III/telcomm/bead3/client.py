@@ -37,12 +37,14 @@ def main():
             if result == b'V' or result == b'Y' or result == b'K':
                 client_socket.close()
                 break
+            print(f'{minimum} - {maximum}')
 
             if minimum >= maximum:
                 message = EQUAL
 
             if minimum == maximum - 1:
-                message = GTR
+                message = EQUAL
+                guess = maximum - 1
 
             elif result == b'N':
                 if previous_message == LESS:

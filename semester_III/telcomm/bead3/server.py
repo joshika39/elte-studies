@@ -17,15 +17,16 @@ def main():
 
     inputs = []
     target_number = random.randint(1, 100)
-
+    print(f"n={target_number}")
+    game_finished = False
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((host, port))
     server_socket.listen(5)
     inputs.append(server_socket)
 
-    while inputs:
+    while inputs and not game_finished:
         try:
-            readable, _, _ = select.select(inputs, [], [])
+            readable, writable, exceptional = select.select(inputs, [], inputs, 1)
             for sock in readable:
                 if sock is server_socket:
                     client, _ = server_socket.accept()
@@ -37,20 +38,39 @@ def main():
                         inputs.remove(sock)
                         continue
                     message, guess = struct.unpack('cI', data)
+
+                    if game_finished:
+                        sock.send(struct.pack('cI', *(b'V', 0)))
+                        continue
+
+                    print(f'{message} {guess}')
                     if message == b'<':
                         result = b'I' if target_number < guess else b'N'
                     elif message == b'>':
                         result = b'I' if target_number > guess else b'N'
                     elif message == b'=':
-                        result = b'Y' if guess == target_number else b'K'
+                        if guess == target_number:
+                            result = b'Y'
+                            game_finished = True
+                        else:
+                            result = b'K'
                     else:
                         result = b'K'
                     sock.send(struct.pack('cI', *(result, 0)))
+            for s in exceptional:
+                print('Exceptional' + str(s.getpeername()))
+                inputs.remove(s)
+                s.close()
         except KeyboardInterrupt:
             for s in inputs:
                 s.close()
             inputs = []
             break
+
+    for s in inputs:
+        if s is not server_socket:
+            s.send(struct.pack('cI', *(b'V', 0)))
+    server_socket.close()
 
 
 if __name__ == "__main__":
