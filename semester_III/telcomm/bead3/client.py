@@ -4,6 +4,12 @@ import struct
 import sys
 import time
 
+packer = struct.Struct('c i')
+
+EQUAL = b'='
+LESS = b'<'
+GTR = b'>'
+
 
 def main():
     if len(sys.argv) != 3:
@@ -15,31 +21,41 @@ def main():
 
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect((host, port))
-    guess = 50
-    multiplier = 25
+    minimum = 0
+    maximum = 100
+    message = LESS
+    previous_message = message
+    guess = (minimum + maximum) // 2
+    client_socket.sendall(packer.pack(message, guess))
+
     while True:
-        if multiplier <= 1:
-            client_socket.send(struct.pack('cI', b'=', round(guess)))
-        else:
-            client_socket.send(struct.pack('cI', b'<', round(guess)))
-        response = client_socket.recv(1024)
-        result, _ = struct.unpack('cI', response)
-        if result == b'Y':
-            # print("Nyertél!")
-            break
-        elif result == b'N':
-            guess = guess + multiplier
-            multiplier = multiplier / 2
-        elif result == b'I':
-            guess = guess - multiplier
-            multiplier = multiplier / 2
-        elif result == b'V':
-            # print("A játék már véget ért.")
-            break
-        elif result == b'K':
-            # print("Kiestél")
-            break
-    client_socket.close()
+        data = client_socket.recv(1024)
+        result, _ = packer.unpack(data)
+        previous_guess = guess
+
+        if data:
+            if result == b'V' or result == b'Y' or result == b'K':
+                client_socket.close()
+                break
+
+            if minimum >= maximum:
+                message = EQUAL
+
+            if minimum == maximum - 1:
+                message = GTR
+
+            elif result == b'N':
+                if previous_message == LESS:
+                    minimum = previous_guess
+                if previous_message == GTR:
+                    maximum = previous_guess
+            elif result == b'I':
+                if previous_message == LESS:
+                    maximum = previous_guess - 1
+                if previous_message == GTR:
+                    minimum = previous_guess + 1
+            guess = (minimum + maximum) // 2
+            client_socket.sendall(packer.pack(message, guess))
 
 
 if __name__ == "__main__":

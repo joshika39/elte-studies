@@ -15,80 +15,41 @@ def main():
     host = sys.argv[1]
     port = int(sys.argv[2])
 
-    clients = []
+    inputs = []
     target_number = random.randint(1, 100)
 
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((host, port))
     server_socket.listen(5)
-    game_finished = False
+    inputs.append(server_socket)
 
-    while not game_finished:
+    while inputs:
         try:
-            readable, _, _ = select.select([server_socket] + clients, [], [])
+            readable, _, _ = select.select(inputs, [], [])
             for sock in readable:
                 if sock is server_socket:
                     client, _ = server_socket.accept()
-                    clients.append(client)
+                    inputs.append(client)
                 else:
                     data = sock.recv(1024)
                     if not data:
                         sock.close()
-                        clients.remove(sock)
+                        inputs.remove(sock)
                         continue
                     message, guess = struct.unpack('cI', data)
-                    if guess < 1 or guess > 100:
-                        sock.send(struct.pack('cI', *(b'K', 0)))
-                        continue
-                    if message == b'>':
-                        if guess > target_number:
-                            response = (b'N', 0)
-                        elif guess == target_number:
-                            response = (b'Y', 0)
-                            game_finished = True
-                        else:
-                            response = (b'I', 0)
-                    elif message == b'<':
-                        if guess < target_number:
-                            response = (b'N', 0)
-                        elif guess == target_number:
-                            response = (b'Y', 0)
-                            game_finished = True
-                        else:
-                            response = (b'I', 0)
+                    if message == b'<':
+                        result = b'I' if target_number < guess else b'N'
+                    elif message == b'>':
+                        result = b'I' if target_number > guess else b'N'
                     elif message == b'=':
-                        if guess == target_number:
-                            response = (b'Y', 0)
-                            game_finished = True
-                        else:
-                            response = (b'N', 0)
+                        result = b'Y' if guess == target_number else b'K'
                     else:
-                        response = (b'V', 0)
-                    sock.send(struct.pack('cI', *response))
+                        result = b'K'
+                    sock.send(struct.pack('cI', *(result, 0)))
         except KeyboardInterrupt:
-            for s in clients:
+            for s in inputs:
                 s.close()
-            break
-
-    while True:
-        try:
-            readable, _, _ = select.select([server_socket] + clients, [], [])
-            for sock in readable:
-                if sock is server_socket:
-                    client, _ = server_socket.accept()
-                    clients.append(client)
-                else:
-                    data = sock.recv(1024)
-                    if data:
-                        message, guess = struct.unpack('cI', data)
-                        response = (b'V', 0)
-                        sock.send(struct.pack('cI', *response))
-                    else:
-                        sock.close()
-                        clients.remove(sock)
-        except KeyboardInterrupt:
-            for s in clients:
-                s.close()
+            inputs = []
             break
 
 
