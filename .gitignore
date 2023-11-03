@@ -345,3 +345,5 @@ run
 
 .idea/
 nbproject/
+
+*.exe
