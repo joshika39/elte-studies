@@ -16,10 +16,33 @@ typedef struct Node {
     struct Node *next;
 } node;
 
+char *constants[8][5] =
+{
+        {"1", "Egeri borvidek",          "Nagy Arpad",    "9.100000", "Bikaver"},
+        {"2", "Villanyi borvidek",       "Kovacs Emese",  "8.600000", "Kadarka"},
+        {"3", "Szekszardi borvidek",     "Szabo Gergo",   "7.300000", "Olaszrizling"},
+        {"4", "Balatonlellei borvidek",  "Horvath Timea", "6.800000", "Riesling"},
+        {"5", "Soproni borvidek",        "Kiss Robert",   "7.4",      "Keknyelu"},
+        {"6", "Balatonboglari borvidek", "Szabo Andrea",  "8.2",      "Chardonnay"},
+        {"8", "Balatonlellei borvidek",  "Szabo Gergo",   "9.800000", "Olaszrizling"},
+        {"9", "Soproni borvidek",        "Kovacs Emese",  "4.4",      "Kadarka"}
+};
+int size = sizeof(constants) / sizeof(constants[0]);
+
+void populateInitFile(){
+    FILE* init = fopen("init.dat", "w");
+    for(int i = 0; i<size; i++)
+    {
+        fprintf(init, "%d;%s;%s;%f;%s\n", atoi(constants[i][0]), constants[i][1], constants[i][2], atof(constants[i][3]), constants[i][4]);
+    }
+
+    fclose(init);
+}
+
 void getStringInput(char *title, char *buff, int num, ...) {
     va_list valist;
     va_start(valist, num);
-    if(num <= 0){
+    if (num <= 0) {
         printf("%s: ", title);
     } else {
         printf("%s (%s): ", title, va_arg(valist, char*));
@@ -36,7 +59,7 @@ void getStringInput(char *title, char *buff, int num, ...) {
 void getFloatInput(char *title, float *varRef, int num, ...) {
     va_list valist;
     va_start(valist, num);
-    if(num <= 0){
+    if (num <= 0) {
         printf("%s: ", title);
     } else {
         printf("%s (%f): ", title, va_arg(valist, double));
@@ -52,8 +75,8 @@ void getIntInput(char *title, int *varRef) {
     fflush(stdin);
 }
 
-char* combineString(char* title, char* value){
-    char* buffer = malloc(100 * sizeof(char));
+char *combineString(char *title, char *value) {
+    char *buffer = malloc(100 * sizeof(char));
     snprintf(buffer, sizeof(buffer), "%s (%s)", title, value);
     return buffer;
 }
@@ -223,6 +246,7 @@ void printList(node *head) {
 
 // Driver program
 int main() {
+    populateInitFile();
     node *head = getSavedList("init.dat");
     int option = 0;
     do {
