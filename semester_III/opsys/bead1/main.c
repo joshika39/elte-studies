@@ -33,10 +33,17 @@ void getStringInput(char *title, char *buff, int num, ...) {
     va_end(valist);
 }
 
-void getFloatInput(char *title, float *varRef) {
-    printf("%s: ", title);
+void getFloatInput(char *title, float *varRef, int num, ...) {
+    va_list valist;
+    va_start(valist, num);
+    if(num <= 0){
+        printf("%s: ", title);
+    } else {
+        printf("%s (%f): ", title, va_arg(valist, double));
+    }
     scanf("%f", varRef);
     fflush(stdin);
+    va_end(valist);
 }
 
 void getIntInput(char *title, int *varRef) {
@@ -156,7 +163,7 @@ void add(node *head) {
 
     getStringInput("Videk", uj_szallitmany.videk, 0);
     getStringInput("Termelo", uj_szallitmany.nev, 0);
-    getFloatInput("Mennyiseg", &uj_szallitmany.mennyiseg);
+    getFloatInput("Mennyiseg", &uj_szallitmany.mennyiseg, 0);
     getStringInput("Fajta", uj_szallitmany.fajta, 0);
 
     insertAtEnd(&head, uj_szallitmany);
@@ -176,7 +183,7 @@ void edit(node *head) {
 
     getStringInput("Videk", result->data.videk, 1, result->data.videk);
     getStringInput("Termelo", result->data.nev, 1, result->data.nev);
-    getFloatInput("Mennyiseg", &result->data.mennyiseg);
+    getFloatInput("Mennyiseg", &result->data.mennyiseg, 1, result->data.mennyiseg);
     getStringInput("Fajta", result->data.fajta, 1, result->data.fajta);
 
     save(head);
