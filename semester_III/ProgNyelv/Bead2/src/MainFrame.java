@@ -11,8 +11,6 @@ public class MainFrame extends JFrame {
         pane.setPreferredSize(new Dimension(620, 410));
         setLayout(new GridLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        setResizable(false);
-
         mapPanel = new MapPanel();
 
         add(mapPanel);
@@ -22,7 +20,7 @@ public class MainFrame extends JFrame {
 
     public void addMap(int[][] mapLayout, int n) {
         mapPanel.setSize(new Dimension(30 * n, 30 * n));
-        mapPanel.tiles = new TileHolder[n][n];
+        mapPanel.setSize(n);
         mapPanel.n = n;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -37,9 +35,7 @@ public class MainFrame extends JFrame {
                     button = new PlayerTile(player);
                 }
 
-                button.setBounds(j * 30, i * 30, 30, 30);
-                mapPanel.tiles[i][j] = new TileHolder(button, j, i, mapPanel);
-                mapPanel.add(button);
+                mapPanel.addHolder(new TileHolder(button, j, i, mapPanel));
             }
         }
         mapPanel.handleSelection();

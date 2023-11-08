@@ -10,4 +10,9 @@ public class EmptyTile extends TileButton {
         setEnabled(enabled);
         setBackground(enabled ? new Color(149, 154, 163) : new Color(74, 75, 79));
     }
+
+    @Override
+    public String displayedName() {
+        return "Empty";
+    }
 }

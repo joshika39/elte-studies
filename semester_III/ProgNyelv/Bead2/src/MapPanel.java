@@ -5,13 +5,13 @@ import java.util.ArrayList;
 public class MapPanel extends JPanel {
     public TileHolder selectedPlayer;
     public TileHolder selectedPosition;
-
-    public TileHolder[][] tiles;
+    public Operation currentOperation;
     public int n;
 
+    private TileHolder[][] tiles;
     private int moves = 0;
 
-    public Operation currentOperation;
+
 
     public MapPanel() {
         setBackground(Color.CYAN);
@@ -28,6 +28,7 @@ public class MapPanel extends JPanel {
         if (currentOperation == Operation.SelectMove) {
             selectedPosition = newHolder;
             performMove();
+            handleSelection();
         }
     }
 
@@ -39,6 +40,14 @@ public class MapPanel extends JPanel {
                 holder.tile.setActive(holder.tile instanceof PlayerTile && ((PlayerTile) holder.tile).id == player);
             }
         }
+    }
+
+    public void setSize(int n) {
+        tiles = new TileHolder[n][n];
+    }
+
+    public void addHolder(TileHolder holder) {
+        tiles[holder.y][holder.x] = holder;
     }
 
     private void handleMove() {
@@ -55,11 +64,7 @@ public class MapPanel extends JPanel {
                 int rowDiff = Math.abs(i - selectedPlayer.y);
                 int colDiff = Math.abs(j - selectedPlayer.x);
 
-                if ((rowDiff == 1 && colDiff == 0) || (rowDiff == 0 && colDiff == 1) && holder != selectedPlayer) {
-                    holder.tile.setActive(true);
-                } else {
-                    holder.tile.setActive(false);
-                }
+                holder.tile.setActive((rowDiff == 1 && colDiff == 0) || (rowDiff == 0 && colDiff == 1) && holder != selectedPlayer);
             }
         }
     }
@@ -79,39 +84,79 @@ public class MapPanel extends JPanel {
         }
 
         if (selectedPosition.y < selectedPlayer.y) {
-
+            updateColumnUp(selectedPosition.y, selectedPosition.x);
         }
 
         if (selectedPosition.y > selectedPlayer.y) {
-
+            updateColumnDown(selectedPosition.y, selectedPosition.x);
         }
 
         moves += 1;
-        selectedPosition.changeContent(selectedPlayer.tile);
-        selectedPlayer.clearContent();
-        repaint();
-        revalidate();
         handleSelection();
     }
 
     private void updateRowForward(int rowCount, int colCount) {
         var row = tiles[rowCount];
-        for (int j = colCount; j < row.length; j++) {
+        for (int j = row.length - 1; j >= colCount - 1 ; j--) {
             var holder = row[j];
             if (j + 1 < row.length) {
                 var nextHolder = row[j + 1];
-                holder.changeContent(nextHolder.tile);
+                var prevNext = nextHolder.tile;
+                nextHolder.changeContent(holder.tile);
+                holder.changeContent(prevNext);
+            }
+            else{
+                holder.clearContent();
             }
         }
     }
 
     private void updateRowBackward(int rowCount, int colCount) {
         var row = tiles[rowCount];
-        for (int j = colCount; j >= 0; j--) {
+        for (int j = 0; j <= colCount + 1; j++) {
             var holder = row[j];
-            if (j - 1 > 0) {
+            if (j - 1 >= 0) {
                 var nextHolder = row[j - 1];
-                holder.changeContent(nextHolder.tile);
+                var prevNext = nextHolder.tile;
+                nextHolder.changeContent(holder.tile);
+                holder.changeContent(prevNext);
+            }
+            else{
+                holder.clearContent();
+            }
+        }
+    }
+
+    private void updateColumnDown(int rowCount, int columnCount){
+        for (int i = tiles.length - 1; i >= rowCount - 1; i--) {
+            var row = tiles[i];
+            var holder = row[columnCount];
+            if (i + 1 < tiles.length) {
+                var nextRow = tiles[i + 1];
+                var nextHolder = nextRow[columnCount];
+                var prevNext = nextHolder.tile;
+                nextHolder.changeContent(holder.tile);
+                holder.changeContent(prevNext);
+            }
+            else{
+                holder.clearContent();
+            }
+        }
+    }
+
+    private void updateColumnUp(int rowCount, int columnCount){
+        for (int i = 0; i <= rowCount + 1; i++) {
+            var row = tiles[i];
+            var holder = row[columnCount];
+            if (i - 1 >= 0) {
+                var nextRow = tiles[i - 1];
+                var nextHolder = nextRow[columnCount];
+                var prevNext = nextHolder.tile;
+                nextHolder.changeContent(holder.tile);
+                holder.changeContent(prevNext);
+            }
+            else{
+                holder.clearContent();
             }
         }
     }

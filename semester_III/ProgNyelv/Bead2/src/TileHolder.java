@@ -16,20 +16,32 @@ public class TileHolder implements ActionListener {
         this.y = y;
         this.panel = panel;
         this.tile.addActionListener(this);
+        this.tile.setBounds(this.x * 30, this.y * 30, 30, 30);
+        panel.add(this.tile);
     }
 
     public void changeContent(TileButton newTile) {
         this.tile.removeActionListener(this);
         tile = newTile;
+
         this.tile.addActionListener(this);
+        this.tile.setBounds(this.x * 30, this.y * 30, 30, 30);
+    }
+
+    public void setContent(TileButton newTile) {
+        if(tile != null) {
+            this.tile.removeActionListener(this);
+            panel.remove(this.tile);
+        }
+
+        tile = newTile;
+        this.tile.addActionListener(this);
+        this.tile.setBounds(this.x * 30, this.y * 30, 30, 30);
+        panel.add(this.tile);
     }
 
     public void clearContent(){
-        changeContent(new EmptyTile());
-    }
-
-    public void setFocus(boolean isFocused) {
-//        tile.setBorder(new LineBorder(isFocused ? Color.ORANGE : null));
+        setContent(new EmptyTile());
     }
 
     @Override
@@ -37,5 +49,10 @@ public class TileHolder implements ActionListener {
         if (e.getSource() == tile) {
             panel.nextOperation(this);
         }
+    }
+
+    @Override
+    public String toString() {
+        return tile.displayedName();
     }
 }

@@ -28,4 +28,9 @@ public class PlayerTile extends TileButton {
 
         }
     }
+
+    @Override
+    public String displayedName() {
+        return "Player " + id;
+    }
 }

@@ -1,0 +1,60 @@
+@startuml Classes
+
+class MainFrame extends JFrame {
+    - <<final>> mapPanel: MapPanel
+    + addMap(mapLayout: int[][], n: int): void
+}
+
+class MapPanel extends JPanel {
+    + selectedPlayer: TileHolder
+    + selectedPosition: TileHolder
+    + currentOperation: Operation
+    + n: int
+    - tiles: TileHolder[][]
+    - moves: int
+
+    + nextOperation(newHolder: TileHolder): void
+    + handleSelection(): void
+    + setSize(n: int): void
+    + addHolder(holder: TileHolder): void
+    - handleMove(): void
+    - performMove(): void
+    - updateRowForward(rowCount: int, colCount: int)
+    - updateRowBackward(rowCount: int, colCount: int)
+    - updateColumnUp(rowCount: int, colCount: int)
+    - updateColumnDown(rowCount: int, colCount: int)
+}
+
+interface Tile {
+    + setActive(boolean enabled): void
+    + displayedName(): String
+}
+
+abstract TileButton extends JButton implements Tile{
+
+}
+
+class EmptyTile extends TileButton {
+    + setActive(boolean enabled): void
+    + displayedName(): String
+}
+
+class PlayerTile extends TileButton {
+    + <<final>> id: int
+    + setActive(boolean enabled): void
+    + displayedName(): String
+}
+
+class TileHolder {
+    + tile: TileButton
+    + <<final>> x: int
+    + <<final>> y: int
+    - <<final>> panel: MapPanel
+}
+
+MainFrame *-- MapPanel
+MapPanel *-- TileHolder
+TileHolder *-- TileButton
+TileHolder *-- MapPanel
+
+@enduml
