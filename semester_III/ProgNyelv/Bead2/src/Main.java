@@ -9,10 +9,6 @@ public class Main {
         var frame = new MainFrame();
 
         var n = 5;
-
-        var p1 = 0;
-        var p2 = 0;
-
         var layout = new int[n][n];
         var rand = new Random();
 
