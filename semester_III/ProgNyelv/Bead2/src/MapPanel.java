@@ -11,6 +11,18 @@ public class MapPanel extends JPanel {
     private TileHolder[][] tiles;
     private int moves = 0;
 
+    public int getPlayerTileCount(int id) {
+        var count = 0;
+        for (var row : tiles) {
+            for (var holder : row) {
+                if (holder.tile instanceof PlayerTile && ((PlayerTile) holder.tile).id == id) {
+                    count += 1;
+                }
+            }
+        }
+        
+        return count;
+    }
 
 
     public MapPanel() {
@@ -92,6 +104,39 @@ public class MapPanel extends JPanel {
         }
 
         moves += 1;
+
+        if(moves >= 5 * n) {
+            var player1Count = getPlayerTileCount(1);
+            var player2Count = getPlayerTileCount(2);
+
+            if (player1Count > player2Count) {
+                JOptionPane.showMessageDialog(this, "Player 1 wins!");
+            }
+            else if (player2Count > player1Count) {
+                JOptionPane.showMessageDialog(this, "Player 2 wins!");
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "Draw!");
+            }
+            for (var frame : Frame.getFrames()) {
+                frame.dispose();
+            }
+        }
+
+        if(getPlayerTileCount(1) == 0){
+            JOptionPane.showMessageDialog(this, "Player 2 wins!");
+            for (var frame : Frame.getFrames()) {
+                frame.dispose();
+            }
+        }
+
+        if(getPlayerTileCount(2) == 0){
+            JOptionPane.showMessageDialog(this, "Player 1 wins!");
+            for (var frame : Frame.getFrames()) {
+                frame.dispose();
+            }
+        }
+
         handleSelection();
     }
 

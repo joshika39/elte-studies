@@ -12,7 +12,7 @@ class MapPanel extends JPanel {
     + n: int
     - tiles: TileHolder[][]
     - moves: int
-
+    + getPlayerTileCount(id: int): int
     + nextOperation(newHolder: TileHolder): void
     + handleSelection(): void
     + setSize(n: int): void

@@ -1,6 +1,3 @@
-import javax.swing.*;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Main {
@@ -8,7 +5,7 @@ public class Main {
 
         var frame = new MainFrame();
 
-        var n = 5;
+        var n = 10;
         var layout = new int[n][n];
         var rand = new Random();
 
