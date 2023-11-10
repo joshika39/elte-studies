@@ -5,7 +5,7 @@ public class Main {
 
         var frame = new MainFrame();
 
-        var n = 10;
+        var n = 5;
         var layout = new int[n][n];
         var rand = new Random();
 
