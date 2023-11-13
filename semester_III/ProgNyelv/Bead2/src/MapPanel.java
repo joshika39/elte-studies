@@ -1,12 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MapPanel extends JPanel {
     public TileHolder selectedPlayer;
     public TileHolder selectedPosition;
     public Operation currentOperation;
-    public int n;
+    public int n = 0;
+    public boolean isFinished = false;
 
     private TileHolder[][] tiles;
     private int moves = 0;
@@ -20,13 +22,11 @@ public class MapPanel extends JPanel {
                 }
             }
         }
-        
+
         return count;
     }
 
-
     public MapPanel() {
-        setBackground(Color.CYAN);
         setLayout(null);
     }
 
@@ -55,6 +55,11 @@ public class MapPanel extends JPanel {
     }
 
     public void setSize(int n) {
+        isFinished = false;
+        moves = 0;
+        selectedPlayer = null;
+        selectedPosition = null;
+        this.n = n;
         tiles = new TileHolder[n][n];
     }
 
@@ -82,7 +87,7 @@ public class MapPanel extends JPanel {
     }
 
     private void performMove() {
-        if (selectedPlayer == null || selectedPosition == null) {
+        if (selectedPlayer == null || selectedPosition == null || isFinished) {
             return;
         }
         currentOperation = Operation.Moved;
@@ -105,75 +110,74 @@ public class MapPanel extends JPanel {
 
         moves += 1;
 
-        if(moves >= 5 * n) {
+        if (moves >= 5 * n) {
             var player1Count = getPlayerTileCount(1);
             var player2Count = getPlayerTileCount(2);
 
             if (player1Count > player2Count) {
                 JOptionPane.showMessageDialog(this, "Player 1 wins!");
-            }
-            else if (player2Count > player1Count) {
+            } else if (player2Count > player1Count) {
                 JOptionPane.showMessageDialog(this, "Player 2 wins!");
-            }
-            else {
+            } else {
                 JOptionPane.showMessageDialog(this, "Draw!");
             }
-            for (var frame : Frame.getFrames()) {
-                frame.dispose();
-            }
+
+            isFinished = true;
         }
 
-        if(getPlayerTileCount(1) == 0){
+        if (getPlayerTileCount(1) == 0) {
             JOptionPane.showMessageDialog(this, "Player 2 wins!");
-            for (var frame : Frame.getFrames()) {
-                frame.dispose();
-            }
+
+            isFinished = true;
         }
 
-        if(getPlayerTileCount(2) == 0){
+        if (getPlayerTileCount(2) == 0) {
             JOptionPane.showMessageDialog(this, "Player 1 wins!");
-            for (var frame : Frame.getFrames()) {
-                frame.dispose();
-            }
+
+            isFinished = true;
         }
 
         handleSelection();
     }
 
     private void updateRowForward(int rowCount, int colCount) {
+        var start = calculateStart(getRow(rowCount), colCount, 0, tiles[rowCount].length - 1, 1);
+
         var row = tiles[rowCount];
-        for (int j = row.length - 1; j >= colCount - 1 ; j--) {
+        for (int j = start - 1; j >= colCount - 1; j--) {
             var holder = row[j];
             if (j + 1 < row.length) {
                 var nextHolder = row[j + 1];
                 var prevNext = nextHolder.tile;
                 nextHolder.changeContent(holder.tile);
                 holder.changeContent(prevNext);
-            }
-            else{
+            } else {
                 holder.clearContent();
             }
         }
     }
 
     private void updateRowBackward(int rowCount, int colCount) {
+        var start = calculateStart(getRow(rowCount), colCount, 0, tiles[rowCount].length - 1, -1);
+
         var row = tiles[rowCount];
-        for (int j = 0; j <= colCount + 1; j++) {
+        for (int j = start + 1; j <= colCount + 1; j++) {
             var holder = row[j];
             if (j - 1 >= 0) {
                 var nextHolder = row[j - 1];
                 var prevNext = nextHolder.tile;
                 nextHolder.changeContent(holder.tile);
                 holder.changeContent(prevNext);
-            }
-            else{
+            } else {
                 holder.clearContent();
             }
         }
     }
 
-    private void updateColumnDown(int rowCount, int columnCount){
-        for (int i = tiles.length - 1; i >= rowCount - 1; i--) {
+    private void updateColumnDown(int rowCount, int columnCount) {
+        var start = calculateStart(getColumn(columnCount), rowCount, 0, tiles.length - 1, 1);
+
+        for (int i = start - 1; i >= rowCount - 1; i--) {
             var row = tiles[i];
             var holder = row[columnCount];
             if (i + 1 < tiles.length) {
@@ -182,27 +186,57 @@ public class MapPanel extends JPanel {
                 var prevNext = nextHolder.tile;
                 nextHolder.changeContent(holder.tile);
                 holder.changeContent(prevNext);
-            }
-            else{
+            } else {
                 holder.clearContent();
             }
         }
     }
 
-    private void updateColumnUp(int rowCount, int columnCount){
-        for (int i = 0; i <= rowCount + 1; i++) {
+    private void updateColumnUp(int rowCount, int columnCount) {
+        var start = calculateStart(getColumn(columnCount), rowCount, 0, tiles.length - 1, -1);
+
+        for (int i = start + 1; i <= rowCount + 1; i++) {
             var row = tiles[i];
             var holder = row[columnCount];
             if (i - 1 >= 0) {
-                var nextRow = tiles[i - 1];
-                var nextHolder = nextRow[columnCount];
+                var prevRow = tiles[i - 1];
+                var nextHolder = prevRow[columnCount];
                 var prevNext = nextHolder.tile;
+
                 nextHolder.changeContent(holder.tile);
                 holder.changeContent(prevNext);
-            }
-            else{
+            } else {
                 holder.clearContent();
             }
+
         }
+    }
+
+    private int calculateStart(ArrayList<TileHolder> targets, int currentTile, int lowerBound, int upperBound, int direction) {
+        var start = currentTile;
+        var reachedEmpty = false;
+        while (!reachedEmpty && start >= lowerBound && start <= upperBound) {
+            var holder = targets.get(start);
+            if (holder.tile instanceof EmptyTile) {
+                reachedEmpty = true;
+            } else {
+                start += direction;
+            }
+        }
+
+        return start;
+    }
+
+    private ArrayList<TileHolder> getColumn(int column){
+        var result = new ArrayList<TileHolder>();
+        for (var row : tiles){
+            result.add(row[column]);
+        }
+
+        return result;
+    }
+
+    private ArrayList<TileHolder> getRow(int row){
+        return new ArrayList<>(Arrays.asList(tiles[row]));
     }
 }

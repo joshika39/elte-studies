@@ -3,39 +3,83 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MainFrame extends JFrame implements ActionListener {
-    private final MapPanel mapPanel;
+    private MapPanel mapPanel;
 
 
     public MainFrame() {
         var pane = getContentPane();
         pane.setPreferredSize(new Dimension(620, 410));
-        var menu = new JMenu();
-        var list = new ArrayList<JMenuItem>();
-        var easy = new JMenuItem();
-        easy.setText("5");
-        easy.addActionListener(this);
-        menu.add(easy);
 
-        add(menu);
-        setLayout(new GridLayout());
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JMenuBar menuBar = new JMenuBar();
+        setJMenuBar(menuBar);
+        JMenu gameMenu = new JMenu("Game");
+        menuBar.add(gameMenu);
+        JMenu newMenu = new JMenu("New");
+        gameMenu.add(newMenu);
+
+        newMenu.add(getButton("3"));
+        newMenu.add(getButton("4"));
+        newMenu.add(getButton("6"));
+        newMenu.add(getButton("10"));
+
         mapPanel = new MapPanel();
 
-        add(mapPanel);
+        setLayout(new GridLayout());
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        getContentPane().add(mapPanel, BorderLayout.CENTER);
+
         pack();
         setVisible(true);
     }
 
-    public void addMap(int[][] mapLayout, int n) {
+    private JMenuItem getButton(String content) {
+        var item = new JMenuItem();
+        item.setText(content);
+        item.addActionListener(this);
+        return item;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(!(e.getSource() instanceof JMenuItem item)){
+            return;
+        }
+
+        var numText = item.getText();
+        startNew(Integer.parseInt(numText));
+    }
+
+    private void startNew(int n){
+        var layout = new int[n][n];
+        var rand = new Random();
+
+        for (int i = 0; i < n * 2; i++){
+            var success = false;
+            while (!success){
+                var x = rand.nextInt(n);
+                var y = rand.nextInt(n);
+                var value = layout[y][x];
+
+                if(value == 0){
+                    layout[y][x] = i % 2 == 0 ? 1 : 2;
+                    success = true;
+                }
+            }
+        }
+
+
+        mapPanel.removeAll();
+
         mapPanel.setSize(new Dimension(30 * n, 30 * n));
         mapPanel.setSize(n);
-        mapPanel.n = n;
+
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
 
-                var player = mapLayout[i][j];
+                var player = layout[i][j];
                 TileButton button;
 
                 if(player == 0){
@@ -49,10 +93,9 @@ public class MainFrame extends JFrame implements ActionListener {
             }
         }
         mapPanel.handleSelection();
-    }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
+        if(getContentPane().getComponentCount() > 1){
+            getContentPane().remove(1);
+        }
     }
 }
