@@ -13,7 +13,7 @@ GTR = b'>'
 
 def main():
     if len(sys.argv) != 3:
-        print("Használat: python3 client.py <hostname> <port szám>")
+        print("Használat: python3 netcopy_cli.py <hostname> <port szám>")
         return
 
     host = sys.argv[1]
