@@ -30,6 +30,7 @@ public class MainFrame extends JFrame implements ActionListener {
         setLayout(new GridLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().add(mapPanel, BorderLayout.CENTER);
+        setIconImage(new ImageIcon("src/icon.png").getImage());
 
         pack();
         setVisible(true);
