@@ -11,7 +11,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
     public MainFrame() {
         var pane = getContentPane();
-        pane.setPreferredSize(new Dimension(620, 410));
+//        pane.setPreferredSize(new Dimension(620, 410));
 
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
@@ -31,6 +31,8 @@ public class MainFrame extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().add(mapPanel, BorderLayout.CENTER);
         setIconImage(new ImageIcon("src/icon.png").getImage());
+
+        startNew(3);
 
         pack();
         setVisible(true);
@@ -74,7 +76,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
         mapPanel.removeAll();
 
-        mapPanel.setSize(new Dimension(30 * n, 30 * n));
+        mapPanel.setPreferredSize(new Dimension(30 * n, 30 * n));
         mapPanel.setSize(n);
 
         for (int i = 0; i < n; i++) {
@@ -89,7 +91,7 @@ public class MainFrame extends JFrame implements ActionListener {
                 else{
                     button = new PlayerTile(player);
                 }
-
+                button.setPreferredSize(new Dimension(30, 30));
                 mapPanel.addHolder(new TileHolder(button, j, i, mapPanel));
             }
         }
@@ -98,5 +100,7 @@ public class MainFrame extends JFrame implements ActionListener {
         if(getContentPane().getComponentCount() > 1){
             getContentPane().remove(1);
         }
+
+        pack();
     }
 }

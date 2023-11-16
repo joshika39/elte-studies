@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class PlayerTile extends TileButton {
@@ -21,11 +22,16 @@ public class PlayerTile extends TileButton {
 
         switch (id) {
             case 1:
-                setBackground(enabled ? new Color(83, 151, 224) : new Color(1, 50, 140));
+                setBackground(new Color(83, 151, 224));
                 break;
             case 2:
-                setBackground(enabled ? new Color(86, 224, 83) : new Color(3, 94, 1));
+                setBackground(new Color(86, 224, 83));
+        }
 
+        if(enabled){
+            setBorder(new LineBorder(Color.BLACK, 2));
+        } else {
+            setBorder(null);
         }
     }
 
