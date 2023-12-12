@@ -17,9 +17,9 @@ public class TronFrame extends JFrame implements ActionListener {
         setJMenuBar(menuBar);
         JMenu gameMenu = new JMenu("Game");
         menuBar.add(gameMenu);
-        JMenu newMenu = new JMenu("New");
+        var newMenu = new JMenuItem("New");
         gameMenu.add(newMenu);
-        JMenu leaderboards = new JMenu("Leaderboards");
+        var leaderboards = new JMenuItem("Leaderboards");
         gameMenu.add(leaderboards);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
