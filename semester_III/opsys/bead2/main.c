@@ -9,6 +9,32 @@
 #include <unistd.h>
 #include <time.h>
 
+const char *dot_str[] = {".", ".", ".", "\b\b\b   \b\b\b"};
+#define countof(x) (sizeof(x)/sizeof((x)[0]))
+
+static int next_state = 0;
+void update_progress(void) {
+    fputs(dot_str[next_state], stdout);
+    next_state = (next_state + 1) % countof(dot_str);
+    fflush(stdout);
+}
+
+static time_t last_time = 0;
+void update_progress_if_time(void) {
+    time_t now = time(NULL);
+    if(now > last_time) {
+        update_progress();
+        last_time = now;
+    }
+}
+
+void start_progress(const char *loading) {
+    fputs(loading, stdout);
+    next_state = 0;
+    last_time = 0;
+    fflush(stdout);
+}
+
 typedef struct Szallitmany {
     int id;
     char videk[100];
@@ -36,6 +62,7 @@ char *constants[11][5] =
         {"10", "Soproni borvidek",        "Kovacs Emese",  "7.4",      "Riesling"},
         {"11", "Egeri borvidek",        "Kovacs Emese",  "4.4",      "Kadarka"},
 };
+
 int size = sizeof(constants) / sizeof(constants[0]);
 
 void populateInitFile(){
@@ -56,14 +83,14 @@ void getStringInput(char *title, char *buff, int num, ...) {
     } else {
         printf("%s (%s): ", title, va_arg(valist, char*));
     }
-    fflush(stdin);
+
     fgets(buff, sizeof(char[100]), stdin);
 
     int len;
     len = strlen(buff);
-    if (buff[len - 1] == '\n')
+    if(buff[len - 1] == '\n')
         buff[len - 1] = 0;
-    fflush(stdin);
+
     va_end(valist);
 }
 
@@ -76,7 +103,17 @@ void getFloatInput(char *title, float *varRef, int num, ...) {
         printf("%s (%f): ", title, va_arg(valist, double));
     }
 
-    scanf("%f", &varRef);
+    char temp[50];
+    fflush(stdin);
+    fgets(temp, sizeof(char[100]), stdin);
+
+    int len;
+    len = strlen(temp);
+    if (temp[len - 1] == '\n')
+        temp[len - 1] = 0;
+
+    *(varRef) = atof(temp);
+    fflush(stdin);
     va_end(valist);
 }
 
@@ -245,23 +282,66 @@ void filteredSearch(node *head) {
     printf("\n");
 }
 
+node* filteredSearchType(node *head, char* type) {
+    node *typesHead = NULL;
+    while (head != NULL) {
+        if (strcmp(head->data.fajta, type) == 0) {
+            printf("%d;%s;%s;%.2f;%s\n", head->data.id, head->data.videk, head->data.nev, head->data.mennyiseg,
+                   head->data.fajta);
+            insertAtEnd(&typesHead, head->data);
+        }
+        head = head->next;
+    }
+    printf("\n");
+    return typesHead;
+}
+
+float calculateSum(node* head){
+    float sum = 0;
+    while (head != NULL) {
+        sum += head->data.mennyiseg;
+        head = head->next;
+    }
+
+    return sum;
+}
+
 void handler(int signumber){
 #if DEBUG
     printf("Signal with number %i has arrived\n",signumber);
 #endif
 }
 
-float doWineProcess(char* szoloType){
-    int pipefd[2];
-    int pipefd2[2];
-    pid_t pid;
-    char sz[100];
+void loader(char* text, int length){
+    start_progress(text);
+    for(int i = 0; i < length; i++) {
+        update_progress();
+        sleep(1);
+    }
+    fputs("DONE\n", stdout);
+}
 
-    if (pipe(pipefd) == -1 || pipe(pipefd2) == -1)
+void doWineProcess(char* szoloType){
+    printf("NSZT: Shipping grape %s for processing!\n", szoloType);
+
+    loader("NSZT: Shipping", 3);
+
+    pid_t pid;
+
+    int p_c[2];
+    if (pipe(p_c) == -1)
     {
         perror("Hiba a pipe nyitaskor!");
         exit(EXIT_FAILURE);
     }
+
+    int c_p[2];
+    if (pipe(c_p) == -1)
+    {
+        perror("Hiba a pipe nyitaskor!");
+        exit(EXIT_FAILURE);
+    }
+
     pid = fork();
     if (pid == -1)
     {
@@ -271,56 +351,65 @@ float doWineProcess(char* szoloType){
 
     if (pid == 0)
     {
-        sleep(3);
-        close(pipefd[1]);
-        printf("Szolo megerkezett\n");
-        read(pipefd[0], sz, sizeof(szoloType));
-        printf("Szolo feldolgozasa: %s", sz);
-        printf("\n");
-        close(pipefd[0]);
-        sleep(5);
-        srand(time(NULL));
-        double randomNum = (double)rand() / RAND_MAX;
-        double result = 0.6 + randomNum * 0.2;
-        printf("Az adott mennyisegbol %f liter keszult el.", result);
+        // FELDOLGOZO
+        char sz[100];
+        close(p_c[1]);
+        read(p_c[0], sz, sizeof(szoloType));
+        close(p_c[0]);
+        printf("WINERY: Grapes have arrived\n");
+        printf("WINERY: Processing grape type: %s\n", sz);
 
-        close(pipefd2[0]);
-        write(pipefd2[1], &result, sizeof(result));
-        close(pipefd2[1]);
+        loader("WINERY: Processing", 7);
+
+        srand(time(NULL));
+        float randomNum = (float)rand() / RAND_MAX;
+        float result = 0.6 + randomNum * 0.2;
+
+        char convertedResult[64];
+        int ret = snprintf(convertedResult, sizeof convertedResult, "%f", result);
+        close(c_p[0]);
+        write(c_p[1], convertedResult, sizeof(convertedResult));
+        close(c_p[1]);
     }
     else
-    {    // szulo process
-        printf("Szallitjuk a %s szolot a feldolgozasra!\n", szoloType);
-        close(pipefd[0]);
-        write(pipefd[1], szoloType, sizeof(szoloType));
-        close(pipefd[1]);
-        fflush(NULL);
-        wait(NULL);
+    {
+        close(p_c[0]);
+        write(p_c[1], szoloType, sizeof(szoloType));
+        close(p_c[1]);
 
-        float result;
-        close(pipefd2[1]);
-        read(pipefd2[0], &result, sizeof(result));
-        close(pipefd2[0]);
+        int status;
+        wait(&status);
 
-        printf("Szulo befejezte! Eredmeny: %f\n", result);
-        return result;
+        printf("NSZT: The grapes have arrived!\n");
+        char result[100];
+        close(c_p[1]);
+        read(c_p[0], result, sizeof(result));
+        close(c_p[0]);
+        printf("NSZT: %sl wine was created\n", result);
+
     }
-    return 0.0;
-
 }
 
-void processingWine() {
-    szallitmany uj_szallitmany;
-
-    getFloatInput("Mennyi az elfogadhato mennyiseg? (kg)", &uj_szallitmany.mennyiseg, 0);
-    fflush(stdin);
+void processingWine(node* head) {
+    char kg[10];
+    getStringInput("NSZT: Enter the minimum grape mass (kg)", kg, 0);
 
     char tipus[50];
-    getStringInput("Milyen tipust szeretne kuldeni", uj_szallitmany.fajta, 0);
-    fflush(stdin);
+    getStringInput("Type", tipus, 0);
 
-    printf("Feldolgozas inicializalasa...\n");
+    node* filtered = filteredSearchType(head, tipus);
+
+    float requiredKg = atof(kg);
+
+    if(requiredKg > calculateSum(filtered)){
+        printf("NSZT: Not enough grapes (%f < %f), come back later\n", calculateSum(filtered), requiredKg);
+        return;
+    }
+
+    printf("NSZT: Received a total of %f grapes(%s)\n", calculateSum(filtered), tipus);
+
     signal(SIGTERM,handler);
+    loader("NSZT: Preparing for shipping", 7);
 
     pid_t child=fork();
     if (child>0)
@@ -328,14 +417,13 @@ void processingWine() {
         pause();
         int status;
         wait(&status);
-        printf("Szolokeszitesi folyamat keszen all!\n");
-        float litres = doWineProcess(uj_szallitmany.fajta);
+        printf("WINERY: Wine processing ready to accept the grapes!\n");
+        doWineProcess(tipus);
     }
     else
     {
+        loader("NSZT: Preparation for receiving the grapes", 5);
         kill(getppid(),SIGTERM);
-        printf("Feldolgozas felkeszules a fogadasra...\n");
-        sleep(3);
     }
 }
 
@@ -362,8 +450,9 @@ int main() {
         printf("5 - Delete a record\n");
         printf("6 - Start makin' wineee\n");
         printf("7 - Quit\n");
-        printf("Option: ");
-        scanf("%d", &option);
+        char temp[10];
+        getStringInput("Option", temp, 0);
+        option = atoi(temp);
         switch (option) {
             case 1:
                 printList(head);
@@ -381,13 +470,15 @@ int main() {
                 delete(head);
                 break;
             case 6:
-                processingWine();
-                break;
             case 7:
                 break;
             default:
-                printf("Hibas bemenet!\n");
+                printf("Wrong input\n");
                 break;
         }
-    } while (option != 7);
+    } while (option != 7 && option != 6);
+
+    if(option == 6){
+        processingWine(head);
+    }
 }
