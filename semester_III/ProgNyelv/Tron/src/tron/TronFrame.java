@@ -45,6 +45,7 @@ public class TronFrame extends JFrame implements ActionListener {
             case "New":
                 break;
             case "Leaderboards":
+                var leaderboards = new LeaderboardFrame();
                 break;
         }
     }

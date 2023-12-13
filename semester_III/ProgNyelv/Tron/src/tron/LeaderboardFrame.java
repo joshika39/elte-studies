@@ -7,9 +7,13 @@ import java.util.ArrayList;
 
 public class LeaderboardFrame extends JFrame {
     private HighScores highScores;
-    public LeaderboardFrame(HighScores highScores) {
+    public LeaderboardFrame() {
         super("Leaderboard");
-        this.highScores = highScores;
+        try {
+            this.highScores = new HighScores();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         setSize(400, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
