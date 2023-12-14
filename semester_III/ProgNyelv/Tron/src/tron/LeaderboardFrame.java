@@ -14,15 +14,10 @@ public class LeaderboardFrame extends JFrame {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        setSize(400, 400);
+        setPreferredSize(new Dimension(400, 400));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setResizable(false);
-        setLocationRelativeTo(null);
-        setVisible(true);
-    }
 
-    public void paintComponent(Graphics2D g) {
-        g.drawString("Leaderboard", 10, 10);
+
         ArrayList<HighScore> highScoresList;
         try {
             highScoresList = highScores.getHighScores();
@@ -30,8 +25,18 @@ public class LeaderboardFrame extends JFrame {
             throw new RuntimeException(e);
         }
 
-        for (int i = 0; i < highScoresList.size(); i++) {
-            g.drawString(highScoresList.get(i).name() + ": " + highScoresList.get(i).score(), 10, 10 + (i + 1) * 10);
+        var panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        for (var highScore : highScoresList) {
+            var label = new JLabel(highScore.name() + ": " + highScore.score());
+            panel.add(label);
         }
+
+        getContentPane().add(panel);
+
+        setResizable(false);
+        setVisible(true);
+        pack();
     }
 }

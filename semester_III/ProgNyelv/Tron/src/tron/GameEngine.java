@@ -5,26 +5,26 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class GameEngine extends JComponent {
     private final int FPS = 240;
-    private boolean paused = false;
+    private boolean paused = true;
     private int height;
     private int width;
 
     private Timer newFrameTimer;
 
-    private Player player1;
-    private Player player2;
+    private ArrayList<Player> players;
 
     private HighScores highScores;
 
-    public GameEngine(int width, int height) throws SQLException {
+    public GameEngine(int width, int height, ArrayList<Player> players) throws SQLException {
         super();
         this.height = height;
         this.width = width;
+        this.players = players;
         this.setPreferredSize(new Dimension(width, height));
-
 
         setupPlayerInput();
         this.getInputMap().put(KeyStroke.getKeyStroke("ESCAPE"), "escape");
@@ -34,18 +34,16 @@ public class GameEngine extends JComponent {
                 paused = !paused;
             }
         });
-        restart();
 
         newFrameTimer = new Timer(1000 / FPS, new NewFrameListener(this));
         newFrameTimer.start();
-
         highScores = new HighScores();
     }
 
     public void restart() {
-        player1 = new Player(20, 20, 10, 10, Color.RED, "Player 1");
-        player2 = new Player(width - 20, height - 20, 10, 10, Color.BLUE, "Player 2");
-        player2.setDirection(DirectionEnum.UP);
+        for (var player : players) {
+            player.resetInitialValues();
+        }
         JOptionPane.showMessageDialog(this, "Get Ready!");
     }
 
@@ -62,8 +60,10 @@ public class GameEngine extends JComponent {
 
         g2d.setColor(Color.BLACK);
         g2d.fillRect(0, 0, width, height);
-        player1.paintComponent(g2d);
-        player2.paintComponent(g2d);
+
+        for (var player : players) {
+            player.paintComponent(g2d);
+        }
     }
 
     private void setupPlayerInput(){
@@ -71,7 +71,7 @@ public class GameEngine extends JComponent {
         this.getActionMap().put("pressed left", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                player1.setDirection(DirectionEnum.LEFT);
+                players.getFirst().setDirection(DirectionEnum.LEFT);
             }
         });
 
@@ -79,14 +79,14 @@ public class GameEngine extends JComponent {
         this.getActionMap().put("pressed right", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                player1.setDirection(DirectionEnum.RIGHT);
+                players.getFirst().setDirection(DirectionEnum.RIGHT);
             }
         });
         this.getInputMap().put(KeyStroke.getKeyStroke("DOWN"), "pressed down");
         this.getActionMap().put("pressed down", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                player1.setDirection(DirectionEnum.DOWN);
+                players.getFirst().setDirection(DirectionEnum.DOWN);
             }
         });
 
@@ -94,7 +94,7 @@ public class GameEngine extends JComponent {
         this.getActionMap().put("pressed up", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                player1.setDirection(DirectionEnum.UP);
+                players.getFirst().setDirection(DirectionEnum.UP);
             }
         });
 
@@ -103,7 +103,7 @@ public class GameEngine extends JComponent {
         this.getActionMap().put("pressed a", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                player2.setDirection(DirectionEnum.LEFT);
+                players.getLast().setDirection(DirectionEnum.LEFT);
             }
         });
 
@@ -111,7 +111,7 @@ public class GameEngine extends JComponent {
         this.getActionMap().put("pressed d", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                player2.setDirection(DirectionEnum.RIGHT);
+                players.getLast().setDirection(DirectionEnum.RIGHT);
             }
         });
 
@@ -119,7 +119,7 @@ public class GameEngine extends JComponent {
         this.getActionMap().put("pressed s", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                player2.setDirection(DirectionEnum.DOWN);
+                players.getLast().setDirection(DirectionEnum.DOWN);
             }
         });
 
@@ -127,7 +127,7 @@ public class GameEngine extends JComponent {
         this.getActionMap().put("pressed w", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                player2.setDirection(DirectionEnum.UP);
+                players.getLast().setDirection(DirectionEnum.UP);
             }
         });
     }
@@ -183,11 +183,13 @@ public class GameEngine extends JComponent {
         public void actionPerformed(ActionEvent ae) {
             if (!paused) {
                 repaint();
-                player1.move();
-                player2.move();
+                for (var player : players) {
+                    player.move();
+                    validatePlayerMove(player);
+                }
 
-                validatePlayerMove(player1);
-                validatePlayerMove(player2);
+                var player1 = players.getFirst();
+                var player2 = players.getLast();
 
                 if(player1.checkCollision(player2)){
                     JOptionPane.showMessageDialog(parent, player2.getName() + " has lost!");

@@ -5,6 +5,14 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Player extends Sprite {
+    private Position lastPosition;
+
+    private final Position initialPosition;
+    public Position getInitialPosition() { return initialPosition; }
+
+    private final DirectionEnum initialDirection;
+    public DirectionEnum getInitialDirection() { return initialDirection; }
+
     private DirectionEnum direction = DirectionEnum.RIGHT;
     public DirectionEnum getDirection() { return direction; }
     public void setDirection(DirectionEnum direction) { this.direction = direction; }
@@ -13,6 +21,11 @@ public class Player extends Sprite {
 
     private String name;
     public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
 
     private boolean isAlive = true;
     public boolean isAlive() { return isAlive; }
@@ -21,10 +34,18 @@ public class Player extends Sprite {
     public Player(int x, int y, int width, int height, Color color, String name) {
         super(x, y, width, height, color);
         lastPosition = new Position(x, y);
+        initialPosition = new Position(x, y);
+        initialDirection = direction;
         this.name = name;
     }
 
-    private Position lastPosition;
+
+    public void resetInitialValues(){
+        position = new Position(initialPosition.getX(), initialPosition.getY());
+        direction = initialDirection;
+        lastPosition = new Position(initialPosition.getX(), initialPosition.getY());
+        trails.clear();
+    }
     
     public void move() {
         switch (direction) {
