@@ -3,7 +3,7 @@ package tron;
 import javax.swing.*;
 import java.awt.*;
 
-public class Sprite extends JComponent {
+public class Sprite {
 
     protected Position position;
 

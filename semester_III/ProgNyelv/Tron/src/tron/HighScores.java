@@ -15,7 +15,7 @@ public class HighScores {
         connectionProps.put("user", "tronclient");
         connectionProps.put("password", "tron");
         connectionProps.put("serverTimezone", "UTC");
-        String dbURL = "jdbc:mysql://localhost:3306/tronclient";
+        String dbURL = "jdbc:mysql://100.96.65.46:3306/tronclient";
         connection = DriverManager.getConnection(dbURL, connectionProps);
 
         String insertQuery = "INSERT INTO results (name, score) VALUES (?, ?)";
