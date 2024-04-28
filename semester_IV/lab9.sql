@@ -1,22 +1,36 @@
-SET SERVEROUTPUT ON
+-- Correct funcion
+
 CREATE OR REPLACE FUNCTION nap_nev(p_kar VARCHAR2) RETURN VARCHAR2 IS
-BEGIN                       
- DECLARE
-  res STRING(20);
- BEGIN
-  res := TO_CHAR(TO_DATE(p_kar, 'YYYY.MM.DD'), 'DAY');
+  res VARCHAR2(20);
+BEGIN
   BEGIN
+    -- Try parsing the date with 'YYYY.MM.DD' format
+    res := TO_CHAR(TO_DATE(p_kar, 'YYYY.MM.DD'), 'DAY');
   EXCEPTION
-    res := TO_CHAR(TO_DATE(p_kar, 'DD.MM.YYYY'), 'DAY');
+    WHEN OTHERS THEN
+      BEGIN
+        -- If the first format fails, try 'DD.MM.YYYY' format
+        res := TO_CHAR(TO_DATE(p_kar, 'DD.MM.YYYY'), 'DAY');
+      EXCEPTION
+        -- Handle any other exceptions if necessary
+        WHEN OTHERS THEN
+          -- If both formats fail, set the result to NULL or handle the exception accordingly
+          res := NULL; -- You may modify this part as per your requirement
+      END;
   END;
-  dbms_output.put_line(to_char(v1)||' -- '|| nvl(to_char(v2), 'null'));
- 
- EXCEPTION
-  WHEN zero_divide THEN dbms_output.put_line('zero divide');      -- 1. comment this first       
-  WHEN too_many_rows THEN dbms_output.put_line('too many rows');
- END;
- dbms_output.put_line('main program');
+
+  RETURN res;
 EXCEPTION
-  WHEN OTHERS THEN dbms_output.put_line(SQLCODE || ' -- ' || sqlerrm);
+  WHEN OTHERS THEN
+    -- Handle exceptions if needed
+    RETURN NULL; -- You may modify this part as per your requirement
 END;
 /
+
+-- Usage
+
+CREATE TABLE GYAK10 AS SELECT dnev, belepes, nap_nev(belepes) as belepes_nap FROM nikovits.dolgozo
+WHERE fizetes > (
+    SELECT AVG(fizetes)
+    FROM nikovits.dolgozo
+);
