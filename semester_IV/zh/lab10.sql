@@ -59,4 +59,20 @@ BEGIN
     END LOOP;
     CLOSE varosok;
 END;
+
 --4
+create or replace PROCEDURE felmeno2 IS
+    tmp INTEGER;
+BEGIN
+    FOR data IN (SELECT DISTINCT nev, varos FROM NIKOVITS.VAGYONOK) LOOP
+        SELECT MAX(HANYSZOR(SYS_CONNECT_BY_PATH(varos, '-'), 'Budapest'))
+        INTO tmp
+        FROM NIKOVITS.VAGYONOK
+        WHERE nev = data.nev
+        CONNECT BY prior nev = apja;
+
+        if (tmp >= 3) THEN
+            DBMS_OUTPUT.put_line(data.nev || ': ' || data.varos);
+        END IF;
+    END LOOP;
+END;
