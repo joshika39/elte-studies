@@ -1,0 +1,30 @@
+A függvények és procedúrák neve és paraméterei pontosan egyezzenek meg azzal, ahogy a feladatban szerepel!!!
+=============================================================================================================
+
+Néhány függvény, illetve procedúra esetén a következõ ellenõrzõ procedúra futtatásával
+ellenõrizni tudják, hogy az eredményük jó-e:  check_plsql
+
+Az ellenõrzõ procedúrát a következõ utasításokkal futtathatják:
+set serveroutput on
+EXECUTE check_plsql(... parameterek ...)
+
+Amikor ezt az ellenõrzést használni lehet, minden esetben meg fogom adni, hogy pontosan milyen paraméterekkel
+kell azt meghívni. Ez az ellenõrzés nem csinál mást, csupán meghívja az önök által megírt procedúrát
+vagy függvényt, és annak outputját összehasonlítja az elvárt outputtal.
+Sõt, ha esetleg a két output nem azonos, akkor az elvárt output elsõ részletét is kiírja.
+Ezt a kiírást a zh alatt majd le fogom tiltani, de addig ez is sokat segít.
+
+Példák olyan függvényekre és procedúrákra, amiket ellenõrizni tudnak:
+---------------------------------------------------------------------
+set serveroutput on
+execute check_plsql('prim(123)');    
+execute check_plsql('fib(10)');
+execute check_plsql('primes(100)');
+execute check_plsql('get_jobs(''RESEARCH'')');
+execute check_plsql('print_jobs(''RESEARCH'')');
+-----------------------------------------------------------------------------------------------------------------
+Majd én is az alábbihoz hasonló módon fogom ellenõrizni a programjaikat.
+
+select  q'[execute check_plsql('get_jobs(''RESEARCH'')',']'||azonosito||q'[');]'
+from nikovits.nt_hallgatok where upper(idopont)='H10'
+order by nev;
