@@ -1,0 +1,78 @@
+Rekurzív lekérdezésekkel megoldható feladatok
+=============================================
+
+/* START WITH CONNECT BY 
+Írjunk meg egy procedúrát, amelyik a NIKOVITS.VAGYONOK tábla alapján kiírja azoknak
+a személyeknek a nevét, akikre igaz, hogy van olyan leszármazottjuk, akinek nagyobb
+a vagyona, mint az illetõ vagyona. A kiírás név szerint rendezve történjen.
+*/
+CREATE OR REPLACE PROCEDURE gazdag_leszarmazott IS
+... 
+set serveroutput on
+execute gazdag_leszarmazott();
+-----------------------------------------------------
+CREATE OR REPLACE PROCEDURE gazdag_leszarmazott IS
+ cnt INTEGER;
+BEGIN
+ FOR rec IN (SELECT nev, vagyon FROM nikovits.vagyonok) loop   -- menjünk végig a neveken, beolvasva a vagyonukat is
+  ...
+  Indítsunk egy rekurzív lekérdezést, amely az aktuális rekordban szereplõ személy leszármazottait 
+  nézi meg, és megszámolja, hogy hány olyan van, akinek nagyobb a vagyona, mint az aktuális személynek.
+  Ha van legalább egy ilyen, akkor az aktuális személyt ki kell írni.
+  ...
+ END loop;
+END;
+/
+Ellenõrzési lehetõség:
+execute check_plsql('gazdag_leszarmazott()');
+=====================================================
+/*
+Írjunk meg egy procedúrát, amelyik a NIKOVITS.VAGYONOK tábla alapján kiírja azoknak
+a személyeknek a nevét, vagyonát, valamint leszármazottainak átlagos vagyonát, akikre igaz, 
+hogy a leszármazottainak átlagos vagyona nagyobb, mint az illetõ vagyona.
+A program tehát soronként 3 adatot ír ki: név, vagyon, leszármazottak átlagos vagyona. (név szerint rendezve)
+*/
+CREATE OR REPLACE PROCEDURE gazdag_leszarmazottak IS
+...
+set serveroutput on
+execute gazdag_leszarmazottak();
+-----------------------------------------------------
+-- Help: hasonló az elõzõhöz, de most a leszármazottak átlagos vagyonát kell kiszámolnunk.
+-- Vigyázzunk! Önmagának senki nem leszármazottja.
+
+Ellenõrzési lehetõség:
+execute check_plsql('gazdag_leszarmazottak()');
+=====================================================
+/*
+Írjunk meg egy procedúrát, amelyik a NIKOVITS.JARATOK tábla alapján kiírja azoknak az irányított
+köröknek a csomópontjait (városait), amelyek a paraméterként megadott várossal kezdõdnek és végzõdnek.
+Elválasztó karakterként használjunk '-' karaktert.
+Példa egy kiírásra: Dallas-Chicago-Denver-Dallas
+*/
+CREATE OR REPLACE PROCEDURE kor_kereso(kezdopont VARCHAR2) IS
+...
+set serveroutput on
+execute kor_kereso('Denver');
+-----------------------------------------------------
+-- Help: A SYS_CONNECT_BY_PATH függvény segítségével listázzuk ki az egymás után következõ városokat,
+-- és a CONNECT_BY_ROOT segítségével vizsgáljuk meg, hogy az aktuális város azonos-e azzal, ahonnan indultunk.
+
+Ellenõrzési lehetõség:
+execute check_plsql('kor_kereso(''Denver'')');
+=====================================================
+/*
+Írjunk meg egy procedúrát, amelyik a NIKOVITS.VAGYONOK tábla alapján kiírja azoknak a nevét és 
+városát, akiknek legalább 2 olyan felmenõjük van, akiknek ugyanaz a városa, mint az illetõnek.
+Az output név szerint legyen rendezve, elválasztó karakter a név és város között '-' karakter legyen.
+*/
+CREATE OR REPLACE PROCEDURE felmeno2 IS
+...
+set serveroutput on
+execute felmeno2();
+-----------------------------------------------------
+-- Help: A SYS_CONNECT_BY_PATH függvény segítségével listázzuk ki a leszármazottak városait a gyökértõl 
+-- az aktuális csomóppontig, és vizsgáljuk meg, hogy ez a lista hányszor tartalmazza az aktuális személy városát.
+
+Ellenõrzési lehetõség:
+execute check_plsql('felmeno2()');
+=====================================================
