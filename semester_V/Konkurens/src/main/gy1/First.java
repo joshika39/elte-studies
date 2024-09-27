@@ -1,4 +1,4 @@
-package gy1;
+package main.gy1;
 
 public class First {
     public First() {
