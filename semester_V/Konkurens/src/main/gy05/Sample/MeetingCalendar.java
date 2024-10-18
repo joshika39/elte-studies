@@ -1,19 +1,18 @@
 package main.gy5.Sample;
 
-import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
+import java.time.Instant;
 
 public class MeetingCalendar {
     public static final int MEETINGS_TO_SCHEDULE = 5000;
     public static final int MEETINGS_TO_CANCEL = 2500;
 
-    private static Map<Date, String> meetings = new ConcurrentHashMap<>();
+    private static Map<Date, String> meetings = new Collections.synchronizedMap(new HashMap<>());
 
     private static Date getRandomDate() {
         long begin = Instant.now().getEpochSecond();
