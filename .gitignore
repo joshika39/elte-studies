@@ -348,3 +348,4 @@ nbproject/
 
 *.exe
 /**/zh1*
+!/**/zh*.sql
