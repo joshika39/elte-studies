@@ -1,0 +1,72 @@
+Letrehozas:
+
+CREATE TABLE dolgozo AS SELECT * FROM nikovits.dolgozo;
+CREATE TABLE osztaly AS SELECT * FROM nikovits.osztaly;
+CREATE TABLE fiz_kategoria AS SELECT * FROM nikovits.fiz_kategoria;
+
+Lekerdezes:
+
+SELECT o.onev
+FROM osztaly o
+WHERE o.telephely IS NOT NULL
+AND o.oazon IN (
+    SELECT d.oazon
+    FROM dolgozo d
+    JOIN fiz_kategoria fk 
+    ON d.fizetes BETWEEN fk.also AND fk.felso
+    WHERE fk.kategoria = 1
+);
+
+Eredmeny:
+
+ONEV
+--------
+RESEARCH
+SALES
+MARKETING
+
+
+Vegrehajtasi terv:
+
+--------------------------------------------------------------------------------------
+| Id  | Operation            | Name          | Rows  | Bytes | Cost (%CPU)| Time     |
+--------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT     |               |     4 |   132 |     9   (0)| 00:00:01 |
+|*  1 |  HASH JOIN SEMI      |               |     4 |   132 |     9   (0)| 00:00:01 |
+|*  2 |   TABLE ACCESS FULL  | OSZTALY       |     5 |   100 |     3   (0)| 00:00:01 |
+|   3 |   VIEW               | VW_NSO_1      |    10 |   130 |     6   (0)| 00:00:01 |
+|   4 |    NESTED LOOPS      |               |    10 |   170 |     6   (0)| 00:00:01 |
+|*  5 |     TABLE ACCESS FULL| FIZ_KATEGORIA |     1 |    10 |     3   (0)| 00:00:01 |
+|*  6 |     TABLE ACCESS FULL| DOLGOZO       |    10 |    70 |     3   (0)| 00:00:01 |
+--------------------------------------------------------------------------------------
+
+Index:
+CREATE INDEX idx_dolgozo_fizetes ON dolgozo(fizetes);
+
+Hint hasznalata:
+SELECT /*+ INDEX(d idx_dolgozo_oazon) */ o.onev
+FROM osztaly o
+WHERE o.telephely IS NOT NULL
+....
+
+Index Vegrehajtasi terv:
+
+------------------------------------------------------------------------------------------------------
+| Id  | Operation                      | Name                | Rows  | Bytes | Cost (%CPU)| Time     |
+------------------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT               |                     |     4 |   132 |     8   (0)| 00:00:01 |
+|*  1 |  HASH JOIN SEMI                |                     |     4 |   132 |     8   (0)| 00:00:01 |
+|*  2 |   TABLE ACCESS FULL            | OSZTALY             |     5 |   100 |     3   (0)| 00:00:01 |
+|   3 |   VIEW                         | VW_NSO_1            |    10 |   130 |     5   (0)| 00:00:01 |
+|   4 |    NESTED LOOPS                |                     |    10 |   170 |     5   (0)| 00:00:01 |
+|   5 |     NESTED LOOPS               |                     |    10 |   170 |     5   (0)| 00:00:01 |
+|*  6 |      TABLE ACCESS FULL         | FIZ_KATEGORIA       |     1 |    10 |     3   (0)| 00:00:01 |
+|*  7 |      INDEX RANGE SCAN          | IDX_DOLGOZO_FIZETES |     9 |       |     1   (0)| 00:00:01 |
+|   8 |     TABLE ACCESS BY INDEX ROWID| DOLGOZO             |    10 |    70 |     2   (0)| 00:00:01 |
+------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
