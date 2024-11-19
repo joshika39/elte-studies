@@ -19,8 +19,8 @@ public class Dog extends Thread {
     public void run() {
         Random random = new Random();
         while (farm.isRunning()) {
-            int dx = random.nextInt(3) - 1; // -1, 0, 1
-            int dy = random.nextInt(3) - 1; // -1, 0, 1
+            int dx = random.nextInt(3) - 1;
+            int dy = random.nextInt(3) - 1;
             if (dx != 0 || dy != 0) {
                 int newX = x + dx;
                 int newY = y + dy;

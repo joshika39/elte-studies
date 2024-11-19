@@ -42,7 +42,7 @@ public class Sheep extends Thread {
                                 y = newY;
 
                                 if (newCell.getContent() instanceof Gate) {
-                                    System.out.println("Egy juh megszökött a farmról!");
+                                    System.out.println("A Sheep escaped from the famr");
                                     farm.stopSimulation();
                                 }
                             }
