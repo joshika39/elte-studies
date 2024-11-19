@@ -2,7 +2,6 @@ package farm;
 
 import java.util.concurrent.locks.ReentrantLock;
 
-
 public class Cell {
     private Object content;
     private final ReentrantLock lock = new ReentrantLock();

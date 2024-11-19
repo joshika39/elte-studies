@@ -40,10 +40,10 @@ public class Farm {
         Random random = new Random();
         for (int i = 0; i < 4; i++) {
             int position;
-            if (i % 2 == 0) { // Felső vagy alsó fal
+            if (i % 2 == 0) {
                 position = random.nextInt(width - 2) + 1;
                 grid[i == 0 ? 0 : height - 1][position] = new Cell(new Gate());
-            } else { // Bal vagy jobb fal
+            } else {
                 position = random.nextInt(height - 2) + 1;
                 grid[position][i == 1 ? 0 : width - 1] = new Cell(new Gate());
             }
@@ -100,7 +100,7 @@ public class Farm {
     }
 
     public void displayFarm() {
-        System.out.print("\033[H\033[2J"); // Clear screen
+        System.out.print("\033[H\033[2J");
         for (Cell[] row : grid) {
             for (Cell cell : row) {
                 System.out.print(cell.getContent().toString());
