@@ -1,3 +1,5 @@
+// Copyright (c) 2024 Joshua Hegedus. All Rights Reserved.
+
 import farm.Farm;
 
 public class FarmSimulation {
