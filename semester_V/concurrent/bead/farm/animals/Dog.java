@@ -3,21 +3,23 @@ package farm.animals;
 import farm.objects.Empty;
 import farm.Farm;
 import farm.Cell;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Dog extends Thread {
     private int x, y;
     private final Farm farm;
+    private final int sleepTime;
 
-    public Dog(int x, int y, Farm farm) {
+    public Dog(int x, int y, Farm farm, int sleepTime) {
         this.x = x;
         this.y = y;
         this.farm = farm;
+        this.sleepTime = sleepTime;
     }
 
     @Override
     public void run() {
-        Random random = new Random();
+        ThreadLocalRandom random = ThreadLocalRandom.current();
         while (farm.isRunning()) {
             int dx = random.nextInt(3) - 1;
             int dy = random.nextInt(3) - 1;
@@ -49,7 +51,7 @@ public class Dog extends Thread {
             }
 
             try {
-                Thread.sleep(200);
+                Thread.sleep(sleepTime);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }

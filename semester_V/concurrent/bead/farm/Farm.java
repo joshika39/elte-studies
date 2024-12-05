@@ -6,13 +6,30 @@ import farm.objects.Empty;
 import farm.objects.Gate;
 import farm.objects.Wall;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Farm {
     private final Cell[][] grid;
     private final int width;
     private final int height;
     private boolean simulationRunning = true;
+    private int sleepTime = 200;
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public Farm(int width, int height, int sleepTime) {
+        this.sleepTime = sleepTime;
+        this.width = width;
+        this.height = height;
+        this.grid = new Cell[height][width];
+        initializeFarm();
+    }
 
     public Farm(int width, int height) {
         this.width = width;
@@ -37,7 +54,7 @@ public class Farm {
     }
 
     private void placeGates() {
-        Random random = new Random();
+        ThreadLocalRandom random = ThreadLocalRandom.current();
         for (int i = 0; i < 4; i++) {
             int position;
             if (i % 2 == 0) {
@@ -51,15 +68,14 @@ public class Farm {
     }
 
     private void placeSheepAndDogs(int sheepCount, int dogCount) {
-        Random random = new Random();
-
+        ThreadLocalRandom random = ThreadLocalRandom.current();
         for (int i = 0; i < sheepCount; i++) {
             int x, y;
             do {
                 x = height / 3 + random.nextInt(height / 3);
                 y = width / 3 + random.nextInt(width / 3);
             } while (!(grid[x][y].getContent() instanceof Empty));
-            Sheep sheep = new Sheep(x, y, this);
+            Sheep sheep = new Sheep(x, y, this, sleepTime);
             grid[x][y].setContent(sheep);
             sheep.start();
         }
@@ -70,7 +86,7 @@ public class Farm {
                 x = random.nextInt(height);
                 y = random.nextInt(width);
             } while (!(grid[x][y].getContent() instanceof Empty));
-            Dog dog = new Dog(x, y, this);
+            Dog dog = new Dog(x, y, this, sleepTime);
             grid[x][y].setContent(dog);
             dog.start();
         }
@@ -92,7 +108,7 @@ public class Farm {
         while (simulationRunning) {
             displayFarm();
             try {
-                Thread.sleep(200);
+                Thread.sleep(sleepTime);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }

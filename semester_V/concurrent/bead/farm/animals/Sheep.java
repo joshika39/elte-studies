@@ -5,27 +5,33 @@ import farm.Farm;
 import farm.objects.Empty;
 import farm.objects.Gate;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Sheep extends Thread {
     private int x, y;
     private final Farm farm;
+    private final int sleepTime;
 
-    public Sheep(int x, int y, Farm farm) {
+    public Sheep(int x, int y, Farm farm, int sleepTime) {
         this.x = x;
         this.y = y;
         this.farm = farm;
+        this.sleepTime = sleepTime;
     }
 
     @Override
     public void run() {
-        Random random = new Random();
+        ThreadLocalRandom random = ThreadLocalRandom.current();
         while (farm.isRunning()) {
             int dx = random.nextInt(3) - 1; // -1, 0, 1
             int dy = random.nextInt(3) - 1; // -1, 0, 1
             if (dx != 0 || dy != 0) {
                 int newX = x + dx;
                 int newY = y + dy;
+
+                if (newX < 0 || newX >= farm.getHeight() || newY < 0 || newY >= farm.getWidth()) {
+                    continue;
+                }
 
                 Cell currentCell = farm.getCell(x, y);
                 Cell newCell = farm.getCell(newX, newY);
@@ -56,7 +62,7 @@ public class Sheep extends Thread {
             }
 
             try {
-                Thread.sleep(200);
+                Thread.sleep(sleepTime);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }

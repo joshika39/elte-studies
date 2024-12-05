@@ -4,7 +4,7 @@ import farm.Farm;
 
 public class FarmSimulation {
     public static void main(String[] args) {
-        Farm farm = new Farm(14, 14);
+        Farm farm = new Farm(14, 14, 100);
         farm.startSimulation();
     }
 }
