@@ -9,6 +9,16 @@ import farm.objects.Wall;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Farm {
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
+
     private final Cell[][] grid;
     private final int width;
     private final int height;
@@ -42,7 +52,7 @@ public class Farm {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 if (i == 0 || i == height - 1 || j == 0 || j == width - 1) {
-                    grid[i][j] = new Cell(new Wall());
+                    grid[i][j] = new Cell(new Wall(this));
                 } else {
                     grid[i][j] = new Cell(new Empty());
                 }
@@ -102,6 +112,7 @@ public class Farm {
 
     public synchronized void stopSimulation() {
         simulationRunning = false;
+        displayFarm();
     }
 
     public void startSimulation() {
