@@ -7,10 +7,13 @@ import farm.objects.Gate;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+import static farm.Farm.*;
+
 public class Sheep extends Thread {
     private int x, y;
     private final Farm farm;
     private final int sleepTime;
+    public boolean isEscaped = false;
 
     public Sheep(int x, int y, Farm farm, int sleepTime) {
         this.x = x;
@@ -42,13 +45,16 @@ public class Sheep extends Thread {
                         currentCell.getLock().lock();
                         try {
                             if (newCell.getContent() instanceof Empty || newCell.getContent() instanceof Gate) {
+                                if (newCell.getContent() instanceof Gate) {
+                                    isEscaped = true;
+                                }
+
                                 newCell.setContent(this);
                                 currentCell.setContent(new Empty());
                                 x = newX;
                                 y = newY;
 
-                                if (newCell.getContent() instanceof Gate) {
-                                    System.out.println("A Sheep escaped from the famr");
+                                if (isEscaped) {
                                     farm.stopSimulation();
                                 }
                             }
@@ -71,6 +77,13 @@ public class Sheep extends Thread {
 
     @Override
     public String toString() {
-        return "S";
+        if (isEscaped) {
+            return ANSI_RED + "X" + ANSI_RESET;
+        } else {
+            if (farm.isRunning()) {
+                return "S";
+            }
+            return ANSI_YELLOW + "S" + ANSI_RESET;
+        }
     }
 }

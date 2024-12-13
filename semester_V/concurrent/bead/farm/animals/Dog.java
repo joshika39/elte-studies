@@ -27,6 +27,10 @@ public class Dog extends Thread {
                 int newX = x + dx;
                 int newY = y + dy;
 
+                if (newX < 0 || newX >= farm.getHeight() || newY < 0 || newY >= farm.getWidth()) {
+                    continue;
+                }
+
                 Cell currentCell = farm.getCell(x, y);
                 Cell newCell = farm.getCell(newX, newY);
 
